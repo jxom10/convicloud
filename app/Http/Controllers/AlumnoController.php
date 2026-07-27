@@ -8,10 +8,11 @@ use DateTime;
 
 class AlumnoController extends Controller
 {
-   public function index($orden = 'nia',$direccion = 'ASC'){
-	   $campos = ['nia','nombre','apellido1','apellido2'];
+   public function index($orden = 'nia',$direccion = 'asc'){
+	   
+		$campos = ['nia','nombre','apellido1','apellido2'];
 		$sort = (in_array($orden,$campos))? $orden: 'nia';
-		$alumnos = alumno::OrderBy($sort,$direccion)->get();
+		$alumnos = alumno::OrderBy($sort,$direccion)->paginate(50);
 
 
 		return view('alumno.lista',['alumnos'=>$alumnos]);

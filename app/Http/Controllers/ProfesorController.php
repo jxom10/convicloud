@@ -8,7 +8,8 @@ use App\Models\profesor;
 class ProfesorController extends Controller
 {
     public function index(){
-		$profesores = profesor::All();
+		$profesores = new profesor;
+		$profesores= $profesores->paginate(50);;
 		return view('profesor.lista',['profesores'=>$profesores]);
 	
 	}
