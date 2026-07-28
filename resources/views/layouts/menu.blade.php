@@ -12,9 +12,14 @@
         <li class="nav-item">
           <a class="nav-link {{ Route::is('alumnos_lista') ? 'active' : '' }}" href="{{route('alumnos_lista','nia')}}">Alumnos</a>
         </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configs</a>
+        <li class="nav-item">
+          <a class="nav-link {{ Route::is('casos_lista') ? 'active' : '' }}" href="{{route('casos_lista')}}">Casos</a>
+        </li>
+                <li class="nav-item">
+          <a class="nav-link {{ Route::is('config') ? 'active' : '' }}" href="{{route('config')}}">Maestros</a>
+        </li>
+        <!--li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">nada</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
@@ -22,7 +27,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
           </div>
-        </li>
+        </li-->
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">

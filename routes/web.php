@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TriajeController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\AlumnoController;
-
+use App\Http\Controllers\CasoController;
+use App\Http\Controllers\ConfigController;
 
 Route::get('/', function () { return view('welcome'); });
 
@@ -18,6 +19,7 @@ Route::get('/', function () { return view('welcome'); });
 		Route::get('/profesores/lista/{text}','listar');
 	});
 	Route::controller(AlumnoController::class)->group(function (){
+		Route::get('/alumnos/','index');
 		Route::get('/alumnos/ordenar/{orden?}/{direccion?}','index')->name('alumnos_lista');
 		Route::get('/alumnos/new', 'ver')->name('alumnos_nuevo');
 		Route::get('/alumnos/ver/{id}', 'ver')->name('alumnos_ver');
@@ -31,4 +33,17 @@ Route::get('/', function () { return view('welcome'); });
 		Route::get('/triaje/ver/{id}', 'ver')->name('triaje_ver');
 		Route::post('/triaje/grabar','grabar');
 	});
+	Route::controller(CasoController::class)->group(function (){
+		Route::get('/casos/','index')->name('casos_lista');
+		Route::get('/caso/new', 'ver')->name('caso_nuevo');
+		Route::get('/caso/ver/{id}', 'ver')->name('caso_ver');
+		Route::post('/caso/grabar','grabar');
+	});
+	Route::controller(ConfigController::class)->group(function (){
+		Route::get('/maestros','index')->name('config');
+		Route::post('/maestros','grabar');
+	});
 
+
+
+//});
