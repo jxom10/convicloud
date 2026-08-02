@@ -1,0 +1,29 @@
+/*
+.btn-inicio{
+	display:flex;
+	flex-flow: column center;
+	column-gap: 20px;
+	align-content:space-around;
+	}
+.box{
+	
+	
+	height:200px;
+	width:40%;
+	border:solid 1px  blue;
+	border-radius:15px;
+}
+*/
+
+.box{
+height:100%;
+	border:solid 2px black;
+	border-radius:15px;
+	background-color:grey;
+	color:white;
+	margin:5px;
+
+}
+.row{
+	height:50vw;
+}

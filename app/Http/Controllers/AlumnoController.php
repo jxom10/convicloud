@@ -8,6 +8,7 @@ use DateTime;
 
 class AlumnoController extends Controller
 {
+
    public function index($orden = 'nia',$direccion = 'asc'){
 	   
 		$campos = ['nia','nombre','apellido1','apellido2'];
@@ -15,7 +16,7 @@ class AlumnoController extends Controller
 		$alumnos = alumno::OrderBy($sort,$direccion)->paginate(50);
 
 
-		return view('alumno.lista',['alumnos'=>$alumnos]);
+		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos']);
 	
 	}
 	public function listar(){		

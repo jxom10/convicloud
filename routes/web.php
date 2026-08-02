@@ -7,7 +7,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\CasoController;
 use App\Http\Controllers\ConfigController;
 
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('inicio'); });
 
 
 //Route::group(['middleware'=> ['auth']], function () {
