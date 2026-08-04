@@ -6,14 +6,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link {{ Route::is('profes_lista') ? 'active' : '' }}" href="{{route('profes_lista')}}">Profesores</a>
+         <li class="nav-item">
+          <a class="nav-link {{ Route::is('usuarios') ? 'active' : '' }}" href="{{route('usuarios')}}">Usuarios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Route::is('alumnos_lista') ? 'active' : '' }}" href="{{route('alumnos_lista','nia')}}">Alumnos</a>
+          <a class="nav-link {{ Route::is('profes_lista') ? 'active' : '' }}" href="{{route('profesores')}}">Profesores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Route::is('casos_lista') ? 'active' : '' }}" href="{{route('casos_lista')}}">Casos</a>
+          <a class="nav-link {{ Route::is('alumnos_lista') ? 'active' : '' }}" href="{{route('alumnos','nia')}}">Alumnos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Route::is('casos_lista') ? 'active' : '' }}" href="{{route('casos')}}">Casos</a>
         </li>
                 <li class="nav-item">
           <a class="nav-link {{ Route::is('config') ? 'active' : '' }}" href="{{route('config')}}">Maestros</a>
@@ -29,10 +32,11 @@
           </div>
         </li-->
       </ul>
-      <form class="d-flex">
+      <!--form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      </form -->
+        <a href='/logout'><i class='fa fa-sign-out fa-2x' title='cerrar sesion'></i></a>
     </div>
   </div>
 </nav>

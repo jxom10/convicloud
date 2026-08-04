@@ -86,6 +86,7 @@ class AlumnoController extends Controller
 			}
 			fclose($handle);
 		}
+      return redirect()->route('alumnos_lista');
     }
 
     public function guardar_alumno($data){

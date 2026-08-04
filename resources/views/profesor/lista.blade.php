@@ -21,7 +21,9 @@
 			  <td>{{$profesor->nombre}}</td>
 			  <td>{{$profesor->apellido1}} {{$profesor->apelido2}}</td>
 			  <td>{{$profesor->email}}</td>
-			  <td><a href="{{route('profes_ver',$profesor->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a></td>
+			  <td><a href="{{route('profes_ver',$profesor->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
+			  <a href="{{route('profes_delete',$profesor->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+			  </td>
 			</tr>
 			@endforeach
 		  </tbody>

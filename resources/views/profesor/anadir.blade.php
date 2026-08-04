@@ -35,10 +35,12 @@
 				<label for="exampleInputPassword1">Email</label>
 				<input type="email" class="form-control" id="email" name="email" placeholder="email" value='{{$profesor->email}}'>
 			  </div>
+        @if(!$profesor->id)
 			  <div class="form-group">
 				<label for="exampleInputPassword1">Contraseña</label>
-				<input type="password" class="form-control" id="exampleInputPassword1" name="contrasena" placeholder="Password (dejar vacío para no modificar)">
-			  </div>
+				<input type="password" class="form-control" name="password" placeholder="Al introducir password se creará el usuario">
+			  @endif
+        </div>
 			  <button type="submit" class="btn btn-primary">Grabar</button>
 			</form>
 		</div>
