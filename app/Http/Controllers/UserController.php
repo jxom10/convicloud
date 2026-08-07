@@ -49,7 +49,7 @@ class UserController extends Controller
 		
 		
 		if($user){
-			return view('usuarios.anadir',['usuario'=>$user,'titulo'=> $titulo]);
+			return view('usuarios.ver',['usuario'=>$user,'titulo'=> $titulo]);
 		}else{
 			return redirect()->route('listar_usuario');
 		}
@@ -188,7 +188,7 @@ class UserController extends Controller
                 $auth = true;
             }
             else{
-				session()->flash('mensaje',['danger','la contraseña no es correcta']);
+				session()->flash('mensaje',['danger','usuario/contraseña no valido']);
 				return redirect()->route('login');
 			}
         }       
@@ -206,7 +206,11 @@ class UserController extends Controller
                             );
             return redirect()->intended();
 
-        } 
+        }
+        else{
+            session()->flash('mensaje',['danger','usuario/contraseña no valido']);
+			return redirect()->route('login');
+        }
         
     }
     public function logout(){

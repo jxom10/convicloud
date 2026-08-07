@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\alumno;
+use App\Models\Alumno;
 use DateTime;
 
 class AlumnoController extends Controller
@@ -13,37 +13,41 @@ class AlumnoController extends Controller
 	   
 		$campos = ['nia','nombre','apellido1','apellido2'];
 		$sort = (in_array($orden,$campos))? $orden: 'nia';
-		$alumnos = alumno::OrderBy($sort,$direccion)->paginate(50);
+		$alumnos = Alumno::OrderBy($sort,$direccion)->paginate(50);
 
 
 		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos']);
 	
 	}
-	public function listar(){		
-		$alumnos = alumno::All();
+	public function listar($busqueda){		
+		$alumnos = new Alumno;
+      $alumnos = $alumnos->where('nia','LIKE',$busqueda)
+                        ->orWhere('nombre','LIKE',$busqueda.'%')
+                        ->orWhere('apellido1','LIKE',$busqueda.'%')->limit(10)->get();
+      
 		return json_encode($alumnos);
 	
 	}
 	public function ver ( $id = null){
 		if($id){
-			$alumno = alumno::find($id);
+			$alumno = Alumno::find($id);
 			$titulo = "Modificar ficha";
 			if(!$alumno){
-				$alumno = new alumno;
+				$alumno = new Alumno;
 				$titulo = "Alta ficha alumno";
 				session()->flash('message', 'El datos solicitado no existe. Se crearáun registro nuevo');
 			}
 			
 		}
 		else{
-			$alumno = new alumno;
+			$alumno = new Alumno;
 			$titulo = "Alta ficha alumno";
 		}
-		return view('alumno.anadir',['alumno'=>$alumno,'titulo'=>$titulo]);
+		return view('alumno.ver',['alumno'=>$alumno,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
 		if(!empty($request->id)){
-			$alumno = alumno::find($request->id);
+			$alumno = Alumno::find($request->id);
 		}
 		else{
 			$alumno = new  alumno;
@@ -65,12 +69,7 @@ class AlumnoController extends Controller
 	public function form_importar(){
 		return view('alumno.import');
 	}
-	public function importar(Request $request)
-    {
-        //~ $request->validate([
-            //~ 'import_csv' => 'required|mimes:csv',
-        //~ ]);
-
+	public function importar(Request $request)   {
         $file = $request->file('import_csv');
 
 		$row = 1;
@@ -89,9 +88,9 @@ class AlumnoController extends Controller
       return redirect()->route('alumnos_lista');
     }
 
-    public function guardar_alumno($data){
+   public function guardar_alumno($data){
 
-		$alumno = new alumno;
+		$alumno = new Alumno;
        
 		$alumno->nia = $data[8];
 		$alumno->nombre = $data[7];
@@ -104,5 +103,8 @@ class AlumnoController extends Controller
 		$alumno->save();
            
        
+    }
+   public function get($id){
+      return json_encode(Alumno::find($id));
     }
 }

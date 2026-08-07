@@ -3,45 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\profesor;
+use App\Models\Profesor;
 use App\Models\User;
 class ProfesorController extends Controller
 {
     public function index(){
-		$usuarioes = new profesor;
-		$usuarioes= $usuarioes->paginate(50);;
-		return view('profesor.lista',['profesores'=>$usuarioes]);
-	
+		$profesores = new Profesor;
+		$profesores= $profesores->paginate(50);;
+		return view('profesor.lista',['profesores'=>$profesores]);
 	}
 	public function listar($text = null){	
-			
-		$usuarioes = new profesor;
-		$usuarioes = $usuarioes->where('nombre','like','%'.$text.'%')->get();
-
-		return $usuarioes;
-	
+		$profesores = new Profesor;
+		$profesores = $profesores->where('nombre','like','%'.$text.'%')->get();
+		return json_encode($profesores);
 	}
+    public function get($id){	
+		return json_encode( Profesor::find($id));
+    }
 	public function ver ( $id = null){
 		if($id){
-			$usuario = profesor::find($id);
+			$profesor = Profesor::find($id);
             $titulo = "Modificar ficha";
         }
 		else{	
-				$usuario = new profesor;
+				$profesor = new Profesor;
 				$titulo = "Alta ficha profesor";
-				session()->flash('message', 'Registro nuevo');
-			
-			
+
 		}
-		return view('profesor.anadir',['profesor'=>$usuario,'titulo'=>$titulo]);
+		return view('profesor.ver',['profesor'=>$profesor,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
          $mensaje = "";
 		if(!empty($request->id)){
-			$profesor = profesor::find($request->id);
+			$profesor = Profesor::find($request->id);
 		}
 		else{
-			$profesor = new  profesor;
+			$profesor =  new profesor;
             $mensaje .= "Ficha profesor creada.";
 		}
 		$profesor->nombre = $request->nombre;
@@ -56,19 +53,14 @@ class ProfesorController extends Controller
             if($usuario->save()){
                 $mensaje .= 'tamnbien se ha creado el usuario '.$usuario->email;
             }
-            
 		}
-		
 		if($profesor->save()){
             session()->flash('mensaje',['success',$mensaje]);
         }
 		return redirect('profesores/ver/'.$profesor->id);
-		
-		
 	}
     public function delete($id){
-    
-        $profe = profesor::find($id);    
+        $profe = Profesor::find($id);    
         if($profe){
             $profe->delete();
         }

@@ -15,27 +15,27 @@
 
 	<div class='row justify-content-center'>
 		 <div class="col-6">
-			<form method=POST action='/profesores/grabar'>
+			<form method=POST action='{{route('parte_grabar')}}>
 				@csrf
-				<input type=hidden value='{{$profesor->id}}' name='id'>
+				<input type=hidden value='{{$parte->id}}' name='id'>
 				<div class="form-group">
 				<label for="nombre">Nombre</label>
-				<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="nombre" value='{{$profesor->nombre}}'>
+				<input type="text" class="form-control" id="nombre" name="nombre"  placeholder="nombre" value='{{$parte->nombre}}'>
 
 			  </div>
 			  <div class="form-group">
 				<label for="appelido1">Primer Apellido</label>
-				<input type="text" class="form-control" id="apellido1"  name="apellido1"  placeholder="primer apellido" value='{{$profesor->apellido1}}'>
+				<input type="text" class="form-control" id="apellido1"  name="apellido1"  placeholder="primer apellido" value='{{$parte->apellido1}}'>
 			  </div>
 			   <div class="form-group">
 				<label for="appelido2">Segundo Apellido</label>
-				<input type="text" class="form-control" id="apellido2" name="apellido2"   placeholder="segundo apellido(opcional)" value='{{$profesor->apellido2}}'>
+				<input type="text" class="form-control" id="apellido2" name="apellido2"   placeholder="segundo apellido(opcional)" value='{{$parte->apellido2}}'>
 			  </div>
 			  <div class="form-group">
 				<label for="exampleInputPassword1">Email</label>
-				<input type="email" class="form-control" id="email" name="email" placeholder="email" value='{{$profesor->email}}'>
+				<input type="email" class="form-control" id="email" name="email" placeholder="email" value='{{$parte->email}}'>
 			  </div>
-        @if(!$profesor->id)
+        @if(!$parte->id)
 			  <div class="form-group">
 				<label for="exampleInputPassword1">Contraseña</label>
 				<input type="password" class="form-control" name="password" placeholder="Al introducir password se creará el usuario">

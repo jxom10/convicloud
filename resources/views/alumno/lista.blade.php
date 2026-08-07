@@ -35,7 +35,10 @@
 						<i class="fa fa-arrow-down" aria-hidden="true"></i>
 					</a>
 				</th>
-				<th><a href="{{route('alumnos_nuevo')}}"><button class="btn btn-success">Nuevo</button></a></th>
+				<th>
+					<a href="{{route('alumnos_nuevo')}}"><button class="btn btn-success">Nuevo</button></a>
+					<a href="{{route('import')}}"><button class="btn btn-success">Importar</button></a>
+				</th>
 			</tr>
 		  </thead>
 		  <tbody>

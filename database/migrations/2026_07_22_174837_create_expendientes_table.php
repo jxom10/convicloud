@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('expendientes', function (Blueprint $table) {
             $table->id();
-            $table->datetime('fecha_apertura');
+            $table->date('fecha_apertura');
             $table->unsignedBigInteger('id_alumno');
 			$table->unsignedBigInteger('id_profesor');
 			
 			$table->unsignedBigInteger('id_tipologia');
 			$table->mediumText('descripcion');
-			$table->datetime('fecha_solucion');
-			$table->mediumText('solucion');
+			$table->date('fecha_solucion')->nullable();
+			$table->mediumText('solucion')->nullable();
 
 
             $table->timestamps();

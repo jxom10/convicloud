@@ -27,11 +27,13 @@
 			</tr>
 			@endforeach
 		  </tbody>
-			<tr>
-				<td colspan=5>
-					{{ $profesores->links('pagination::bootstrap-4')}}
-				</td>
-			</tr>
+			@if($profesores->hasPages())
+				<tr>
+					<td colspan=5>
+						{{ $profesores->links('pagination::bootstrap-4') }}
+					</td>
+				</tr>
+			@endif
 		</table>
 	</div>
 </div>
