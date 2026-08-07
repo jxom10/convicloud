@@ -28,24 +28,23 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=8
+current_page=9
 FILE_NAME_0=385;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fapp%2FHttp%2FControllers%2FAlumnoController.php;0;4
 FILE_NAME_1=1907;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Froutes%2Fweb.php;0;4
 FILE_NAME_2=1744;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Flayouts%2Fmenu.blade.php;0;4
 FILE_NAME_3=1670;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Falumno%2Flista.blade.php;0;4
 FILE_NAME_4=226;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fapp%2FHttp%2FControllers%2FProfesorController.php;0;4
 FILE_NAME_5=48;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Fprofesor%2Flista.blade.php;0;4
-FILE_NAME_6=125;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fapp%2FModels%2Fconfig.php;0;4
-FILE_NAME_7=352;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fapp%2FHttp%2FControllers%2FConfigController.php;0;4
-FILE_NAME_8=391;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Fconfig%2Flistar.blade.php;0;4
-FILE_NAME_9=0;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Flayouts%2Fapp.blade.php;0;4
-FILE_NAME_10=0;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Fprofesor%2Fanadir.blade.php;0;4
+FILE_NAME_6=352;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fapp%2FHttp%2FControllers%2FConfigController.php;0;4
+FILE_NAME_7=391;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Fconfig%2Flistar.blade.php;0;4
+FILE_NAME_8=0;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fresources%2Fviews%2Flayouts%2Fapp.blade.php;0;4
+FILE_NAME_9=280;PHP;0;EUTF-8;1;1;0;%2Fwebs%2Fproyectos%2Fconvicloud%2Fdatabase%2Fmigrations%2F2026_07_22_174837_create_expendientes_table.php;0;4
 
 [VTE]
 last_dir=/home/kkwet
 
 [prjorg]
-expanded_paths=/webs/proyectos/convicloud/app/Http/Controllers;/webs/proyectos/convicloud/app/Models;/webs/proyectos/convicloud/resources/css;/webs/proyectos/convicloud/resources/views/alumno;/webs/proyectos/convicloud/resources/views/caso;/webs/proyectos/convicloud/resources/views/config;/webs/proyectos/convicloud/resources/views/layouts;/webs/proyectos/convicloud/resources/views/profesor;/webs/proyectos/convicloud/routes;
+expanded_paths=/webs/proyectos/convicloud/app/Http/Controllers;/webs/proyectos/convicloud/app/Models;/webs/proyectos/convicloud/database/migrations;/webs/proyectos/convicloud/resources/css;/webs/proyectos/convicloud/resources/views/alumno;/webs/proyectos/convicloud/resources/views/caso;/webs/proyectos/convicloud/resources/views/config;/webs/proyectos/convicloud/resources/views/layouts;/webs/proyectos/convicloud/resources/views/profesor;/webs/proyectos/convicloud/routes;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

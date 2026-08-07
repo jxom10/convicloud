@@ -1,0 +1,42 @@
+Entonces tenemos tres cosas que registrar. Empezamos por 
+Casos de convivencia:
+1. Número de caso que se lo asigne automáticamente
+2. EStado: activo/seguimiento/archivado
+3. Triaje: HHSS/Mediación/Representantes/Violencias
+4. Tipología: Ya nos las inventaremos pero sería algo así como acoso/conflicto entre iguales/disruptivo.....
+5. Origen: IP/IA/ID significa Iniciativa propia o alumnado o docente, es decir, quién nos hace llegar el caso
+6. Explicación (larga)
+7. Implicados: Aquí se introduce a los estudiantes implicados: 
+		Nombre, NIA, Curso+grupo, A/O (chica o chico) y papel (si son parte/testigo/afectado)
+
+
+¿Cómo lo ves lo de archivarlo por caso y que cada caso lleve varios estudiantes asociados?
+ Espero que sea posible, porque para trabajar es mucho más claro. De todas formas, esto el jueves lo podemos ver con más detalle, te lo estoy adelantando por si haces algo antes.
+
+
+Valep, pues pasamos a los partes disciplinarios: Habría que registrar:
+Leve/Grave
+Explicación
+Medidas tomadas (si se le ha hecho hacer algo, por ejemplo, pagar una cosa que ha roto)
+Fecha
+Hora (1ª, 2ª....7ª)
+Responsable (el profesor que lo ha puesto)
+Comunicación (llamada/ITACA)
+Firma (y se pone la fecha)
+Tipología (como antes, si es acoso/disruptivo... ya nos los inventaremos)
+Nombre
+NIA
+Curso+grupo
+A/O (chica o chico)
+
+Y, para terminar, los conciliados y expedientes. Habría que registrar:
+Fecha
+Nombre
+NIA
+Curso+grupo
+O/A
+Tipología
+Explicación 
+Fecha resolución
+Resolución (cuánto se le expulsa)
+Instructor/a
