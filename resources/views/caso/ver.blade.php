@@ -2,46 +2,90 @@
 
 
 @section('contenido')
-<div class='row justify-content-center'>
-  <div class="col-10"><h3>{{$titulo}}</h3>
-  
-    @if (session()->has('message'))
-      <div class="alert alert-danger">
-                  {{ session('message') }}
-              </div>
-    @endif	
-  </div>
-  <div>
-  <div class='row'>
-  
-      <label for="id" class="col-sm-2 col-form-label">Caso Nº</label>
-      <div class="col-sm-1">
-        <input type="text" readonly="" class="form-control-plaintext" id="id" value="1">
+	@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+	@endif
+
+
+    <div class='row p-2'>
+      <div class='col-sm-3'></div>
+      <div class='col-sm-1'>
+        <form method='POST' action='{{route('caso_grabar')}}'>
+          @csrf
+          <label for="id">Nº</label>
+          <input type='text' class='form-control' size=4 name='id' @if($caso->id) value="{{$caso->id}}" @endif readonly="readonly">
       </div>
-      
-      <label for="estado" class="col-sm-2 col-form-label">Estados</label> 
-      <div class="col-sm-2">
-        <select name='estado_id' id ='estado'>
+      <div class='col-sm-1'>
+            <label for="estado">Estado</label>
+            <select name='id_estado' id='estado' class='form-control' >
+            <option value=''>...</option>
             @foreach($estados as $estado)
-              <option value='{{$estdo->id}}'>{{$estado->nombre}}</option>
-            @endforeach          
-        </select>
+              <option value='{{$estado->id}}' @if($estado->id == $caso->id_estado) selected @endif > {{$estado->nombre}} </option>
+            @endforeach
+          </select>
       </div>
-        
-        
-      <label for="triaje" class="col-sm-2 col-form-label">Triaje</label>
-      <div class="col-ms-2">
-        <select name='triaje_id' id ='triaje'>
-          @foreach($triaje as $triaje)
-            <option value='{{$triaje->id}}'>{{$triaje->nombre}}</option>
-          @endforeach          
-        </select>
-      </div>
+      <div class='col-sm-2'>
+           <label for="triaje">Triaje</label>
+          <select name='id_triaje' id='triaje' class='form-control'>
+            <option value=''>...</option>
+            @foreach($triajes as $triaje)
+              <option value='{{$triaje->id}}' @if($triaje->id == $caso->id_estado) selected @endif > {{$triaje->nombre}} </option>
+            @endforeach
+          </select>
+        </div>
+        <div class='col-sm-2'>
+           <label for="tipologia">Tipologia</label>
+          <select name='id_tipologia' id='tipologia' class='form-control'>
+            <option value=''>...</option>
+            @foreach($tipologias as $tipologia)
+              <option value='{{$tipologia->id}}' @if($tipologia->id == $caso->id_estado) selected @endif > {{$tipologia->nombre}} </option>
+            @endforeach
+          </select>
+        </div>
+      <div class='col-sm-3'></div>
+    </div>
       
-  </div>
-   
+    <div class='row p-2'>
+      <div class='col-sm-3'></div>
+      <div class='col-sm-6'>
+        <label for="descripcion">Descripcion</label>
+          <textarea id='descripcion' name='descripcion' class='textarea'>{{$caso->descripcion}}</textarea>
+      </div>
+      <div class='col-sm-3'></div>
+    </div>
+    <div class='row p-2'>
+      <div class='col-sm-3'></div>
+      <div class='col-sm-3'>
+        <label for="implicados">implicados</label>
+          <select class='form-control'  id='implicados' name='id_implicados[]' multiple='multiple'>
+            @if(is_array($id_implicados))
+              @foreach($id_implicados as $id)
+                <option value='{{$id}}' selected>{{$id}}</option>
+              @endforeach
+            @endif
+           </select> 
+      </div>
+      <div class='col-sm-3'>
+        <label for="buscador">Buscador de alumnos</label>
+        <input class='form-control' id='buscador' type=text onKeyUp='buscar_alumno(this.value,"1")' >
+        <div id='respuesta_alumno' class='respuesta'></div>
+      </div>
+      <div class='col-sm-3'></div>
+    </div>
+    <div class='row p-2'>
+        <div class='col-sm-3'></div>
+        <div class='col-sm-6'>
+          <button type="submit" class="btn btn-primary btn-lg">Grabar</button>
+          </form>
+        </div>
+        <div class='col-sm-3'></div>
+    </div>
     
-    
-    
-  </div>
+    <div class='row p-2'></div>
 @endsection

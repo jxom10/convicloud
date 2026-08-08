@@ -56,7 +56,7 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/triaje','index')->name('triajes');
 		Route::get('/triaje/new', 'ver')->name('triaje_nuevo');
 		Route::get('/triaje/ver/{id}', 'ver')->name('triaje_ver');
-		Route::post('/triaje/grabar','grabar')->name('tiraje_grabar');
+		Route::post('/triaje/grabar','grabar')->name('triaje_grabar');
 	});
 	Route::controller(CasoController::class)->group(function (){
 		Route::get('/casos/','index')->name('casos');
@@ -68,7 +68,8 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/expedientes/','index')->name('expedientes');
 		Route::get('/expediente/new', 'ver')->name('expediente_nuevo');
 		Route::get('/expediente/ver/{id}', 'ver')->name('expediente_ver');
-		Route::post('/expediente/grabar','grabar')->name('expediente_grabar');;
+		Route::post('/expediente/grabar','grabar')->name('expediente_grabar');
+		Route::get('/expediente/{id}','delete')->name('expediente_eliminar');;
 	});
 	Route::controller(TipologiaController::class)->group(function (){
 		Route::get('/tipologias/','index')->name('tipologias');

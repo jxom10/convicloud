@@ -8,9 +8,8 @@
 		  <thead>
 			<tr>
 			  <th scope="col">#</th>
-			  <th scope="col">Nombre</th>
-			  <th scope="col">Apellidos</th>
-			  <th scope="col">Email</th>
+			  <th scope="col">Descripcion</th>
+
 				<th><a href="{{route('caso_nuevo')}}"><button class="btn btn-success">Nuevo</button></a></th>
 			</tr>
 		  </thead>
@@ -18,10 +17,9 @@
 		   @foreach($casos as $caso)
 			<tr>
 			  <th scope="row">{{$caso->id}}</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td><a href="{{route('casos_ver',$caso->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a></td>
+			  <td> {{substr($caso->descipcion,0,40)}}</td>
+
+			  <td><a href="{{route('caso_ver',$caso->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a></td>
 			</tr>
 			@endforeach
 		  </tbody>

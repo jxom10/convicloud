@@ -25,7 +25,13 @@
 			<input type=hidden name='id' value='{{$expediente->id}}'>
  		</div>
 		<div class='col-sm-4'>
-			<label for='apellidos'>Apellidos</label>
+			<label for='apellidos'>Apellidos
+				@if($expediente->id)
+					<a href='{{route('alumnos_ver',['id'=>$expediente->id_alumno])}}'target='_blank'>
+						<i class='fa fa-eye'></i>
+					</a>
+				@endif
+			</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$expediente->id_alumno}}'>
 			<input class='form-control'  id='apellidos_alumno' type=text onKeyUp='buscar_alumno(this.value)'   @if($expediente->id)value='{{$expediente->alumno->apellido1 .' ' .$expediente->alumno->apellido2}}'@endif>
 			<div id='respuesta_alumno' class='respuesta'></div>

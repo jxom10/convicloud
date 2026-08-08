@@ -14,10 +14,13 @@
 		   @foreach($expedientes as $expediente)
 			<tr>
 			  <td >{{$expediente->id}}</ts>
-			  <td>{{date('Y-m-d', strtotime($expediente->fecha_apertura))}}</td>
+			  <td>{{date('d/m/y', strtotime($expediente->fecha_apertura))}}</td>
 			  <td>{{$expediente->descripcion}}</td>
 
-			  <td><a href="{{route('expediente_ver',$expediente->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a></td>
+			  <td>
+			  <a href="{{route('expediente_ver',$expediente->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
+			  <a href="{{route('expediente_eliminar',$expediente->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+			  </td>
 			</tr>
 			@endforeach
 		  </tbody>

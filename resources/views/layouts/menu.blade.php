@@ -41,10 +41,11 @@
           <li class="nav-item dropdown">
           <a class=" nav-link dropbtn">Maestros</a>
            <div class="dropdown-content" style="left:0;">
-             <a href="{{route('estados')}}">Estados<a>
-             <a href="{{route('tipologias')}}">Tipologias</a>
-               <a href="{{route('origenes')}}">Origenes</a>
-             <a href="{{route('usuarios')}}">Usuarios</a>
+              <a href="{{route('estados')}}">Estados<a>
+              <a href="{{route('tipologias')}}">Tipologias</a>
+              <a href="{{route('triajes')}}">Triajes</a>
+              <a href="{{route('origenes')}}">Origenes</a>
+              <a href="{{route('usuarios')}}">Usuarios</a>
            </div>
         </li>
         

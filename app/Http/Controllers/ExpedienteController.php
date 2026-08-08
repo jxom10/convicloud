@@ -17,13 +17,13 @@ class ExpedienteController extends Controller
 	
 	public function ver($id = null){
 		$expediente = new Expediente;
+		$expediente->fecha_apertura = date('Y-m-d');
 		$tipologias = Tipologia::All();
 		$titulo = "Alta Expediente";
 		if($id){
 			$expediente =$expediente->where('id',$id)->first();
 			$titulo = "Modificar";
 		}
-		//dd($expediente->profesor->nombre);
 		return view('expediente.ver',['expediente'=>$expediente,'tipologias'=>$tipologias,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
@@ -51,10 +51,12 @@ class ExpedienteController extends Controller
 		$expediente->solucion =$datos['solucion'] ;
 
 		if($expediente->save()){
-			dd($expediente);
+			return redirect()->route('expediente_ver',['id'=>$expediente->id]);
+		}		
+	}
+	public function delete($id){
+		if(Expediente::where('id',$id)->delete()){
+			return redirect()->route('expedientes');
 		}
-		
-		
-		
 	}
 }

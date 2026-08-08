@@ -36,7 +36,7 @@ class OrigenController extends Controller
              $mensaje = 'origen Grabado con éxito';
         }
         session()->flash('mensaje',['success',$mensaje]);
-        return redirect()->route('origens');
+        return redirect()->route('origenes');
             
     }
 }
