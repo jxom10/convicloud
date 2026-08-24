@@ -9,7 +9,7 @@
 	</div>
 		
 		
-	<div class='row p-2'>
+	<div class='row p-2 justify-content-center'>
       <div class='col-sm-3'></div>
       <div class='col-sm-3'>
         <form method='POST' action='{{route('estado_grabar')}}'>

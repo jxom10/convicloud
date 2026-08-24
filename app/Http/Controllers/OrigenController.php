@@ -7,9 +7,20 @@ use App\Models\Origen;
 
 class OrigenController extends Controller
 {
-    public function index(){
-        $origenes = Origen::paginate(50);
-		return view('origen.lista',['origenes'=>$origenes]);
+	public function index(Request $request){
+       $buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$origenes = origen::where('nombre','LIKE', '%'.$buscar.'%')
+									->paginate(50);
+		}
+		else{
+			$origenes = origen::paginate(50);
+		}
+		return view('origen.lista',['origenes'=>$origenes,'buscar'=>$buscar]);
 	}
 	public function ver($id = null){
         if(!$id){

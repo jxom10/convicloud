@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_origen');
             $table->string('tipologia');
             $table->mediumText('descripcion');
-            $table->string('id_implicados');
+            $table->mediumText('implicados');
             $table->timestamps();
 			$table->foreign('id_estado')->references('id')->on('estados');
 			$table->foreign('id_triaje')->references('id')->on('triajes');

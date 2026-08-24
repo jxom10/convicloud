@@ -16,27 +16,23 @@ use App\Mail\recoverPasswordMail;
 
 class UserController extends Controller
 {
-    public function listar($todo = null){
-		//
-		//$admin = (session()->get('usuario.acceso') == 'admin')?1:0;
-		//$porpagina = Parametro::where('item','porpagina')->first()->valor;
-        $porpagina = 50;
-		if(session()->get('busqueda')){
-			
+	public function index(Request $request){
+       $buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
 		}
-		//if($admin == 1){
-		//	if($todo == 'all'){
-				$users = User::query()->paginate($porpagina);
-		//	}
-		//	else{
-		//		$users = User::where('activo',1)->paginate($porpagina);
-		//	}
-		//}
-		//else{
-		//	$users = User::where('id',session()->get('usuario.id_usuario'))->paginate($porpagina);
-		//}
-		return view('usuarios.lista',['usuarios'=>$users,'buscar'=>'']);
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$users = User::where('nombre','LIKE', '%'.$buscar.'%')
+					->orwhere('email','LIKE', '%'.$buscar.'%')
+					->paginate(50);
+		}
+		else{
+			$users = User::paginate(50);
+		}
+		return view('usuarios.lista',['usuarios'=>$users,'buscar'=>$buscar]);
 	}
+   
 	public function ver($id = null){
         if($id){
             $user = User::find($id);

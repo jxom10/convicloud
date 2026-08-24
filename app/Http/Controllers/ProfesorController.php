@@ -7,10 +7,25 @@ use App\Models\Profesor;
 use App\Models\User;
 class ProfesorController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+		
 		$profesores = new Profesor;
-		$profesores= $profesores->paginate(50);;
-		return view('profesor.lista',['profesores'=>$profesores]);
+		$buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar =$request->buscar;
+			$profesores= $profesores->where('nombre','LIKE', '%'.$buscar.'%')
+									->orwhere('apellido1','LIKE', '%'.$buscar.'%')
+									->orwhere('apellido2','LIKE', '%'.$buscar.'%')
+						->paginate(50);
+		}
+		else{
+			$profesores= $profesores->paginate(50);
+		}
+		//dd($profesores);
+		return view('profesor.lista',['profesores'=>$profesores,'buscar'=>$buscar]);
 	}
 	public function listar($text = null){	
 		$profesores = new Profesor;
@@ -23,11 +38,11 @@ class ProfesorController extends Controller
 	public function ver ( $id = null){
 		if($id){
 			$profesor = Profesor::find($id);
-            $titulo = "Modificar ficha";
+            $titulo = "Modificar ficha de";
         }
 		else{	
 				$profesor = new Profesor;
-				$titulo = "Alta ficha profesor";
+				$titulo = "Crear ficha de ";
 
 		}
 		return view('profesor.ver',['profesor'=>$profesor,'titulo'=>$titulo]);
@@ -62,7 +77,7 @@ class ProfesorController extends Controller
 		if($profesor->save()){
             session()->flash('mensaje',['success',$mensaje]);
         }
-		return redirect('profesores/ver/'.$profesor->id);
+		return redirect('profesor/ver/'.$profesor->id);
 	}
     public function delete($id){
         $profe = Profesor::find($id);    

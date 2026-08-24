@@ -9,10 +9,11 @@
 	<link rel="stylesheet" href="https://bootswatch.com/5/cerulean/bootstrap.css">
 	<link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
+
+	<script src="/assets/js/jquery.slim.min.js"></script>
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/scripts.js"></script>
-	<script src="/assets/js/jquery.slim.min.js"></script>
-		<script src="/assets/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>

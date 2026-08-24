@@ -2,7 +2,7 @@ body{background-color: #B7FFFC;}
 body *{
   list-style: none;
 }
-
+.fa:hover{color:#ff0000;}
 .textarea{width:100%;height:20vh;}
 .dropdown {
     position: relative;
@@ -56,9 +56,10 @@ body *{
 	background-color:#dddddd;
 }
 .box{
-	height:80%;
-	width:80%;
-	border:solid 2px black;
+	height:40vh;
+	width:30vw;
+	border:solid 5px black;
+	box-shadow: black 10px 10px 20px;
 	border-radius:15px;
 	background-color:grey;
 	color:white;
@@ -74,7 +75,11 @@ body *{
 .izquieda{float:left;}
 @media screen and (max-width: 992px) {
    /*#nav_normal{display:none;}*/
-
+	.derecha{float:none;}
+	.izquieda{float:none;}
+	.box{
+		height:auto;
+		width:auto;}
 
 
 }

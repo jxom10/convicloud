@@ -7,11 +7,22 @@ use App\Models\Triaje;
 
 class TriajeController extends Controller
 {
-      public function index(){
-		$triajes = new Triaje;
-		$triajes= $triajes->paginate(50);
+	public function index(Request $request){
+       $buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$triajes = triaje::where('nombre','LIKE', '%'.$buscar.'%')
+									->paginate(50);
+		}
+		else{
+			$triajes = triaje::paginate(50);
+		}
+
 		
-		return view ('triaje.lista',['triajes' => $triajes]);
+		return view ('triaje.lista',['triajes' => $triajes,'buscar'=>$buscar]);
 	}
 	
 	public function ver($id = null){

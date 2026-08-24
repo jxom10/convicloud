@@ -2,27 +2,29 @@
 
 
 @section('contenido')
-<div class='row justify-content-center'>
-  <div class="col-10"><h3>{{$titulo}}</h3>
-  
-    @if (session()->has('message'))
-      <div class="alert alert-danger">
-                  {{ session('message') }}
-              </div>
-    @endif	
-  </div>
-<div>
-<div class='row p2 justify-content-md-center'>
 
-    <div class="col-1">
+	<div class='row justify-content-center'>
+		<div class="col text-center">
+			<h1>{{$titulo}} Caso</h1>
+		</div>
+	</div>
+    
+      @if (session()->has('message'))
+        <div class="alert alert-danger">
+            {{ session('message') }}
+        </div>
+      @endif	
+  </div>
+
+	<div class='row p-4 justify-content-center'>
+    <div class="col-sm-12 col-md-1">
         <form method=POST action="{{route('caso_grabar')}}">
         @csrf
-        <label for="id">Caso Nº</label>
-        <input type="text" readonly="" class="form-control-plaintext" id="id" name="id" value="{{$caso->id}}">
+        <label for="id">Caso</label>
+        <input type="text" readonly="" class="form-control" id="id" name="id" value="{{$caso->id}}">
     </div>
       
-    
-    <div class="col-2">
+    <div class="col-sm-12 col-md-2">
         <label for="estado" >Estados</label> 
         <select name='estado_id' id ='estado' class='form-control'>
             <option>...</option>
@@ -31,7 +33,8 @@
         @endforeach          
         </select>
     </div>
-    <div class="col-2">
+    
+    <div class="col-sm-12 col-md-2">
         <label for="triaje">Triaje</label>
         <select name='triaje_id' id ='triaje' class='form-control'>
             <option>...</option>
@@ -40,7 +43,8 @@
         @endforeach          
         </select>
     </div>
-    <div class="col-2">
+    
+    <div class="col-sm-12 col-md-2">
         <label for="tipologia">Tipologia</label>
         <select name='tipologia_id' id ='tipologia' class='form-control'>
             <option>...</option>
@@ -49,7 +53,8 @@
         @endforeach          
         </select>
     </div>
-    <div class="col-2">
+    
+    <div class="col-sm-12 col-md-2">
         <label for="tipologia">Origen</label>
         <select name='origen_id' id ='origen' class='form-control'>
             <option>...</option>
@@ -58,37 +63,36 @@
         @endforeach          
         </select>
     </div>
-</div>
-<div class='row p2 justify-content-md-center '>
-     <div class="col-10">
+  </div>
+	<div class='row p-4 justify-content-center'>
+     <div >
         <label for="descripcion">Descripcion</label>
-        <textarea name='descripcion' id='descripcion' style="width:100%;height:40vh;">{{$caso->descripcion}}</textarea>
+        <textarea name='descripcion' id='descripcion' style="width:100%;height:20vh;">{{$caso->descripcion}}</textarea>
     </div>
 </div>
-<div class='row p2 justify-content-md-center '>
-     <div class="col-10">
+	<div class='row p-4 justify-content-center'>
+     <div >
         <label for="implicados">Implicados</label>
         <textarea name='implicados' id='implicados' style="width:100%;height:20vh;">{{$caso->implicados}}</textarea>
     </div>
 </div>
-<div class='row p-2 align-items-end justify-content-center'>
-        <div class='col-sm-1'></div>
-		<div class='col-sm-3'>
-            <input type=hidden id='id_alumno'>
+<div class='row p-4 align-items-end justify-content-center'>
+		<div class='col-sm-12 col-md-3'>
+      <input type=hidden id='id_alumno'>
 			<label for='apellidos'>Apellidos</label>
 			<input class='form-control'  id='apellidos_alumno' type=text placeholder='buscar alumno aqui' onKeyUp='buscar_alumno(this.value)'   >
 			<div id='respuesta_alumno' class='respuesta'></div>
 		</div>
-		<div class='col-sm-2'>
+		<div class='col-sm-12 col-md-3'>
 			<label for='apellido2'>Nombre</label>
 			<input class='form-control'  id='nombre_alumno' type=text >
 		</div>
 
-		<div class='col-sm-2'>
+		<div class='col-sm-12 col-md-2'>
 			<label for='nia'>NIA</label>
 			<input class='form-control'  id='nia_alumno' type=text >
 		</div>
-        <div class='col-sm-2'>
+		<div class='col-sm-12 col-md-2'>
 			<label for='papel'>Papel</label>
 			<select class='form-control'  id='papel' onchange='active_btn()'>
                 <option>...</option>
@@ -97,12 +101,12 @@
                 <option value='afectado'> Afectado </option>
             </select>
 		</div>
-        <div class='col-sm-2'>
+	<div class='col-sm-12 col-md-2'>
 			<button id='btn_add' type='button' disabled class='btn btn-primary btn-lg' onclick='add()' >Añadir</button>
 		</div>
 </div>
-<div class='row p2 justify-content-md-center'>
-    <div class='col-6'>
+<div class='row p-2 justify-content-center'>
+    <div class="col-4" >
         <button type="submit" class="btn btn-primary btn-lg" style='width:100%'>Grabar</button>
         </form>
     </div>
@@ -127,6 +131,8 @@
         document.getElementById('nombre_alumno').value="";
         document.getElementById('apellidos_alumno').value="";
         document.getElementById('implicados').focus();
+        document.getElementById('btn_add').disabled = true;
+        e.options.selectedIndex=null 
 
          
     }

@@ -8,9 +8,20 @@ use App\Models\Estado;
 
 class EstadoController extends Controller
 {
-    public function index(){
-        $estados = Estado::paginate(50);
-		return view('estado.lista',['estados'=>$estados]);
+    public function index(Request $request){
+		$buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$estados = Estado::where('nombre','LIKE', '%'.$buscar.'%')
+									->paginate(50);
+		}
+		else{
+			$estados = Estado::paginate(50);
+		}
+		return view('estado.lista',['estados'=>$estados,'buscar'=>$buscar]);
 	}
 	public function ver($id = null){
         if(!$id){

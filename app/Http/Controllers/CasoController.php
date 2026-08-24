@@ -11,13 +11,22 @@ use App\Models\Origen;
 
 class CasoController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         
-        
+		$buscar = null;
 		$casos = new Caso;
-		$casos= $casos->paginate(50);
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$casos = Caso::paginate(50);
+		}
+		else{
 		
-		return view ('caso.lista',['casos' => $casos]);
+			$casos= $casos->paginate(50);
+		}
+		return view ('caso.lista',['casos' => $casos,'buscar'=>$buscar]);
 	}
 	
 	public function ver($id = null){

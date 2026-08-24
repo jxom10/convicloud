@@ -8,21 +8,36 @@ use App\Models\Tipologia;
 
 class ExpedienteController extends Controller
 {
-     public function index(){
-		$expedientes = new Expediente;
-		$expedientes= $expedientes->paginate(50);
-		
-		return view ('expediente.lista',['expedientes' => $expedientes]);
+     public function index(Request $request){
+		 
+		 
+		$buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$expedientes = Expediente::paginate(50);
+			/*('nombre','LIKE', '%'.$buscar.'%')
+									->orwhere('apellido1','LIKE', '%'.$buscar.'%')
+									->orwhere('apellido2','LIKE', '%'.$buscar.'%')
+									->paginate(50);*/
+		}
+		else{
+	
+			$expedientes= Expediente::paginate(50);
+		}
+		return view ('expediente.lista',['expedientes' => $expedientes,'buscar'=>$buscar]);
 	}
 	
 	public function ver($id = null){
 		$expediente = new Expediente;
 		$tipologias = Tipologia::All();
-		$titulo = "Alta Expediente";
+		$titulo = "Nuevo ";
 		
 		if($id){
 			$expediente =$expediente->where('id',$id)->first();
-			$titulo = "Modificar";
+			$titulo = "Modificar ";
 		}
 		else{
 			$expediente->fecha_apertura=date('Y-m-d');

@@ -3,7 +3,10 @@
 
 @section('contenido')
 <div class='row justify-content-center'>
-<div class="col-6"><h3>{{$titulo}}</h3>
+    <div class="col-6">
+        <h3>{{$titulo}} Parte</h3>
+    </div>
+</div>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -16,7 +19,7 @@
 </div>
 
 <div class='row p-2 justify-content-center'>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			<form method=POST action='{{route('parte_grabar')}}'>
 				@csrf
 				<input type=hidden value='{{$parte->id}}' name='id'>
@@ -25,7 +28,7 @@
 					<input type='date' name='fecha' id='fecha' class="form-control">
 				</div>
 		</div>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="nivel">Nivel</label>
 				<select name='nivel' id='nivel' class="form-control">
@@ -36,13 +39,13 @@
 		</div>
 
 <div class='row p-2 justify-content-center'>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="descripcion">Descripcion</label>
 				<textarea name='descripcion' id='descripcion' class="form-control"></textarea>
 			</div>
 		</div>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="acciones">Medidas Tomadas</label>
 				<textarea name='acciones' id='acciones' class="form-control"></textarea>
@@ -50,7 +53,7 @@
 		</div>
 </div>
 <div class='row p-2 justify-content-center'>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="Hora">Hora</label>
 				<select name='hora' class='form-control'>
@@ -61,7 +64,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="profesor">Responsable</label>
 				<input type='text' name='profesor' id='nombre_completo_profesor' class="form-control" placeholder='buscar aquí'  onKeyUp='buscar_profesor(this.value)'>
@@ -71,7 +74,7 @@
 		</div>
 </div>
 <div class='row p-2 justify-content-center'>
-	<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 		 <div class="form-group">
 			<label for="comunicacion">Comunicacion</label>
                 
@@ -82,7 +85,7 @@
 			</select>
 		</div>
 	</div>
-	<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 		 <div class="form-group">
 			<label for="firma">Firma</label>
 			<input type='text' name='firma' id='firma' class="form-control">
@@ -91,7 +94,7 @@
 </div>
 </div>
 <div class='row p-2 justify-content-center'>
-	<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 		<label for='tipologia'>Tipo</label>
 		<select  class="form-control" id='id_tipologia' name='id_tipologia'  value='{{$parte->id_tipologia}}'>
 			<option value=''>elegir ... </option>
@@ -102,7 +105,12 @@
 		</select>
 	</div>
 </div>
-<div class='row p-2'>
+    <div class='row p-2 justify-content-center'>
+		<div class='col text-center'>
+			<h2>Datos del alumno</h2>
+		</div>
+	</div>
+    <div class='row p-2 justify-content-center'>
 		<div class='col-sm-4'>
 			<label for='apellidos'>Apellidos</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$parte->id_alumno}}'>
@@ -119,8 +127,7 @@
 			<input class='form-control'  id='nia_alumno' type=text   @if($parte->id)value='{{$parte->alumno->nia}}'@endif>
 		</div>
 </div>
-
-<div class='row p-2'>
+<div class='row p-2 justify-content-center'>
 
 	<div class='col-sm-3'>
 			<label for='curso'>Curso</label>
@@ -132,7 +139,7 @@
 	</div>
 
 </div>
-<div class='row p-2'>
+    <div class='row p-2 justify-content-center'>
 	<div>			
 		<button type="submit" class="btn btn-primary">Grabar</button>
 			</form>

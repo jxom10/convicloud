@@ -4,15 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Parte;
+use App\Models\Alumno;
 use App\Models\Tipologia;
 
 class ParteController extends Controller
 {
-      public function index(){
-		$partes = new Parte;
-		$partes= $partes->paginate(50);
+      public function index(Request $request){
+		  
+		$buscar = null;
 		
-		return view ('parte.lista',['partes' => $partes]);
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$alumnos = alumno::where('nombre','like','%'.$buscar.'%')
+								->orwhere('apellido1','like','%'.$buscar.'%')
+								->orwhere('apellido2','like','%'.$buscar.'%')->pluck('id');
+			$ids = [];		
+			foreach($alumnos as $id){
+				array_push($ids,$id);
+			}
+			$partes = Parte::wherein('id_alumno',$ids)->paginate(50);
+			
+		}
+		else{ 
+
+			$partes=  parte::paginate(50);
+		}
+		return view ('parte.lista',['partes' => $partes,'buscar'=>$buscar]);
 	}
 	
 	public function ver($id = null){

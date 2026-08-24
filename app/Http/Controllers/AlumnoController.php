@@ -9,14 +9,28 @@ use DateTime;
 class AlumnoController extends Controller
 {
 
-   public function index($orden = 'nia',$direccion = 'asc'){
-	   
+   public function index(Request $request,$orden = 'nia',$direccion = 'asc'){
+		//dd($request->all());
 		$campos = ['nia','nombre','apellido1','apellido2'];
 		$sort = (in_array($orden,$campos))? $orden: 'nia';
-		$alumnos = Alumno::OrderBy($sort,$direccion)->paginate(50);
+		$buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$alumnos = Alumno::where('nombre','LIKE', '%'.$buscar.'%')
+									->orwhere('apellido1','LIKE', '%'.$buscar.'%')
+									->orwhere('apellido2','LIKE', '%'.$buscar.'%')
+									->paginate(50);
+		}
+		else{
+			$alumnos = Alumno::OrderBy($sort,$direccion)->paginate(50);
+		}
+		
 
 
-		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos']);
+		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos','buscar'=>$buscar]);
 	
 	}
 	public function listar($busqueda){		
@@ -31,17 +45,17 @@ class AlumnoController extends Controller
 	public function ver ( $id = null){
 		if($id){
 			$alumno = Alumno::find($id);
-			$titulo = "Modificar ficha";
+			$titulo = "Modificar ficha de ";
 			if(!$alumno){
 				$alumno = new Alumno;
-				$titulo = "Alta ficha alumno";
+				$titulo = "Crear ficha de";
 				session()->flash('message', 'El datos solicitado no existe. Se crearáun registro nuevo');
 			}
 			
 		}
 		else{
 			$alumno = new Alumno;
-			$titulo = "Alta ficha alumno";
+			$titulo = "Crear ficha de ";
 		}
 		return view('alumno.ver',['alumno'=>$alumno,'titulo'=>$titulo]);
 	}
@@ -106,6 +120,13 @@ class AlumnoController extends Controller
     }
    public function get($id){
       return json_encode(Alumno::find($id));
+    }
+        public function delete($id){
+        $alumno = Alumno::find($id);    
+        if($alumno){
+            $alumno->delete();
+        }
+        return redirect()->route('alumnos');
     }
     
 }

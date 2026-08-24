@@ -7,9 +7,20 @@ use App\Models\Tipologia;
 
 class TipologiaController extends Controller
 {
-    public function index(){
-        $tipologias = Tipologia::paginate(50);
-		return view('tipologia.lista',['tipologias'=>$tipologias]);
+    public function index(Request $request){
+       $buscar = null;
+		if(isset($request->clean)){
+			$request->buscar = null;
+		}
+		if(isset($request->buscar)){
+			$buscar = $request->buscar;
+			$tipologias = tipologia::where('nombre','LIKE', '%'.$buscar.'%')
+									->paginate(50);
+		}
+		else{
+			$tipologias = tipologia::paginate(50);
+		}
+		return view('tipologia.lista',['tipologias'=>$tipologias,'buscar'=>$buscar]);
 	}
 	public function ver($id = null){
         if(!$id){
