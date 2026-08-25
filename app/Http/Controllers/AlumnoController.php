@@ -57,6 +57,7 @@ class AlumnoController extends Controller
 			$alumno = new Alumno;
 			$titulo = "Crear ficha de ";
 		}
+		//dd($alumno);
 		return view('alumno.ver',['alumno'=>$alumno,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
@@ -69,10 +70,12 @@ class AlumnoController extends Controller
 		$alumno->nombre = $request->nombre;
 		$alumno->apellido1 = $request->apellido1;
 		$alumno->apellido2 = $request->apellido2;
-		$alumno->email = $request->email;
-		if(!empty($request->contrasena)){
-			$alumno->contrasena = $request->contrasena;
-		}
+		$alumno->fecha_nacimiento = $request->fecha_nacimiento;
+		$alumno->curso = $request->curso;
+		$alumno->grupo = $request->grupo;
+		$alumno->genero = $request->genero;
+		$alumno->nia = $request->nia;
+
 		
 		$alumno->save();
 		return redirect('alumno/ver/'.$alumno->id);
@@ -84,38 +87,58 @@ class AlumnoController extends Controller
 		return view('alumno.import');
 	}
 	public function importar(Request $request)   {
-        $file = $request->file('import_csv');
 
-		$row = 1;
-		if (($handle = fopen($file->path(), "r")) !== FALSE) {
-			while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-				if($row>1){
+		if(isset($request->import_csv)){
+			$file = $request->file('import_csv');
+
+			$row = 0;
+			//$headerValues=['','Genero','Curso','Grupo','Primer apellido','Segundo apellido','Nombre','NIA','Fnac',''];
+
+			if (($handle = fopen($file->path(), "r")) !== FALSE) {
+		
+				while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {		
 					$data = array_map("utf8_encode", $data);
-					$num = count($data);
-					$this->guardar_alumno($data);
-	
+					echo "<br>".$data[0];
+					if($row == 0){
+						$headerValues = $data;
+					}
+					if($row>0){
+						$num = count($data);
+						foreach($data as $campo=>$valor){
+							if($campo < 10)
+								$datos[$headerValues[$campo]] = $valor;
+						}
+						$this->guardar_alumno($datos);
+						
+					}
+					$row++;
 				}
-				$row++;
+				
+				fclose($handle);
 			}
-			fclose($handle);
 		}
-      return redirect()->route('alumnos_lista');
+		else{
+			$request->session()->flash('message', 'No se ha cargado ningún fichero..');
+		}
+		
+		return redirect()->route('alumnos_lista');
     }
 
    public function guardar_alumno($data){
-
 		$alumno = new Alumno;
        
-		$alumno->nia = $data[8];
-		$alumno->nombre = $data[7];
-		$alumno->apellido1 = $data[5];
-		$alumno->apellido2 = $data[6];
-		$alumno->fecha_nacimiento = (!empty($data[9]) AND count(explode($data[9],'/'))	>1) ? DateTime::createFromFormat('d/m/Y',$data[9])->format('Y-m-d'):'1970-01-01';
-		$alumno->curso = $data[2];
-		$alumno->grupo = $data[3];
-		$alumno->genero = $data[8];
+		$alumno->nia = $data['NIA'];
+		$alumno->nombre = $data['Nombre'];
+		$alumno->apellido1 = $data['Primer apellido'];
+		$alumno->apellido2 = $data['Segundo apellido'];
+		$alumno->fecha_nacimiento = (!empty($data['fnac']) AND count(explode($data['fnac'],'/'))	>1) ? DateTime::createFromFormat('d/m/Y',$data['fnac'])->format('Y-m-d'):'1970-01-01';
+		$alumno->curso = $data['Curso'];
+		$alumno->grupo = $data['Grupo'];
+		$alumno->genero = (in_array($data['Genero'],['O','A','E']))? $data[1]: 'N';
+
+		
 		$alumno->save();
-           
+        
        
     }
    public function get($id){

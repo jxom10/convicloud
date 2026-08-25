@@ -2,6 +2,10 @@ body{background-color: #B7FFFC;}
 body *{
   list-style: none;
 }
+a{text-decoration: none;}
+#tabla_import{margin:5px;padding:5px;font-size:8px;font-weight:normal;}
+
+#tabla_import th{padding:5px;background-color:white;border:solid 1px black;text-align:center}
 .fa:hover{color:#ff0000;}
 .textarea{width:100%;height:20vh;}
 .dropdown {
@@ -62,6 +66,7 @@ body *{
 	box-shadow: black 10px 10px 20px;
 	border-radius:15px;
 	background-color:grey;
+	font-size:8vh;
 	color:white;
 	margin:5px;
 	text-align: center;
@@ -71,6 +76,18 @@ body *{
 .fila{
 	height:40vw;
 }
+
+#filtro{
+	display:none;
+	position:absolute;
+	background-color: #FFFFFF;
+	font-size:10px;
+
+	
+}
+#filtro a{
+	color:#000000;
+}
 .derecha{float:right;}
 .izquieda{float:left;}
 @media screen and (max-width: 992px) {
@@ -79,7 +96,10 @@ body *{
 	.izquieda{float:none;}
 	.box{
 		height:auto;
-		width:auto;}
+		width:auto;
+		font-size:4vh;
+		overflow:hidden;
+	}
 
 
 }

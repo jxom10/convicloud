@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido1');
 			$table->string('apellido2')->nullable(true);
-			$table->date('fecha_nacimiento');
-			$table->string('curso');
-			$table->string('grupo');
-			$table->string('genero');
+			$table->date('fecha_nacimiento')->nullable(true);
+			$table->string('curso')->nullable(true);
+			$table->string('grupo')->nullable(true);
+			$table->string('genero')->nullable(true);
             $table->timestamps();
         });
     }

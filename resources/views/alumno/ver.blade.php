@@ -52,9 +52,17 @@
         <label for="nia">fecha Nacimiento</label>
         <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"   value='{{date('Y-m-d',strtotime($alumno->fecha_nacimiento))}}'>
       </div>
-			<div class='col-sm-12 col-md-2'>
+			<div class='col-sm-12 col-md-2'>  
         <label for="genero">Genero</label>
-        <input type="text" class="form-control" id="text" name="text"   value='{{$alumno->text}}'>
+      
+			<select name='genero' class='form-control'>
+				<option value="" @if( $alumno->genero == 'E') selected  @endif> ... </option>
+				<option value="O" @if( $alumno->genero == 'O') selected  @endif> MASCULINO</option>
+				<option value="A" @if( $alumno->genero == 'A') selected  @endif> FEMENINO</option>
+				<option value="E" @if( $alumno->genero == 'O') selected  @endif> NO BINARIO</option>
+				
+			</select>
+   
       </div>
       
     </div>

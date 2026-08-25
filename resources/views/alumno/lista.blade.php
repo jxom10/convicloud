@@ -2,6 +2,11 @@
 
 
 @section('contenido')
+      @if (session()->has('message'))
+        <div class="alert alert-danger">
+            {{ session('message') }}
+        </div>
+      @endif	
 <div class='row justify-content-center'>
 		<div class="row p-2">
 		<div class="col-sm-1"></div>
@@ -14,7 +19,7 @@
 			<form method="POST" action="{{route('alumnos_buscar')}}">@csrf
 			<input type=text class="form-control" name="buscar" value='{{$buscar}}'>
 		</div>
-		<div class="col-sm-3 col-md-2 text-left">			
+		<div class="col-sm-2 col-md-1 text-left">			
 			<button class="btn btn-success">
 				<i class="fa fa-search" ></i>
 			</button>
@@ -24,6 +29,41 @@
 			</button>
 			
 			</form>
+		</div>
+		<div class="col-sm-2 col-md-1 text-left">	
+			<button class="btn btn-success" onclick="mostrar_filtro()"><i class='fa fa-sort-amount-desc'></i>		
+			</button>
+			<div id=filtro>
+				<ul>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'nia','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>NIA</a>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'nia','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>NIA</a>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>Nombre</a>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Nombre</a>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellido1</a>
+					</li>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellido1</a>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellido21</a>
+					</li>
+					<li>
+						<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellido2</a>
+					</li>
+				
+				</ul>
+			
+			</div>
 		</div>
 	</div>
 	<div class="col-md-10 col-sm-12">
@@ -83,7 +123,7 @@
 			  <td>{{$alumno->apellido1}}</td>
 			  <td> {{$alumno->apellido2}}</td>
 			  <td align='right'>
-					<a href="{{route('alumnos_ver',$alumno->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
+					<a href="{{route('alumno_ver',$alumno->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
 					<a href="{{route('alumno_eliminar',$alumno->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
 			  </td>
 			</tr>
@@ -96,4 +136,11 @@
 		</table>
 	</div>
 </div>
+
+<script>
+function mostrar_filtro(){
+	
+	document.getElementById('filtro').style.display='block';
+}
+</script>
 @endsection

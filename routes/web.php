@@ -48,7 +48,7 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::post('/alumnos/','index')->name('alumnos_buscar');
 		Route::get('/alumnos/ordenar/{orden?}/{direccion?}','index')->name('alumnos_lista');
 		Route::get('/alumnos/new', 'ver')->name('alumno_nuevo');
-		Route::get('/alumnos/ver/{id}', 'ver')->name('alumnos_ver');
+		Route::get('/alumno/ver/{id}', 'ver')->name('alumno_ver');
 		Route::post('/alumnos/grabar','grabar')->name('alumno_grabar');
 		Route::get('alumnos/importar','form_importar');
 		Route::get('/alumnos/lista/{text}','listar');
