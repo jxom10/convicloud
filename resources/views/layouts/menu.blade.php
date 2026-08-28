@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-primary">
+<nav class="navbar navbar-expand-lg bg-primary sticky-top ">
   <a class="navbar-brand" href="/">Convicloud</a>
   <button class="navbar-toggler"
             type="button"
@@ -16,18 +16,18 @@
           <a class="nav-link {{ Route::is('profesores') ? 'active' : '' }}" href="{{route('profesores')}}">Profesores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Route::is('alumnos_lista') ? 'active' : '' }}" href="{{route('alumnos','nia')}}">Alumnos</a>
+          <a class="nav-link {{ Route::is('alumnos') ? 'active' : '' }}" href="{{route('alumnos','nia')}}">Alumnos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Route::is('casos_lista') ? 'active' : '' }}" href="{{route('casos')}}">Casos</a>
+          <a class="nav-link {{ Route::is('casos') ? 'active' : '' }}" href="{{route('casos')}}">Casos</a>
         </li>
 
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Route::is('config') ? 'active' : '' }}" href="{{route('expedientes')}}">Expedientes</a>
+          <a class="nav-link {{ Route::is('expedientes') ? 'active' : '' }}" href="{{route('expedientes')}}">Expedientes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Route::is('config') ? 'active' : '' }}" href="{{route('partes')}}">Partes</a>
+          <a class="nav-link {{ Route::is('partes') ? 'active' : '' }}" href="{{route('partes')}}">Partes</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

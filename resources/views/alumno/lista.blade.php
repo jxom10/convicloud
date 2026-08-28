@@ -7,140 +7,123 @@
             {{ session('message') }}
         </div>
       @endif	
-<div class='row justify-content-center'>
+ 
+<div class="row justify-content-center p-3">
+	<div class='col-11'>
 		<div class="row p-2">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-3 col-md-3">
-			<a href="{{route('alumno_nuevo')}}"><button class="btn btn-success">Nuevo</button></a>
-			<a href="{{route('import')}}"><button class="btn btn-success">Importar</button></a>
-		</div>
-		<div class="col-sm-1 col-md-2"></div>
-		<div class="col-sm-3 col-md-3">
-			<form method="POST" action="{{route('alumnos_buscar')}}">@csrf
-			<input type=text class="form-control" name="buscar" value='{{$buscar}}'>
-		</div>
-		<div class="col-sm-2 col-md-1 text-left">			
-			<button class="btn btn-success">
-				<i class="fa fa-search" ></i>
-			</button>
-			
-			<button name="clean" value="clean" class="btn btn-success">
-				<i class="fa fa-trash" ></i>
-			</button>
-			
-			</form>
-		</div>
-		<div class="col-sm-2 col-md-1 text-left">	
-			<button class="btn btn-success" onclick="mostrar_filtro()"><i class='fa fa-sort-amount-desc'></i>		
-			</button>
-			<div id=filtro>
-				<ul>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'nia','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>NIA</a>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'nia','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>NIA</a>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>Nombre</a>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Nombre</a>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellido1</a>
-					</li>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellido1</a>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellido21</a>
-					</li>
-					<li>
-						<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellido2</a>
-					</li>
-				
-				</ul>
-			
-			</div>
-		</div>
-	</div>
-	<div class="col-md-10 col-sm-12">
-		<table class="table">
-		  <thead>
-			<tr>
-				<th scope="col">#</th>
-					<th scope="col">
-<!--
-					<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'DESC'])}}">
-					  <i class="fa fa-arrow-up" aria-hidden="true"></i>
-					</a>
--->
-					Nombre
-<!--
-					<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'ASC'])}}">
-						<i class="fa fa-arrow-down" aria-hidden="true"></i>
-					</a>
--->
-				</th>
-				<th scope="col">
-<!--
-					<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'DESC'])}}">
-					  <i class="fa fa-arrow-up" aria-hidden="true"></i>
-					</a>
--->
-					Apellido 1
-<!--
-					<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'ASC'])}}">
-						<i class="fa fa-arrow-down" aria-hidden="true"></i>
-					</a>
--->
-				</th>
-					<th scope="col">
-<!--
-					<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'DESC'])}}">
-					  <i class="fa fa-arrow-up" aria-hidden="true"></i>
-					</a>
--->
-					Apellido 2
-<!--
-					<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'ASC'])}}">
-						<i class="fa fa-arrow-down" aria-hidden="true"></i>
-					</a>
--->
-				</th>
-				<th>
+			<table border='0'>
+				<tr>
+					<td>		
+						<form method="POST" action="{{route('alumnos_buscar')}}">@csrf
+						<div class="row">
+							<div class="col-12 col-md-3">	
 
-				</th>
-			</tr>
-		  </thead>
-		  <tbody>
-		   @foreach($alumnos as $alumno)
-			<tr>
-			  <th scope="row">{{$alumno->nia}}</th>
-			  <td>{{$alumno->nombre}}</td>
-			  <td>{{$alumno->apellido1}}</td>
-			  <td> {{$alumno->apellido2}}</td>
-			  <td align='right'>
-					<a href="{{route('alumno_ver',$alumno->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
-					<a href="{{route('alumno_eliminar',$alumno->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
-			  </td>
-			</tr>
-			@endforeach
-		  </tbody>
-		  			<tr>
-			<td colspan=5>
-				{{ $alumnos->links('pagination::bootstrap-4')}}
-			</td></tr>
-		</table>
+								<input type="text" class="form-control" id="buscar" name="buscar"  placeholder="" value="">
+							</div>
+
+							<div class="col-10 col-sm-11  col-md-8">	
+								<label for="btn_buscar">&nbsp;&nbsp;&nbsp;</label>
+								<button class="btn btn-primary" id='btn_buscar'>
+									<i class='fa fa-search'></i>
+								</button>
+								<label for="btn_limpiar">&nbsp;&nbsp;&nbsp;</label>
+								<button name="clean" id='btn_limpiar' value="clean"  class="btn btn-primary">
+									<i class='fa fa-trash'></i>
+								</button></form>
+								
+							</div>
+							<div class="col-1 col-sm-1  col-md-1 ">
+								<button type="button" class="btn btn-primary" onclick="mostrar_filtro()">
+									<i class='fa fa-sort-amount-desc'></i></button>
+								<div id="filtro"  class="text-end">
+									<ul>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'nia','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>NIA</a>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'nia','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>NIA</a>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>Nombre</a>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'nombre','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Nombre</a>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellido1</a>
+										</li>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'apellido1','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellido1</a>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellido2</a>
+										</li>
+										<li>
+											<a href="{{route('alumnos_lista',['orden'=>'apellido2','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellido2</a>
+										</li>
+								
+									</ul>
+								</div>
+							</div>
+					
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+
+			 <table class="table table-striped">
+				<thead class="bg-light">
+					<tr>
+						<th>Nia</th>
+						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th>Curso</th>
+						<th>Grupo</th>
+						<td align='right'><a href="{{route('alumno_nuevo')}}">
+							<button class="btn btn-primary">Nuevo</button></a>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+			   @foreach($alumnos as $alumno)
+					<tr>
+						<td>{{$alumno->nia}}</td>
+						<td>{{$alumno->nombre}}</td>
+						<td>{{$alumno->apellido1}} {{$alumno->apellido2}}</td>
+						<td>{{$alumno->curso}}</td>
+						<td>{{$alumno->grupo}}</td>
+						<td align='right'>
+							<a href="{{route('alumno_ver',$alumno->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
+							<a href="{{route('alumno_eliminar',$alumno->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+						</td>
+					</tr>
+				@endforeach
+				</tbody>
+				@if($alumnos->hasPages())
+				<tr>
+					<td colspan=6>
+						{{ $alumnos->links('pagination::bootstrap-4')}}
+					</td>
+					</tr>
+				@endif
+			</table>
+		</div>
 	</div>
 </div>
-
 <script>
 function mostrar_filtro(){
+	var boton =document.getElementById('filtro').style.display;
+	if(boton === 'block'){
+		document.getElementById('filtro').style.display='none';
+	}
+	else{
+		document.getElementById('filtro').style.display='block';
+	}
 	
-	document.getElementById('filtro').style.display='block';
 }
 </script>
+
 @endsection
