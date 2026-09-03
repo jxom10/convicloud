@@ -17,24 +17,7 @@
 						<form method="POST" action="{{route('partes_buscar')}}">@csrf
 						<div class="row">
 
-							<div class="col-xs-12 col-md-2">	
-								<label for="tipologia">Tipología</label>
-								<select  class="form-control" id='tipologia' name='id_tipologia'>
-									<option value=''>...</option>
-								@foreach($tipologias as $tipologia)
-									<option value='{{$tipologia->id}}' @if($tipologia->id == $busqueda['id_tipologia']) selected @endif> {{$tipologia->nombre}}</option>
-								@endforeach
-								</select>
-							</div>
-							<div class="col-xs-12 col-md-2">	
-								<label for="tipologia">Tipología</label>
-								<select  class="form-control" id='tipologia' name='id_tipologia'>
-									<option value=''>...</option>
-								@foreach($tipologias as $tipologia)
-									<option value='{{$tipologia->id}}' @if($tipologia->id == $busqueda['id_tipologia']) selected @endif> {{$tipologia->nombre}}</option>
-								@endforeach
-								</select>
-							</div>
+							
 							<div class="col-xs-12 col-md-2">	
 								<label for="tipologia">Tipología</label>
 								<select  class="form-control" id='tipologia' name='id_tipologia'>
@@ -83,13 +66,13 @@
 				<tbody>
 			   @foreach($partes as $parte)
 				<tr>
-				  <td >{{$parte->id}}</ts>
+				  <td >{{$parte->id}}</td>
 				  <td>{{date('Y-m-d', strtotime($parte->fecha_apertura))}}</td>
 				  <td>{{$parte->descripcion}}</td>
 
 				  <td align='right'>
-					  <a href="{{route('expediente_ver',$parte->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
-					<a href="{{route('expediente_eliminar',$parte->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+					  <a href="{{route('parte_ver',$parte->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
+					<a onclick="return confirm('Va a eliminar un registro.\nEsta seguro?')"  href="{{route('parte_eliminar',$parte->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
 					</td>
 				</tr>
 				@endforeach

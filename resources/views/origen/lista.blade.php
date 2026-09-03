@@ -12,7 +12,7 @@
 						<div class="row">
 							<div class="col-12 col-md-5">	
 
-								<input type="text" class="form-control" id="buscar" name="buscar"  placeholder="" value="">
+								<input type="text" class="form-control" id="buscar" name="buscar"  placeholder="" value="{{$buscar}}">
 							</div>
 
 							<div class="col-10 col-sm-11  col-md-7 text-end">	

@@ -24,6 +24,10 @@ return new class extends Migration
 			$table->unsignedBigInteger('id_tipologia');
 			$table->unsignedBigInteger('id_alumno');
             $table->timestamps();
+            
+            $table->foreign('id_alumno')->references('id')->on('alumnos');
+            $table->foreign('id_tipologia')->references('id')->on('tipologias');
+            $table->foreign('id_profesor')->references('id')->on('profesores');
         });
     }
 

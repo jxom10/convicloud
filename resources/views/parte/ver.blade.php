@@ -3,7 +3,7 @@
 
 @section('contenido')
 <div class='row justify-content-center'>
-    <div class="col-6">
+    <div class="col-12 text-center">
         <h3>{{$titulo}} Parte</h3>
     </div>
 </div>
@@ -20,12 +20,12 @@
 
 <div class='row p-2 justify-content-center'>
 		<div class="col-sm-12 col-md-6">
-			<form method=POST action='{{route('parte_grabar')}}'>
+			<form method=POST action="{{route('parte_grabar')}}">
 				@csrf
 				<input type=hidden value='{{$parte->id}}' name='id'>
 				<div class="form-group">
 					<label for="fecha">Fecha</label>
-					<input type='date' name='fecha' id='fecha' class="form-control">
+					<input type="date" name="fecha" id="fecha" class="form-control">
 				</div>
 		</div>
 		<div class="col-sm-12 col-md-6">
@@ -37,7 +37,7 @@
 				</select>
 			</div>
 		</div>
-
+</div>
 <div class='row p-2 justify-content-center'>
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
@@ -55,12 +55,12 @@
 <div class='row p-2 justify-content-center'>
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
-				<label for="Hora">Hora</label>
+				<label for="Hora">Hora</label>{{$parte->hora}}
 				<select name='hora' class='form-control'>
 				<option></option>
-				@for($i = 1; $i < 8; $i++)
-					<option value='{{$i}}'>{{$i}}ª Hora</option>
-				@endfor
+				@for($i = 1; $i < 8; $i++ )
+					<option value="{{$i}}" @if($i == $parte->hora) selected @endif > {{$i}}ª Hora</option>
+				@endfor()
 				</select>
 			</div>
 		</div>
@@ -87,8 +87,8 @@
 	</div>
 		<div class="col-sm-12 col-md-6">
 		 <div class="form-group">
-			<label for="firma">Firma</label>
-			<input type='text' name='firma' id='firma' class="form-control">
+			<label for="firma">Firmado</label>
+			<input type='checkbox' name='firma' id='firma' class="form-check" @if($parte->firmado == 1) checked @endif()>
 		</div>
 	</div>
 </div>
@@ -114,7 +114,7 @@
 		<div class='col-sm-4'>
 			<label for='apellidos'>Apellidos</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$parte->id_alumno}}'>
-			<input class='form-control'  id='apellidos_alumno' type=text placeholder='buscar alumno aqui' onKeyUp='buscar_alumno(this.value)'   @if($parte->id)value='{{$parte->alumno->apellido1 .' ' .$parte->alumno->apellido2}}'@endif>
+			<input class='form-control'  id='apellidos_alumno' type=text placeholder='buscar alumno aqui' onKeyUp='buscar_alumno(this.value)'   @if($parte->id) value='{{$parte->alumno->apellido1 .' ' .$parte->alumno->apellido2}}'@endif>
 			<div id='respuesta_alumno' class='respuesta'></div>
 		</div>
 		<div class='col-sm-4'>
@@ -145,5 +145,5 @@
 			</form>
 	</div>
 
-			@endsection
+@endsection
 

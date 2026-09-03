@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('apellido2')->nullable();
             $table->string('nombre');
             $table->string('email')->unique();
+            $table->string('Curso')->nullable();
+            $table->string('Grupo')->nullable();
+            $table->boolean('active')->default('1');
+            
 			$table->timestamps();
         });
     }

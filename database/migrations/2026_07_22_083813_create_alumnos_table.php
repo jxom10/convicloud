@@ -21,6 +21,7 @@ return new class extends Migration
 			$table->string('curso')->nullable(true);
 			$table->string('grupo')->nullable(true);
 			$table->string('genero')->nullable(true);
+			$table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

@@ -8,20 +8,27 @@ use App\Models\User;
 class ProfesorController extends Controller
 {
 	public function index(Request $request,$orden = 'nombre',$direccion = 'asc'){
-		
-		$buscar = null;
-		if(isset($request->clean)){
-			$request->buscar = null;
+		$buscar = $request->all();
+
+		if(isset($buscar['clean'])){
+			$buscar  = null;
 		}
-		if(isset($request->buscar)){
-			$buscar =$request->buscar;
-			$profesores= Profesor::where('nombre','LIKE', '%'.$buscar.'%')
-									->orwhere('apellido1','LIKE', '%'.$buscar.'%')
-									->orwhere('apellido2','LIKE', '%'.$buscar.'%')
-						->paginate(50);
+		if(isset($buscar['_token'])){
+			$profesores= new Profesor;	
+			if(isset($buscar['active']) AND $buscar['active']==1){
+				$profesores= $profesores->where('active',1);
+			}
+			if($buscar['busqueda'] != null){
+				$profesores = $profesores->where('nombre','LIKE', '%'.	$buscar['busqueda'] . '%')
+									->orwhere('apellido1','LIKE', '%'.	$buscar['busqueda'] . '%')
+									->orwhere('apellido2','LIKE', '%'. 	$buscar['busqueda'] . '%');
+
+				
+			}
+			$profesores= $profesores->paginate(50);
 		}
 		else{
-			$profesores= Profesor::OrderBy($orden,$direccion)->paginate(50);
+			$profesores= Profesor::where('active',1)->OrderBy($orden,$direccion)->paginate(50);
 		}
 		return view('profesor.lista',['profesores'=>$profesores,'buscar'=>$buscar]);
 	}
@@ -78,10 +85,79 @@ class ProfesorController extends Controller
 		return redirect('profesor/ver/'.$profesor->id);
 	}
     public function delete($id){
+		
         $profe = Profesor::find($id);    
         if($profe){
             $profe->delete();
         }
         return redirect()->route('profesores');
+    }
+	public function form_importar(){
+		return view('profesor.import');
+	}
+	public function is_utf8($path){
+		$output = array();
+		exec('file -i ' . $path, $output);
+		if (isset($output[0])){
+			$ex = explode('charset=', $output[0]);
+			return isset($ex[1]) ? $ex[1] : null;
+		}
+	}
+	public function importar(Request $request)   {
+
+		if(isset($request->import_csv)){
+			$file = $request->file('import_csv');
+
+			$row = 0;
+			if (($handle = fopen($file->path(), "r")) !== FALSE) {
+				$this->is_utf8($file->path());
+				while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {		
+					$data = ($this->is_utf8($file->path()) !="utf-8") ? array_map("utf8_encode", $data):$data;
+
+					if($row == 0){
+						$headerValues = $data;
+					}
+					
+					if($row>0){
+						$num = count($data);
+						foreach($data as $campo=>$valor){
+							$datos[$headerValues[$campo]] = $valor;
+						}	
+						
+						
+						if(strlen($datos['Nombre'])>2){
+							$this->guardar_profesor($datos);
+						}
+						
+					}
+					$row++;
+				}
+				
+				fclose($handle);
+			}
+		}
+		else{
+			$request->session()->flash('message', 'No se ha cargado ningún fichero..');
+		}
+		
+		return redirect()->route('profesores_lista');
+    }
+	public function guardar_profesor($data){
+
+		$profesor = Profesor::where('email','=',$data['Email'])->first()	;
+		if(!$profesor){
+			$profesor = new Profesor;
+		}
+		$profesor->nombre = $data['Nombre'];
+		$profesor->apellido1 = $data['Primer apellido'];
+		$profesor->apellido2 = $data['Segundo apellido'];
+		$profesor->curso = $data['Curso'];
+		$profesor->grupo = $data['Grupo'];
+		$profesor->email = $data['Email'];
+		$profesor->active = (isset($data['activo']))? $data['activo']: 1;
+		$profesor->save();
+
+        
+       
     }
 }

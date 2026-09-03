@@ -4,10 +4,10 @@
 @section('contenido')
 	<div class='row justify-content-center p-2'>
 		<div class='col-md-12 text-center'>
-			<h3>Importacion de csv Alumnos</h3>
+			<h3>Importacion de csv profesores</h3>
 		</div>
 		<div class="col-md-6 col-12 text-center">
-			<form action="{{ route('alumnos_import') }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('profesores_import') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 						<div class="input-group mb-3">
 							
@@ -22,7 +22,7 @@
 <br>
 <h3>formato del fichero csv:</h3>
 <p>Tiene que tener en la cabecera los siguientes campos:</p>
-Genero;Curso;Grupo;Primer apellido;Segundo apellido;Nombre;NIA;Fnac
+Nombre;Primer apellido;Segundo apellido;Email;Curso;Grupo;
 
 
 

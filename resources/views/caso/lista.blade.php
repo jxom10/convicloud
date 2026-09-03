@@ -53,7 +53,13 @@
 								@endforeach
 								</select>
 							</div>
-							<div class="col-xs-12 col-md-4 text-end"">
+							<div class="col-xs-12 col-md-2">	
+								<label for="alumno">alumno</label>
+								<input type=hidden  name='id_alumno' id='id_alumno' value="{{ $busqueda['id_alumno']}}">
+								<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)' value='{{$nombre_alu}}'>
+								<div id='respuesta_alumno' class='respuesta'></div>
+							</div>
+							<div class="col-xs-12 col-md-2 text-end"">
 								<br>	
 								<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
 								<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button></a>
@@ -91,7 +97,7 @@
 						<td>{{$caso->triaje->nombre}}</td>
 						<td align='right'>
 							<a href="{{route('caso_ver',$caso->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
-							<a href="{{route('caso_eliminar',$caso->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+							<a onclick="return confirm('Va a eliminar un registro.\nEsta seguro?')"  href="{{route('caso_eliminar',$caso->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				@endforeach

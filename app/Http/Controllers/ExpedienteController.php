@@ -9,26 +9,26 @@ use App\Models\Tipologia;
 class ExpedienteController extends Controller
 {
      public function index(Request $request){
-		 
+		
 		$tipologias	= Tipologia::all();
 		$buscar = null;
-		$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null]; 
+		$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null]; 
 		if(isset($request->clean)){
 			$request->buscar = null;
 		}
-		if(isset($request->buscar)){
-			$buscar = $request->buscar;
-			$expedientes = Expediente::paginate(50);
-			/*('nombre','LIKE', '%'.$buscar.'%')
-									->orwhere('apellido1','LIKE', '%'.$buscar.'%')
-									->orwhere('apellido2','LIKE', '%'.$buscar.'%')
-									->paginate(50);*/
+		$expedientes = new Expediente;
+		if(isset($request->id_tipologia) and $request->id_tipologia){
+			$busqueda['id_tipologia'] = $request->id_tipologia;
+			$expedientes = $expedientes->where('id_tipologia',$request->id_tipologia);
 		}
-		else{
+		if(isset($request->id_alumno) and $request->id_alumno){
+			$busqueda['id_alumno'] = $request->id_alumno;
+			$expedientes = $expedientes->where('id_alumno',$request->id_alumno);
+		}
 	
-			$expedientes= Expediente::paginate(50);
-		}
-		return view ('expediente.lista',['expedientes' => $expedientes,'buscar'=>$buscar,'tipologias'=>$tipologias,'busqueda'=>['id_tipologia'=>null]]);
+		$expedientes= $expedientes->paginate(50);
+		
+		return view ('expediente.lista',['expedientes' => $expedientes,'buscar'=>$buscar,'tipologias'=>$tipologias,'busqueda'=>$busqueda]);
 	}
 	
 	public function ver($id = null){

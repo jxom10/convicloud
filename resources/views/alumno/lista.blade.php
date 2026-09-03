@@ -77,27 +77,30 @@
 			 <table class="table table-striped">
 				<thead class="bg-light">
 					<tr>
+						<th>#</th>
 						<th>Nia</th>
 						<th>Nombre</th>
 						<th>Apellidos</th>
 						<th>Curso</th>
 						<th>Grupo</th>
-						<td align='right'><a href="{{route('alumno_nuevo')}}">
-							<button class="btn btn-primary">Nuevo</button></a>
+						<td align='right'>
+								<a href="{{route('alumno_nuevo')}}"><button class="btn btn-primary">Nuevo</button></a>
+								<a href="{{route('alumnos_import')}}"><button class="btn btn-primary">importar</button></a>
 						</td>
 					</tr>
 				</thead>
 				<tbody>
 			   @foreach($alumnos as $alumno)
 					<tr>
+						<td>{{$alumno->id}}</td>
 						<td>{{$alumno->nia}}</td>
 						<td>{{$alumno->nombre}}</td>
 						<td>{{$alumno->apellido1}} {{$alumno->apellido2}}</td>
 						<td>{{$alumno->curso}}</td>
 						<td>{{$alumno->grupo}}</td>
 						<td align='right'>
-							<a href="{{route('alumno_ver',$alumno->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
-							<a href="{{route('alumno_eliminar',$alumno->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+							<a href="{{route('alumno_ver',$alumno->id)}}"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+							<a onclick="return confirm('Va a eliminar el registro de {{$alumno->nombre}} {{$alumno->apellido1}}.\nEsta seguro?')" href="{{route('alumno_eliminar',$alumno->id)}}"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				@endforeach

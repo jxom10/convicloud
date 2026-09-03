@@ -10,40 +10,44 @@ use App\Models\Tipologia;
 class ParteController extends Controller
 {
       public function index(Request $request){
-		  
+		  	  
+		$busqueda=array('id_tipologia'=>null,'id_alumno'=>null,'id_profesor'=>null);
 		$buscar = null;
 		$tipologias = Tipologia::All();
+		$partes = new Parte;
 		if(isset($request->clean)){
 			$request->buscar = null;
 		}
-		if(isset($request->buscar)){
-			$buscar = $request->buscar;
-			$alumnos = alumno::where('nombre','like','%'.$buscar.'%')
-								->orwhere('apellido1','like','%'.$buscar.'%')
-								->orwhere('apellido2','like','%'.$buscar.'%')->pluck('id');
-			$ids = [];		
-			foreach($alumnos as $id){
-				array_push($ids,$id);
-			}
-			$partes = Parte::wherein('id_alumno',$ids)->paginate(50);
+		if(isset($request->id_tipologia) and $request->id_tipologia){
+			$busqueda['id_tipologia'] = $request->id_tipologia;
+			$partes = $partes->where('id_tipologia',$request->id_tipologia);
+		}
+		if(isset($request->id_alumno) and $request->id_alumno){
+			$busqueda['id_alumno'] = $request->id_alumno;
+			$partes = $partes->where('id_alumno',$request->id_alumno);
 			
 		}
-		else{ 
-
-			$partes=  parte::paginate(50);
+		if(isset($request->id_profesor) and $request->id_profesor){
+			$busqueda['id_alumno'] = $request->id_alumno;
+			$partes = $partes->where('id_profesor',$request->id_profesor);
+			
 		}
-		return view ('parte.lista',['partes' => $partes,'busqueda'=>['id_tipologia'=>null],'tipologias'=>$tipologias]);
+
+
+		$partes =  $partes->paginate(50);
+		
+		return view ('parte.lista',['partes' => $partes,'busqueda'=>$busqueda,'tipologias'=>$tipologias]);
 	}
 	
 	public function ver($id = null){
 		$tipologias = Tipologia::All();
 		if($id){
 			$parte = Parte::find($id);
-			$titulo = "Alterar Parte";
+			$titulo = "Alterar ";
 		}
 		else{
 			$parte = new Parte;
-			$titulo = "Nuevo Parte";
+			$titulo = "Nuevo ";
 		}
 		return view('parte.ver',['parte'=>$parte,'titulo'=>$titulo,'tipologias'=>$tipologias]);
 	}

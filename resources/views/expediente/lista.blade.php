@@ -26,7 +26,12 @@
 								@endforeach
 								</select>
 							</div>
-
+							<div class="col-xs-12 col-md-2">	
+								<label for="alumno">alumno</label>
+								<input type=hidden  name='id_alumno' id='id_alumno'>
+								<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)'>
+								<div id='respuesta_alumno' class='respuesta'></div>
+							</div>
 							<div class="col-xs-12 col-md-4 text-end">
 								<br>	
 								<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
@@ -54,13 +59,13 @@
 				<tbody>
 			   @foreach($expedientes as $expediente)
 				<tr>
-				  <td >{{$expediente->id}}</ts>
+				  <td >{{$expediente->id}}</td>
 				  <td>{{date('Y-m-d', strtotime($expediente->fecha_apertura))}}</td>
 				  <td>{{$expediente->descripcion}}</td>
 
 				  <td align='right'>
 					  <a href="{{route('expediente_ver',$expediente->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
-					<a href="{{route('expediente_eliminar',$expediente->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+					<a onclick="return confirm('Va a eliminar un expediente.\nEsta seguro?')" href="{{route('expediente_eliminar',$expediente->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
 					</td>
 				</tr>
 				@endforeach

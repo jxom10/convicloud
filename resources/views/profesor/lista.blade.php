@@ -19,10 +19,16 @@
 						<div class="row">
 							<div class="col-12 col-md-3">	
 
-								<input type="text" class="form-control" id="buscar" name="buscar"  placeholder="" value="">
+								<input type="text" class="form-control" id="busqueda" name="busqueda"  placeholder="Buscar por nombre o apellido" value="@if(isset($buscar['busqueda'])) {{$buscar['busqueda']}}  @endif">
 							</div>
-
-							<div class="col-10 col-sm-11  col-md-8">	
+							<div class="col-12 col-md-2">	
+								<select name='active'  class="form-control">
+									
+									<option value="1" @if(isset($buscar['active']) AND $buscar['active']==1) selected @endif>Profesores activos</option>
+									<option value="all"  @if(isset($buscar['active']) AND $buscar['active']=='all') selected @endif>Todos los profesores</option>
+								</select>
+							</div>
+							<div class="col-10 col-sm-11  col-md-6">	
 								<label for="btn_buscar">&nbsp;&nbsp;&nbsp;</label>
 								<button class="btn btn-primary" id='btn_buscar'>
 									<i class='fa fa-search'></i>
@@ -67,27 +73,31 @@
 			 <table class="table table-striped">
 				<thead class="bg-light">
 					<tr>
-						<th>Nia</th>
+						<th>#</th>
 						<th>Nombre</th>
 						<th>Apellidos</th>
+						<th>Email</th>
 						<th>Curso</th>
 						<th>Grupo</th>
 						<td align='right'><a href="{{route('profesor_nuevo')}}">
 							<button class="btn btn-primary">Nuevo</button></a>
+							<a href="/profesores/importar"><button class="btn btn-primary">importar</button></a>
 						</td>
 					</tr>
 				</thead>
 				<tbody>
 			   @foreach($profesores as $profesor)
-					<tr>
-						<td>{{$profesor->nia}}</td>
+					<tr @if($profesor->active == 0) style='font-style:italic;color:#74AFC9;' @endif>
+						<td>{{$profesor->id}}</td>
 						<td>{{$profesor->nombre}}</td>
 						<td>{{$profesor->apellido1}} {{$profesor->apellido2}}</td>
+						<td>{{$profesor->email}}</td>
 						<td>{{$profesor->curso}}</td>
 						<td>{{$profesor->grupo}}</td>
 						<td align='right'>
 							<a href="{{route('profesor_ver',$profesor->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
-							<a href="{{route('profesor_eliminar',$profesor->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
+
+							<a   onclick="return confirm('Va a eliminar {{$profesor->email}}.\nEsta seguro?')"  href="{{route('profesor_eliminar',$profesor->id)}}"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				@endforeach

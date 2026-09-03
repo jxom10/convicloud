@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alumno;
+//use App\Models\Expediente;
 use DateTime;
 
 class AlumnoController extends Controller
@@ -57,7 +58,8 @@ class AlumnoController extends Controller
 			$alumno = new Alumno;
 			$titulo = "Crear ficha de ";
 		}
-		//dd($alumno);
+		//$expedientes = Expediente::where('id_alumno','=',$alumno->id)->first();
+
 		return view('alumno.ver',['alumno'=>$alumno,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
@@ -86,6 +88,14 @@ class AlumnoController extends Controller
 	public function form_importar(){
 		return view('alumno.import');
 	}
+	public function is_utf8($path){
+		$output = array();
+		exec('file -i ' . $path, $output);
+		if (isset($output[0])){
+			$ex = explode('charset=', $output[0]);
+			return isset($ex[1]) ? $ex[1] : null;
+		}
+	}
 	public function importar(Request $request)   {
 
 		if(isset($request->import_csv)){
@@ -93,12 +103,12 @@ class AlumnoController extends Controller
 
 			$row = 0;
 			//$headerValues=['','Genero','Curso','Grupo','Primer apellido','Segundo apellido','Nombre','NIA','Fnac',''];
-
+			
 			if (($handle = fopen($file->path(), "r")) !== FALSE) {
-		
+				$this->is_utf8($file->path());
 				while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {		
-					$data = array_map("utf8_encode", $data);
-					echo "<br>".$data[0];
+					$data = ($this->is_utf8($file->path()) !="utf-8") ? array_map("utf8_encode", $data):$data;
+
 					if($row == 0){
 						$headerValues = $data;
 					}
@@ -106,8 +116,9 @@ class AlumnoController extends Controller
 						$num = count($data);
 						foreach($data as $campo=>$valor){
 							$datos[$headerValues[$campo]] = $valor;
+
 						}
-						if(strlen($datos['nombre'])>2){
+						if(strlen($datos['Nombre'])>2){
 							$this->guardar_alumno($datos);
 						}
 					}
@@ -125,7 +136,17 @@ class AlumnoController extends Controller
     }
 
    public function guardar_alumno($data){
-		$alumno = new Alumno;
+	   //$data = array_map("utf8_encode", $data);
+
+		//$id = $this->check_alumno($data);
+		
+		$alumno = 	Alumno::where('nombre','=',$data['Nombre'])
+							->where('apellido1','=',$data['Primer apellido'])
+							->where('apellido2','=',$data['Segundo apellido'])->first();
+		if(!$alumno){
+			$alumno = new Alumno;
+		}
+		
        
 		$alumno->nia = $data['NIA'];
 		$alumno->nombre = $data['Nombre'];
@@ -135,20 +156,35 @@ class AlumnoController extends Controller
 		$alumno->curso = $data['Curso'];
 		$alumno->grupo = $data['Grupo'];
 		$alumno->genero = (in_array($data['Genero'],['O','A','E']))? $data[1]: 'N';
+		$alumno->active = 1;
 
-		
 		$alumno->save();
-        
-       
     }
+    //public function check_alumno($datos){
+		//$alumno = new Alumno;
+
+		//$alumno = $alumno->where('nombre','=',$datos['Nombre'])
+							//->where('apellido1','=',$datos['Primer apellido'])
+							//->where('apellido2','=',$datos['Segundo apellido'])->first();
+							
+
+		//if($alumno){
+			//return $alumno->id;
+		//}
+		//return false;
+		
+	//}
    public function get($id){
       return json_encode(Alumno::find($id));
     }
-        public function delete($id){
-        $alumno = Alumno::find($id);    
-        if($alumno){
-            $alumno->delete();
-        }
+    public function delete($alumno){
+		try {
+			$alumno = Alumno::find($alumno);
+			$alumno->delete();
+		}catch(\Illuminate\Database\QueryException $e){
+				return  back()->with('message', 'No se puede eliminar este alumno. Tienes ');
+		}
+        
         return redirect()->route('alumnos');
     }
     

@@ -70,11 +70,18 @@
         <textarea name='descripcion' id='descripcion' style="width:100%;height:20vh;">{{$caso->descripcion}}</textarea>
     </div>
 </div>
-	<div class='row p-4 justify-content-center'>
-     <div >
-        <label for="implicados">Implicados</label>
-        <textarea name='implicados' id='implicados' style="width:100%;height:20vh;">{{$caso->implicados}}</textarea>
-    </div>
+<div class='row p-4'  id='implicados'>
+
+	@foreach($caso->lista_implicados as $actor)
+	<div class='card col-md-2' id='alu_{{$actor->id_alumno}}'>
+		<h5 class="card-title" id='rol_{{$actor->id_alumno}}'>{{$actor->rol}}</h5>
+		<div class='btn_eliminar' onclick="eliminar({{$actor->id_alumno}})">X</div>
+		<h5 class="card-subtitle mb-2 text-body-secondary">{{$actor->alumno->nombre_completo()}}</h5>
+		 <div class="card-body">
+			NIA:{{$actor->alumno->nia}}
+		</div>
+   </div>
+	@endforeach
 </div>
 <div class='row p-4 align-items-end justify-content-center'>
 		<div class='col-sm-12 col-md-3'>
@@ -97,9 +104,10 @@
 			<select class='form-control'  id='papel' onchange='active_btn()'>
                 <option>...</option>
                 <option value='parte'> Parte </option>
-                <option value='testigo'> testigo </option>
+                <option value='testigo'> Testigo </option>
                 <option value='afectado'> Afectado </option>
             </select>
+           
 		</div>
 	<div class='col-sm-12 col-md-2'>
 			<button id='btn_add' type='button' disabled class='btn btn-primary btn-lg' onclick='add()' >Añadir</button>
@@ -107,6 +115,7 @@
 </div>
 <div class='row p-2 justify-content-center'>
     <div class="col-4" >
+		<input type='hidden' id='lista_implicados' value='{{$caso->implicados}}' name='implicados'>
         <button type="submit" class="btn btn-primary btn-lg" style='width:100%'>Grabar</button>
         </form>
     </div>
@@ -116,17 +125,54 @@
     function active_btn(){
          document.getElementById('btn_add').disabled = false
     }
+    function eliminar(id){
+
+		var ids_ori = document.getElementById('lista_implicados').value ;
+		var rol = document.getElementById('rol_'+id).innerHTML ;
+		var salida = ids_ori.replace(id+":"+rol+ ";","");
+		document.getElementById('lista_implicados').value = salida;
+		document.getElementById('alu_'+id).remove();
+		var id_caso = document.getElementById('id').value ;
+		$.ajax({
+			type: "DELETE",
+			url: '/actorcaso/delete',
+			data : {'id_alumno' : id ,'id_caso':id_caso,	'_token': '{{ csrf_token() }}'  },
+			dataType: "JSON",
+			success: function(respuesta){
+				
+				console.log(respuesta);
+				//respuesta.forEach(function (alumno){
+					//drop += "<div  onclick='select_alumno("+ alumno.id+")'>"+ alumno.nombre+" "+ alumno.apellido1+" "+ alumno.apellido2+"</div>";
+				//});
+				//document.getElementById('respuesta_alumno').innerHTML = drop;
+			}
+		});
+		
+	}
     function add(){
+		
+		var ids_ori = document.getElementById('lista_implicados').value;
+		var id = document.getElementById('id_alumno').value;
         var nia = document.getElementById('nia_alumno').value;
         var nombre = document.getElementById('nombre_alumno').value;
         var apellidos = document.getElementById('apellidos_alumno').value;
         
         var e = document.getElementById("papel");
         var value = e.value;
-        var papel = e.options[e.selectedIndex].text;
+        var rol = e.options[e.selectedIndex].text;
         var implicados = document.getElementById('implicados').innerHTML.trim();
-
-        document.getElementById('implicados').innerHTML = implicados + '\n'+papel+"(NIA:"+nia + ") " + nombre + " " + apellidos+ '\n';
+                
+		html = "<div class='card col-md-2' id='alu_" + id + "'>";
+		html +="<h5 class='card-title' id='rol_" +id + "'>"+ rol +"</h5>";
+		html +="<div class='btn_eliminar' onclick='eliminar("+id+")'>X</div>";
+		html +="<h5 class='card-subtitle mb-2 text-body-secondary'>" + nombre + " " + apellidos+ "</h5>";
+		html +=" <div class='card-body'>";
+		html +="	NIA:"+ nia ;
+		html +="</div>";
+		html +="</div>";
+        //document.getElementById('implicados').innerHTML = implicados + '\n'+rol+"(NIA:"+nia + ") " + nombre + " " + apellidos+ '\n';
+        document.getElementById('implicados').innerHTML = implicados + html;
+        document.getElementById('lista_implicados').value = ids_ori +id+":"+rol+ ";";
         document.getElementById('nia_alumno').value ="";
         document.getElementById('nombre_alumno').value="";
         document.getElementById('apellidos_alumno').value="";
@@ -136,6 +182,6 @@
 
          
     }
-    
+
 </script>
 @endsection

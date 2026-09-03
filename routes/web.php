@@ -12,6 +12,7 @@ use App\Http\Controllers\ParteController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\TipologiaController;
 use App\Http\Controllers\OrigenController;
+use App\Http\Controllers\ActorCasosController;
 
 Route::get('/forms',  function () { return view('forms'); });
 Route::get('/login', [UserController::class,'login'])->name('login');
@@ -30,10 +31,14 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/usuario/new', 'ver')->name('usuario_nuevo');
 		Route::get('/ususario/ver/{id}', 'ver')->name('usuario_ver');
 		Route::post('/ususario/grabar','grabar')->name('usuario_grabar');
-		Route::get('/usuario/eliminar/{id}', 'delete')->name('usuario_eliminar');
+		Route::delete('/usuario/', 'delete')->name('usuario_eliminar');
 	});
-
+	Route::controller(ActorCasosController::class)->group(function (){
+		Route::delete('/actorcaso/delete','eliminar');
+	});
 	Route::controller(ProfesorController::class)->group(function (){
+		Route::get('/profesores/importar','form_importar');
+		Route::post('/profesores/importar','importar')->name('profesores_import');
 		Route::get('/profesores/{buscar?}','index')->name('profesores');
 		Route::post('/profesores/','index')->name('profesores_buscar');
 		Route::get('/profesor/new', 'ver')->name('profesor_nuevo');
@@ -42,7 +47,9 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/profesores/lista/{text}','listar');
 		Route::get('/profesor/eliminar/{id}', 'delete')->name('profesor_eliminar');
 		Route::get('/profesor/get/{id}', 'get');
+		
 		Route::get('/profesores/ordenar/{orden?}/{direccion?}','index')->name('profesores_lista');
+		
 	});
 	Route::controller(AlumnoController::class)->group(function (){
 		Route::get('/alumnos/','index')->name('alumnos');
@@ -51,11 +58,11 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/alumnos/new', 'ver')->name('alumno_nuevo');
 		Route::get('/alumno/ver/{id}', 'ver')->name('alumno_ver');
 		Route::post('/alumnos/grabar','grabar')->name('alumno_grabar');
-		Route::get('alumnos/importar','form_importar');
+		Route::get('/alumnos/importar','form_importar');
 		Route::get('/alumnos/lista/{text}','listar');
 		Route::get('/alumno/get/{id}', 'get');
         Route::get('/alumno/eliminar/{id}', 'delete')->name('alumno_eliminar');
-		Route::post('/alumnos/importar','importar')->name('import');
+		Route::post('/alumnos/importar','importar')->name('alumnos_import');
 	});
 	Route::controller(TriajeController::class)->group(function (){
 		Route::get('/triaje','index')->name('triajes');

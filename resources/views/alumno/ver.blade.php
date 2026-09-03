@@ -77,15 +77,27 @@
         <label for="grupo">Grupo</label>
         <input type="text" class="form-control" id="grupo" name="grupo"   value='{{$alumno->grupo}}'>
       </div>
+      <div class="form-check form-switch col-md-2">
+		<br>
+		<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"@if($alumno->active==1) checked  @endif >
+		<label class="form-check-label text-start" for="flexSwitchCheckChecked">Activo</label>
+	</div>
       
     </div>
 		<div class='row p-2 justify-content-center'>
 			<div class='col-sm-12 col-md-6'>
           <button type="submit" class="btn btn-primary btn-lg">Grabar</button>
           </form>
-        </div>
-        
-    </div>
+        </div>    
+	</div>
+        ---
+<!--
+    @foreach($alumno->expedientes() as $expediente)
+		{{$expediente->id}}
+	@endforeach
+-->
+	---
+
 
 
 @endsection

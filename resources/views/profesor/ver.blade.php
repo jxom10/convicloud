@@ -41,8 +41,21 @@
         <label for="apellido2">Segundo apellido</label>
         <input type="text" class="form-control" id="apellido2" name="apellido2"  placeholder="apellido2" value='{{$profesor->apellido2}}'>
       </div>
+	<div class='row p-2 justify-content-center'>
 
-    </div>
+	<div class='col-sm-12 col-md-2'>
+        <label for="apellido2">Curso</label>
+        <input type="text" class="form-control" id="curso" name="curso"  placeholder="curso" value='{{$profesor->curso}}'>
+      </div>
+	<div class='col-sm-12 col-md-2'>
+        <label for="apellido2">Grupo</label>
+        <input type="text" class="form-control" id="grupo" name="grupo"  placeholder="curso" value='{{$profesor->grupo}}'>
+      </div>
+	<div class="form-check form-switch col-2">
+		<br>
+		<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"@if($profesor->active==1) checked  @endif >
+		<label class="form-check-label text-start" for="flexSwitchCheckChecked">Activo</label>
+	</div>
 		<div class='row p-2 justify-content-center'>
 
 			<div class='col-sm-12 col-md-6'>
