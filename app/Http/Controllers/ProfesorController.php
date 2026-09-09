@@ -140,7 +140,7 @@ class ProfesorController extends Controller
 			$request->session()->flash('message', 'No se ha cargado ningún fichero..');
 		}
 		
-		return redirect()->route('profesores_lista');
+		return redirect()->route('profesores');
     }
 	public function guardar_profesor($data){
 
