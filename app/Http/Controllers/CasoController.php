@@ -73,7 +73,7 @@ class CasoController extends Controller
        
 		else{
 			$caso = new Caso;
-			$titulo = "Alta Caso";
+			$titulo = "Alta";
 		}
 		$implicados ="";
 		$campo_implicados ="";
@@ -94,17 +94,16 @@ class CasoController extends Controller
 		return view('caso.ver',$datos);
 	}
 	public function grabar(Request $request){
-
 		$cambio_implicados = false;
         $validated = $request->validate([
-			'estado_id' => ['required'],
-			'triaje_id' => ['required'],
-			'origen_id' => ['required'],
-			'tipologia_id' => ['required'],
+			'id_estado' => ['required'],
+			'id_triaje' => ['required'],
+			'id_origen' => ['required'],
+			'id_tipologia' => ['required'],
 			'descripcion' =>  ['required'],
 
 		]);
-		
+
         if($request->id){
             $caso = Caso::find($request->id);
 
@@ -114,10 +113,10 @@ class CasoController extends Controller
         }
 
         
-        $caso->id_estado = $request->estado_id;
-        $caso->id_triaje = $request->triaje_id;
-        $caso->id_origen = $request->origen_id;
-        $caso->id_tipologia = $request->tipologia_id;
+        $caso->id_estado = $request->id_estado;
+        $caso->id_triaje = $request->id_triaje;
+        $caso->id_origen = $request->id_origen;
+        $caso->id_tipologia = $request->id_tipologia;
         $caso->descripcion = $request->descripcion;
         $caso->implicados = $request->implicados;
 

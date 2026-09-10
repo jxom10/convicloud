@@ -36,6 +36,10 @@ class EstadoController extends Controller
 		return view('estado.ver',['estado'=>$estado,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
+		
+		$validated = $request->validate([
+			'nombre' => ['required'],
+		]);
         $estado = new  Estado;
          $mensaje = 'Algo ha salido mal...';
 		if(!empty($request->id)){

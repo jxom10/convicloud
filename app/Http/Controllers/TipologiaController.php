@@ -35,6 +35,10 @@ class TipologiaController extends Controller
 		return view('tipologia.ver',['tipologia'=>$tipologia,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
+		
+		$validated = $request->validate([
+			'nombre' => ['required'],
+		]);
         $tipologia = new  Tipologia;
          $mensaje = 'Algo ha salido mal...';
 		if(!empty($request->id)){

@@ -25,41 +25,56 @@
     </div>
       
     <div class="col-sm-12 col-md-2">
-        <label for="estado" >Estados</label> 
-        <select name='estado_id' id ='estado' class='form-control'>
-            <option>...</option>
+        <label for="estado" >Estados</label> {{old('id_estado')}}
+        <select name='id_estado' id ='estado' class='form-control'>
+            <option value=''>...</option>
         @foreach($estados as $estado)
-            <option value='{{$estado->id}}'  @if($caso->id_estado == $estado->id) selected @endif>{{$estado->nombre}}</option>
+            <option value='{{$estado->id}}'  
+				@if($caso->id_estado == $estado->id) selected @endif
+				@if(old('id_estado') == $estado->id) selected @endif
+				
+				>
+				{{$estado->nombre}}
+				</option>
         @endforeach          
         </select>
     </div>
     
     <div class="col-sm-12 col-md-2">
         <label for="triaje">Triaje</label>
-        <select name='triaje_id' id ='triaje' class='form-control'>
-            <option>...</option>
+        <select name='id_triaje' id ='triaje' class='form-control'>
+            <option value=''>...</option>
         @foreach($triajes as $triaje)
-            <option value='{{$triaje->id}}'  @if($caso->id_triaje == $triaje->id) selected @endif>{{$triaje->nombre}}</option>
+            <option value='{{$triaje->id}}'  
+            @if($caso->id_triaje == $triaje->id) selected @endif
+            @if(old('id_triaje') == $triaje->id) selected @endif
+            >{{$triaje->nombre}}</option>
         @endforeach          
         </select>
     </div>
     
     <div class="col-sm-12 col-md-2">
         <label for="tipologia">Tipologia</label>
-        <select name='tipologia_id' id ='tipologia' class='form-control'>
-            <option>...</option>
+        <select name='id_tipologia' id ='tipologia' class='form-control'>
+            <option value=''>...</option>
         @foreach($tipologias as $tipologia)
-            <option value='{{$tipologia->id}}' @if($caso->id_tipologia == $tipologia->id) selected @endif>{{$tipologia->nombre}}</option>
+            <option value='{{$tipologia->id}}' 
+            @if($caso->id_tipologia == $tipologia->id) selected @endif
+            @if(old('id_tipologia') == $tipologia->id) selected @endif
+            >{{$tipologia->nombre}}</option>
         @endforeach          
         </select>
     </div>
     
     <div class="col-sm-12 col-md-2">
-        <label for="tipologia">Origen</label>
-        <select name='origen_id' id ='origen' class='form-control'>
-            <option>...</option>
+        <label for="origen">Origen</label>
+        <select name='id_origen' id ='origen' class='form-control'>
+            <option value=''>...</option>
         @foreach($origenes as $origen)
-            <option value='{{$origen->id}}' @if($caso->id_origen == $origen->id) selected @endif>{{$origen->nombre}}</option>
+            <option value='{{$origen->id}}' 
+            @if($caso->id_origen == $origen->id) selected @endif
+             @if(old('id_origen') == $origen->id) selected @endif
+            >{{$origen->nombre}}</option>
         @endforeach          
         </select>
     </div>
@@ -67,7 +82,7 @@
 	<div class='row p-4 justify-content-center'>
      <div >
         <label for="descripcion">Descripcion</label>
-        <textarea name='descripcion' id='descripcion' style="width:100%;height:20vh;">{{$caso->descripcion}}</textarea>
+        <textarea name='descripcion' id='descripcion' style="width:100%;height:20vh;">{{$caso->descripcion}}{{old('descripcion')}}</textarea>
     </div>
 </div>
 <div class='row p-4'  id='implicados'>
@@ -102,7 +117,7 @@
 		<div class='col-sm-12 col-md-2'>
 			<label for='papel'>Papel</label>
 			<select class='form-control'  id='papel' onchange='active_btn()'>
-                <option>...</option>
+                <option value=''>...</option>
                 <option value='parte'> Parte </option>
                 <option value='testigo'> Testigo </option>
                 <option value='afectado'> Afectado </option>

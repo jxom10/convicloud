@@ -49,7 +49,7 @@
       </div>
 	<div class='col-sm-12 col-md-2'>
         <label for="apellido2">Grupo</label>
-        <input type="text" class="form-control" id="grupo" name="grupo"  placeholder="curso" value='{{$profesor->grupo}}'>
+        <input type="text" class="form-control" id="grupo" name="grupo"  placeholder="grupo" value='{{$profesor->grupo}}'>
       </div>
 	<div class="form-check form-switch col-2">
 		<br>

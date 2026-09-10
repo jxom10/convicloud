@@ -62,11 +62,11 @@ class ExpedienteController extends Controller
 		if(!empty($request->id)){
 			$expediente = $expediente->where('id',$request->id)->first();
 		}
-		$expediente->id_alumno = $datos['id_alumno'] ;
-		$expediente->id_profesor =$datos['id_profesor'] ;
-		$expediente->fecha_apertura =$datos['fecha_apertura'] ;
-		$expediente->id_tipologia =$datos['id_tipologia'] ;
-		$expediente->descripcion =$datos['descripcion'] ;
+		$expediente->id_alumno = $datos['id_alumno'];
+		$expediente->id_profesor =$datos['id_profesor'];
+		$expediente->fecha_apertura =$datos['fecha_apertura'];
+		$expediente->id_tipologia =$datos['id_tipologia'];
+		$expediente->descripcion =$datos['descripcion'];
 		$expediente->fecha_solucion =$datos['fecha_solucion'] ;
 		$expediente->solucion =$datos['solucion'] ;
 

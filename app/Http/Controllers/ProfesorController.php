@@ -50,6 +50,7 @@ class ProfesorController extends Controller
 				$titulo = "Crear ficha de ";
 
 		}
+		
 		return view('profesor.ver',['profesor'=>$profesor,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){

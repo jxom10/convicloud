@@ -63,6 +63,11 @@ class AlumnoController extends Controller
 		return view('alumno.ver',['alumno'=>$alumno,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
+		
+		$validated = $request->validate([
+			'nombre' => ['required'],
+			'apellido1' => ['required'],
+		]);
 		if(!empty($request->id)){
 			$alumno = Alumno::find($request->id);
 		}
@@ -97,7 +102,7 @@ class AlumnoController extends Controller
 		}
 	}
 	public function importar(Request $request)   {
-
+		$campos= ['Genero','Curso','Grupo','Primer apellido','Segundo apellido','Nombre','NIA','Fnac' ];
 		if(isset($request->import_csv)){
 			$file = $request->file('import_csv');
 
@@ -153,9 +158,9 @@ class AlumnoController extends Controller
 		$alumno->apellido1 = $data['Primer apellido'];
 		$alumno->apellido2 = $data['Segundo apellido'];
 		$alumno->fecha_nacimiento = (!empty($data['fnac']) AND count(explode($data['fnac'],'/'))	>1) ? DateTime::createFromFormat('d/m/Y',$data['fnac'])->format('Y-m-d'):'1970-01-01';
-		$alumno->curso = $data['Curso'];
-		$alumno->grupo = $data['Grupo'];
-		$alumno->genero = (in_array($data['Genero'],['O','A','E']))? $data[1]: 'N';
+		$alumno->curso = (isset($data['Curso']))?$data['Curso']:'';
+		$alumno->grupo =  (isset($data['Grupo']))?$data['Grupo']:'';
+		$alumno->genero = (isset($data['Genero']) AND in_array($data['Genero'],['O','A','E']))? $data[1]: 'N';
 		$alumno->active = 1;
 
 		$alumno->save();

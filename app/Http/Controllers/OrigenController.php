@@ -35,6 +35,9 @@ class OrigenController extends Controller
 		return view('origen.ver',['origen'=>$origen,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
+		$validated = $request->validate([
+			'nombre' => ['required'],
+		]);
         $origen = new  Origen;
          $mensaje = 'Algo ha salido mal...';
 		if(!empty($request->id)){
