@@ -43,11 +43,11 @@ class ParteController extends Controller
 		$tipologias = Tipologia::All();
 		if($id){
 			$parte = Parte::find($id);
-			$titulo = "Alterar ";
+			$titulo = "Modificar Parte ";
 		}
 		else{
 			$parte = new Parte;
-			$titulo = "Nuevo ";
+			$titulo = "Nuevo Parte";
 		}
 		return view('parte.ver',['parte'=>$parte,'titulo'=>$titulo,'tipologias'=>$tipologias]);
 	}

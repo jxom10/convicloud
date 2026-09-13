@@ -13,4 +13,12 @@ class alumno extends Model
     {
 		 return $this->hasMany(Expediente::class,'id_alumno','id');
 	}
+	public function partes()
+    {
+		 return $this->hasMany(Parte::class,'id_alumno','id');
+	}
+	public function casos()
+    {
+		 return $this->hasMany(Actor_casos::class,'id_alumno','id');
+	}
 }

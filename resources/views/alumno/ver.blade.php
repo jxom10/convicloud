@@ -59,7 +59,7 @@
 				<option value="" @if( $alumno->genero == 'E') selected  @endif> ... </option>
 				<option value="O" @if( $alumno->genero == 'O') selected  @endif> MASCULINO</option>
 				<option value="A" @if( $alumno->genero == 'A') selected  @endif> FEMENINO</option>
-				<option value="E" @if( $alumno->genero == 'O') selected  @endif> NO BINARIO</option>
+				<option value="E" @if( $alumno->genero == 'N') selected  @endif> NO BINARIO</option>
 				
 			</select>
    

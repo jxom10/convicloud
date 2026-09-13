@@ -12,6 +12,7 @@ use App\Http\Controllers\ParteController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\TipologiaController;
 use App\Http\Controllers\OrigenController;
+use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ActorCasosController;
 
 Route::get('/forms',  function () { return view('forms'); });
@@ -120,6 +121,9 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::post('/parte/grabar','grabar')->name('parte_grabar');
 		Route::get('/parte/eliminar/{id}', 'delete')->name('parte_eliminar');
 	});
-
+		Route::controller(InformeController::class)->group(function (){
+			Route::get('/listados/','index')->name('listados');
+			Route::post('/listados/','index')->name('listados');
+	});
 });
 

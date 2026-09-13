@@ -67,7 +67,7 @@
 			   @foreach($partes as $parte)
 				<tr>
 				  <td >{{$parte->id}}</td>
-				  <td>{{date('Y-m-d', strtotime($parte->fecha_apertura))}}</td>
+				  <td>{{date('Y-m-d', strtotime($parte->fecha))}}</td>
 				  <td>{{$parte->descripcion}}</td>
 
 				  <td align='right'>

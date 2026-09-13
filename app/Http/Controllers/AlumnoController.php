@@ -67,6 +67,7 @@ class AlumnoController extends Controller
 		$validated = $request->validate([
 			'nombre' => ['required'],
 			'apellido1' => ['required'],
+			'nia' => ['required','unique:alumnos,id,'.$request->id_alumno]
 		]);
 		if(!empty($request->id)){
 			$alumno = Alumno::find($request->id);

@@ -4,7 +4,7 @@
 @section('contenido')
 <div class='row justify-content-center'>
     <div class="col-12 text-center">
-        <h3>{{$titulo}} Parte</h3>
+        <h3>{{$titulo}}</h3>
     </div>
 </div>
 
@@ -15,15 +15,15 @@
 				<input type=hidden value='{{$parte->id}}' name='id'>
 				<div class="form-group">
 					<label for="fecha">Fecha</label>
-					<input type="date" name="fecha" id="fecha" class="form-control">
+					<input type="date" name="fecha" id="fecha" class="form-control" value="{{$parte->fecha}}">
 				</div>
 		</div>
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="nivel">Nivel</label>
 				<select name='nivel' id='nivel' class="form-control">
-					<option value='leve'>Leve</option>
-					<option value='grave'>Grave</option>
+					<option value='leve' @if($parte->nivel =='leve') selected @endif>Leve</option>
+					<option value='grave'  @if($parte->nivel =='grave') selected @endif>Grave</option>
 				</select>
 			</div>
 		</div>
@@ -32,13 +32,13 @@
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="descripcion">Descripcion</label>
-				<textarea name='descripcion' id='descripcion' class="form-control"></textarea>
+				<textarea name='descripcion' id='descripcion' class="form-control">{{$parte->descripcion}}</textarea>
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="acciones">Medidas Tomadas</label>
-				<textarea name='acciones' id='acciones' class="form-control"></textarea>
+				<textarea name='acciones' id='acciones' class="form-control">{{$parte->acciones}}</textarea>
 			</div>
 		</div>
 </div>
@@ -57,7 +57,13 @@
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
 				<label for="profesor">Responsable</label>
-				<input type='text' name='profesor' id='nombre_completo_profesor' class="form-control" placeholder='buscar aquí'  onKeyUp='buscar_profesor(this.value)'>
+				<input type='text' 
+					name='profesor' 
+					id='nombre_completo_profesor' 
+					class="form-control" 
+					placeholder='buscar aquí'  
+					onKeyUp='buscar_profesor(this.value)'
+					value="@if($parte->id_profesor){{$parte->profesor->nombre_completo()}}@endif">
 				<input type=hidden name='id_profesor' id='id_profesor'	>
 				<div id='respuesta_profesor' class='respuesta'></div>
 			</div>
@@ -70,8 +76,8 @@
                 
 			<select name='comunicacion' id='comunicacion' class="form-control">
                 <option >...</option>
-				<option value='llamada'>Llamada</option>
-				<option value='itaca'>Itaca</option>
+				<option value='llamada' @if($parte->comunicacion == 'llamada') selected @endif >Llamada</option>
+				<option value='itaca' @if($parte->comunicacion == 'itaca') selected @endif >Itaca</option>
 			</select>
 		</div>
 	</div>

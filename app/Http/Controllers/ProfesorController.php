@@ -58,7 +58,7 @@ class ProfesorController extends Controller
          $validated = $request->validate([
 				'nombre' => ['required'],
 				'apellido1' => ['required'],
-				'email' => ['required'],
+				'email' => ['required','unique:profesores'],
 			]);
 		if(!empty($request->id)){
 			$profesor = Profesor::find($request->id);
