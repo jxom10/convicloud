@@ -19,7 +19,7 @@
 			<form method='POST' action='{{route('expediente_grabar')}}'>
 				@csrf
 			<input type=hidden name='id' value='{{$expediente->id}}'>
-			<label for='apellidos'>Apellidos</label>
+			<label for='apellidos' id='label_apellidos_alumno'>Apellidos</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$expediente->id_alumno}}'>
 			<input class='form-control'  id='apellidos_alumno' type=text onKeyUp='buscar_alumno(this.value)'   @if($expediente->id)value='{{$expediente->alumno->apellido1 .' ' .$expediente->alumno->apellido2}}'@endif>
 			<div id='respuesta_alumno' class='respuesta'></div>

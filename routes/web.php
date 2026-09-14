@@ -124,6 +124,9 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::controller(InformeController::class)->group(function (){
 			Route::get('/listados/','index')->name('listados');
 			Route::post('/listados/','index')->name('listados');
+			Route::get('/export/','export')->name('export_database');
+			Route::get('/import','importar');
+			Route::post('/import','importar')->name('import_database');
 	});
 });
 

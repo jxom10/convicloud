@@ -34,6 +34,7 @@
             <a class="dropdown-item" href="{{route('origenes')}}">Origenes</a>
             <a class="dropdown-item" href="{{route('triajes')}}">Triaje</a>
             <a class="dropdown-item" href="{{route('usuarios')}}">Usuarios</a>
+             <a class="dropdown-item" href="{{route('import_database')}}">BaseDatos</a>
           </div>
         </li>
 		<li >

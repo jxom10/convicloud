@@ -79,8 +79,8 @@ class AlumnoController extends Controller
 		$alumno->apellido1 = $request->apellido1;
 		$alumno->apellido2 = $request->apellido2;
 		$alumno->fecha_nacimiento = $request->fecha_nacimiento;
-		$alumno->curso = $request->curso;
-		$alumno->grupo = $request->grupo;
+		$alumno->curso = strtoupper($request->curso);
+		$alumno->grupo = strtoupper($request->grupo);
 		$alumno->genero = $request->genero;
 		$alumno->nia = $request->nia;
 

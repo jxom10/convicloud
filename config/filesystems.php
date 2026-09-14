@@ -27,9 +27,14 @@ return [
     | Supported drivers: "local", "ftp", "sftp", "s3"
     |
     */
-
+	
+	
     'disks' => [
-
+		'backups' => [
+				'driver' => 'local',
+				'root'   => public_path() . '/backups',
+		],
+		
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),

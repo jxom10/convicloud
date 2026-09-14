@@ -101,7 +101,8 @@
 <div class='row p-4 align-items-end justify-content-center'>
 		<div class='col-sm-12 col-md-3'>
       <input type=hidden id='id_alumno'>
-			<label for='apellidos'>Apellidos</label>
+			
+			<label for='apellidos' id='label_apellidos_alumno'>Apellidos</label>
 			<input class='form-control'  id='apellidos_alumno' type=text placeholder='buscar alumno aqui' onKeyUp='buscar_alumno(this.value)'   >
 			<div id='respuesta_alumno' class='respuesta'></div>
 		</div>
@@ -113,6 +114,14 @@
 		<div class='col-sm-12 col-md-2'>
 			<label for='nia'>NIA</label>
 			<input class='form-control'  id='nia_alumno' type=text >
+		</div>
+		<div class='col-sm-12 col-md-1'>
+			<label for='nia'>Curso</label>
+			<input class='form-control'  id='curso_alumno' type=text >
+		</div>
+		<div class='col-sm-12 col-md-1'>
+			<label for='nia'>Grupo</label>
+			<input class='form-control'  id='grupo_alumno' type=text >
 		</div>
 		<div class='col-sm-12 col-md-2'>
 			<label for='papel'>Papel</label>
@@ -155,7 +164,7 @@
 			dataType: "JSON",
 			success: function(respuesta){
 				
-				console.log(respuesta);
+				//console.log(respuesta);
 				//respuesta.forEach(function (alumno){
 					//drop += "<div  onclick='select_alumno("+ alumno.id+")'>"+ alumno.nombre+" "+ alumno.apellido1+" "+ alumno.apellido2+"</div>";
 				//});
@@ -171,6 +180,8 @@
         var nia = document.getElementById('nia_alumno').value;
         var nombre = document.getElementById('nombre_alumno').value;
         var apellidos = document.getElementById('apellidos_alumno').value;
+		var curso = document.getElementById('curso_alumno').value;
+		var grupo = document.getElementById('grupo_alumno').value;
         
         var e = document.getElementById("papel");
         var value = e.value;
@@ -178,12 +189,12 @@
         var implicados = document.getElementById('implicados').innerHTML.trim();
                 
 		html = "<div class='card col-md-2' id='alu_" + id + "'>";
-		html +="<h5 class='card-title' id='rol_" +id + "'>"+ rol +"</h5>";
-		html +="<div class='btn_eliminar' onclick='eliminar("+id+")'>X</div>";
-		html +="<h5 class='card-subtitle mb-2 text-body-secondary'>" + nombre + " " + apellidos+ "</h5>";
-		html +=" <div class='card-body'>";
-		html +="	NIA:"+ nia ;
-		html +="</div>";
+		html +="	<h5 class='card-title' id='rol_" +id + "'>"+ rol +"</h5>";
+		html +="	<div class='btn_eliminar' onclick='eliminar("+id+")'>X</div>";
+		html +="	<h5 class='card-subtitle mb-2 text-body-secondary'>" + nombre + " " + apellidos+ "</h5>";
+		html +="	<div class='card-body'>";
+		html +="		NIA:"+ nia +" "+curso+grupo;
+		html +="	</div>";
 		html +="</div>";
         //document.getElementById('implicados').innerHTML = implicados + '\n'+rol+"(NIA:"+nia + ") " + nombre + " " + apellidos+ '\n';
         document.getElementById('implicados').innerHTML = implicados + html;

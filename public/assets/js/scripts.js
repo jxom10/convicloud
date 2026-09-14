@@ -81,12 +81,19 @@ function select_alumno(id){
 			}
 			if(document.getElementById("apellidos_alumno")){
 				document.getElementById('apellidos_alumno').value = respuesta.apellido1 + " " +respuesta.apellido2;
+				document.getElementById('label_apellidos_alumno').innerHTML = "<a target=_blank href='/alumno/ver/"+id+"'><i class='fa fa-pencil'></i></a>Apellidos";
 			}
 			if(document.getElementById("nia_alumno")){
 				document.getElementById('nia_alumno').value = respuesta.nia;
 			}
 			if(document.getElementById("curso_alumno")){
 				document.getElementById('curso_alumno').value = respuesta.curso;
+			}
+			if(document.getElementById("curso_alumno")){
+				document.getElementById('curso_alumno').value =  respuesta.curso;
+			}
+			if(document.getElementById("grupo_alumno")){
+				document.getElementById('grupo_alumno').value = respuesta.grupo;
 			}
 			if(document.getElementById("grupo_alumno")){
 				document.getElementById('grupo_alumno').value = respuesta.grupo;
@@ -95,6 +102,7 @@ function select_alumno(id){
 				document.getElementById('nombre_completo_alumno').value = respuesta.nombre + " "+ respuesta.apellido1 + " " +respuesta.apellido2;
 			}
 			document.getElementById('respuesta_alumno').innerHTML = "";
+			
 			
 		}
 	});

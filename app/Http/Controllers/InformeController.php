@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB	;
+use Illuminate\Support\Facades\Process;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Parte;
 use App\Models\Expediente;
 use App\Models\Caso;
@@ -85,8 +87,40 @@ class InformeController extends Controller
 				}
 			}	
 		}
-		//~ dd($datos['casos']);
 		return view('listado.index',compact('tipo','desde','hasta','partes_data','expedientes_data','casos_data','partes','datos','tipologias'));
 	}
-	
+
+	/* pruebas de exporrtacion de datos */
+	public function export(){
+
+		$dbname = config('database.connections.mariadb.database');
+		$username = config('database.connections.mariadb.username');
+		$password = config('database.connections.mariadb.password');
+		$file =  "backups/backup".date('Ymd').".sql";
+		$txt = "mariadb-dump -u".$username." -p".$password." ". $dbname." > ".$file ;
+		if($result = Process::run($txt)){
+			session()->flash('message', 'Fichero exportado correctamente');
+		}
+		else{
+			session()->flash('message', 'Error al exportar fichero');
+		}
+		
+	  	return response()->download($file);
+
+	}
+	public function importar(Request $request){
+		$dbname = config('database.connections.mariadb.database');
+		$username = config('database.connections.mariadb.username');
+		$password = config('database.connections.mariadb.password');
+		if($request->hasFile('file')){
+			$file = $request->file('file');
+			$file->move(public_path('backups'),'backup.sql');
+			
+			$txt = "mariadb -u".$username." -p".$password." ". $dbname." <  backups/backup.sql";
+			$result = Process::run($txt);
+		}
+		return view('databaseimport');
+		
+	}
+
 }

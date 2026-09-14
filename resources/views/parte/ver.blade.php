@@ -108,7 +108,7 @@
 	</div>
     <div class='row p-2 justify-content-center'>
 		<div class='col-sm-4'>
-			<label for='apellidos'>Apellidos</label>
+			<label for='apellidos' id='label_apellidos_alumno'>Apellidos</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$parte->id_alumno}}'>
 			<input class='form-control'  id='apellidos_alumno' type=text placeholder='buscar alumno aqui' onKeyUp='buscar_alumno(this.value)'   @if($parte->id) value='{{$parte->alumno->apellido1 .' ' .$parte->alumno->apellido2}}'@endif>
 			<div id='respuesta_alumno' class='respuesta'></div>
