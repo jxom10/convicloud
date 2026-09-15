@@ -118,7 +118,7 @@ class CasoController extends Controller
         $caso->id_triaje = $request->id_triaje;
         $caso->id_origen = $request->id_origen;
         $caso->id_tipologia = $request->id_tipologia;
-        $caso->descripcion = $descripcion;
+        $caso->descripcion = $request->descripcion;
         $caso->implicados = ($request->implicados) ? $request->implicados: "";
 
         if($caso->save()){
