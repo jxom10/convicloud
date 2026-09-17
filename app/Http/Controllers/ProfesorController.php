@@ -58,7 +58,7 @@ class ProfesorController extends Controller
          $validated = $request->validate([
 				'nombre' => ['required'],
 				'apellido1' => ['required'],
-				'email' => ['required','unique:profesores'],
+				'email' => ['required','unique:profesores,id,'.$request->id],
 			]);
 		if(!empty($request->id)){
 			$profesor = Profesor::find($request->id);
@@ -71,6 +71,8 @@ class ProfesorController extends Controller
 		$profesor->apellido1 = $request->apellido1;
 		$profesor->apellido2 = $request->apellido2;
 		$profesor->email = $request->email;
+		$profesor->curso = $request->curso;
+		$profesor->grupo = $request->grupo;
 		if(!empty($request->password)){
             $usuario = new User;
             $usuario->nombre = $request->nombre;

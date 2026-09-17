@@ -17,7 +17,7 @@
 					<td>		
 						<form method="POST" action="{{route('casos_buscar')}}">@csrf
 						<div class="row">
-							<div class="col-xs-12 col-md-2">	
+							<div class="col-xs-12 col-md-1">	
 								<label for="estado">Estado</label>
 								<select  class="form-control" id='estado' name='id_estado'>
 									<option value=''>...</option>
@@ -26,7 +26,7 @@
 								@endforeach
 								</select>
 							</div>
-							<div class="col-xs-12 col-md-2">	
+							<div class="col-xs-12 col-md-1">	
 								<label for="tipologia">Tipología</label>
 								<select  class="form-control" id='tipologia' name='id_tipologia'>
 									<option value=''>...</option>
@@ -35,7 +35,7 @@
 								@endforeach
 								</select>
 							</div>
-							<div class="col-xs-12 col-md-2">	
+							<div class="col-xs-12 col-md-1">	
 								<label for="origen">Origen</label>
 								<select  class="form-control" id='origen' name='id_origen'>
 									<option value=''>...</option>
@@ -44,7 +44,7 @@
 								@endforeach
 								</select>
 							</div>
-							<div class="col-xs-12 col-md-2">	
+							<div class="col-xs-12 col-md-1">	
 								<label for="triaje">Triaje</label>
 								<select  class="form-control" id='triaje' name='id_triaje'>
 									<option value=''>...</option>
@@ -59,6 +59,8 @@
 								<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)' value='{{$nombre_alu}}'>
 								<div id='respuesta_alumno' class='respuesta'></div>
 							</div>
+
+
 							<div class="col-xs-12 col-md-2 text-end"">
 								<br>	
 								<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>

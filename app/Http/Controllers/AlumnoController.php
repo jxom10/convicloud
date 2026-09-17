@@ -58,7 +58,7 @@ class AlumnoController extends Controller
 			$alumno = new Alumno;
 			$titulo = "Crear ficha de ";
 		}
-		//$expedientes = Expediente::where('id_alumno','=',$alumno->id)->first();
+
 
 		return view('alumno.ver',['alumno'=>$alumno,'titulo'=>$titulo]);
 	}
@@ -67,7 +67,7 @@ class AlumnoController extends Controller
 		$validated = $request->validate([
 			'nombre' => ['required'],
 			'apellido1' => ['required'],
-			'nia' => ['required','unique:alumnos,id,'.$request->id_alumno]
+			/*'nia' => ['required','unique:alumnos,id,'.$request->id_alumno]*/
 		]);
 		if(!empty($request->id)){
 			$alumno = Alumno::find($request->id);
@@ -82,7 +82,7 @@ class AlumnoController extends Controller
 		$alumno->curso = strtoupper($request->curso);
 		$alumno->grupo = strtoupper($request->grupo);
 		$alumno->genero = $request->genero;
-		$alumno->nia = $request->nia;
+		$alumno->nia = (empty($request->nia))?" " : $request->nia;
 
 		
 		$alumno->save();

@@ -88,14 +88,36 @@
           </form>
         </div>    
 	</div>
-        ---
-<!--
-    @foreach($alumno->expedientes() as $expediente)
-		{{$expediente->id}}
+	<div class='row m-2 justify-content-left'>
+			<div class='row'>
+		Expedientes:
+		</div>
+		@foreach($alumno->expedientes as $exp)
+		  <div class='col-1'>
+			<a href="{{route('expediente_ver',$exp->id)}}"><button class='btn btn-primary'>{{$exp->id}}</button></a>
+				</div>
+		@endforeach
+</div>
+<div class='row justify-content-left m-2'>
+	<div class='row'>
+		casos:<br>
+		</div>
+    @foreach($alumno->casos as $caso)
+    <div class='col-1'>
+		<a href="{{route('caso_ver',$caso->id_caso)}}"><button class='btn btn-primary'>{{$caso->id_caso}}</button></a>
+	</div>
 	@endforeach
--->
-	---
-
+</div>
+<div class='row m-2 justify-content-left'>
+		<div class='row'>
+	Partes:
+	</div>
+    @foreach($alumno->partes as $parte)
+      <div class='col-1'>
+		<a href="{{route('parte_ver',$parte->id)}}"><button class='btn btn-primary'>{{$parte->id}}</button></a>
+			</div>
+	@endforeach
+</div>
 
 
 @endsection

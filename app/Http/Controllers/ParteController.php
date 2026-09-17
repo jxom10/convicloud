@@ -52,7 +52,7 @@ class ParteController extends Controller
 		return view('parte.ver',['parte'=>$parte,'titulo'=>$titulo,'tipologias'=>$tipologias]);
 	}
 	public function grabar(Request $request){
-
+		//dd($request->all());
 		$validated = $request->validate([
 			'id_alumno' => ['required'],
 			'id_profesor' => ['required'],
@@ -77,7 +77,7 @@ class ParteController extends Controller
 		$parte->id_tipologia      = $request->id_tipologia;
 		$parte->id_alumno      = $request->id_alumno;
         $parte->comunicacion      = $request->comunicacion;
-		$parte->firmado = $request->firma;
+		$parte->firmado = (isset($request->firmado))?$request->firmado:0;
 
 		if($parte->save()){
 			return redirect()->route('partes');

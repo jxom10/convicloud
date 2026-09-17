@@ -11,12 +11,12 @@
 <div class='row p-2 justify-content-center'>
 		<div class="col-sm-12 col-md-6">
 			<form method=POST action="{{route('parte_grabar')}}">
-				@csrf
-				<input type=hidden value='{{$parte->id}}' name='id'>
-				<div class="form-group">
-					<label for="fecha">Fecha</label>
-					<input type="date" name="fecha" id="fecha" class="form-control" value="{{$parte->fecha}}">
-				</div>
+			@csrf
+			<input type=hidden value='{{$parte->id}}' name='id'>
+			<div class="form-group">
+				<label for="fecha">Fecha</label>
+				<input type="date" name="fecha" id="fecha" class="form-control" value="{{$parte->fecha}}">
+			</div>
 		</div>
 		<div class="col-sm-12 col-md-6">
 			 <div class="form-group">
@@ -64,7 +64,7 @@
 					placeholder='buscar aquí'  
 					onKeyUp='buscar_profesor(this.value)'
 					value="@if($parte->id_profesor){{$parte->profesor->nombre_completo()}}@endif">
-				<input type=hidden name='id_profesor' id='id_profesor'	>
+				<input type=hidden name='id_profesor' id='id_profesor' value='{{$parte->id_profesor}}'>
 				<div id='respuesta_profesor' class='respuesta'></div>
 			</div>
 		</div>
@@ -84,7 +84,7 @@
 		<div class="col-sm-12 col-md-6">
 		 <div class="form-group">
 			<label for="firma">Firmado</label>
-			<input type='checkbox' name='firma' id='firma' class="form-check" @if($parte->firmado == 1) checked @endif()>
+			<input type='checkbox' name='firmado' id='firma' class="form-check" value="1" @if($parte->firmado == 1) checked @endif()>
 		</div>
 	</div>
 </div>

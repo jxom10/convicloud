@@ -146,6 +146,13 @@
 </div>
     
 <script>
+	fecha_hora();
+	function fecha_hora(){
+		var descripcion = document.getElementById('descripcion').innerHTML
+		const hoy = new Date();
+		console.log(hoy.toLocaleString());
+		document.getElementById('descripcion').innerHTML = descripcion + '\n --' +   hoy.toLocaleString()+ '--\n' ;
+	}
     function active_btn(){
          document.getElementById('btn_add').disabled = false
     }
