@@ -67,6 +67,7 @@ class ProfesorController extends Controller
 		else{
 			$profesor =  new profesor;
             $mensaje .= "Ficha profesor creada.";
+			$color ="success";
 		}
 		$profesor->nombre = $request->nombre;
 		$profesor->apellido1 = $request->apellido1;
@@ -81,11 +82,12 @@ class ProfesorController extends Controller
             $usuario->email = $request->email;
             $usuario->password = bcrypt($request->password);
             if($usuario->save()){
-                $mensaje .= 'tamnbien se ha creado el usuario '.$usuario->email;
+                $mensaje .= 'tambien se ha creado el usuario '.$usuario->email;
+                $color ="success";
             }
 		}
 		if($profesor->save()){
-            session()->flash('mensaje',['success',$mensaje]);
+            session()->now('message', ["texto"=>$mensaje,"color"=>$color]);
         }
 		return redirect('profesor/ver/'.$profesor->id);
 	}
@@ -142,7 +144,7 @@ class ProfesorController extends Controller
 			}
 		}
 		else{
-			$request->session()->flash('message', 'No se ha cargado ningún fichero..');
+			session()->now('message', ["texto"=>"No se ha cargado ningún fichero..","color"=>"danger"]);
 		}
 		
 		return redirect()->route('profesores');

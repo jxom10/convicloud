@@ -24,13 +24,13 @@ class ToolsController extends Controller
 				print_r($result->output());
 				echo "</pre>";
 				$result = Process::run('rm -R .convicloud_temp');
-				session()->flash('message', ['texto'=>'Actualizacion correcta','color'=>'success']);
+				session()->now('message', ['texto'=>'Actualizacion correcta','color'=>'success']);
 				die();
 				//return view('inicio');
 
 			}
 			else{
-				session()->flash('message', ['texto'=>'La contraseña no es válida','color'=>'warning']);
+				session()->now('message', ['texto'=>'La contraseña no es válida','color'=>'warning']);
 			}
 		}
 

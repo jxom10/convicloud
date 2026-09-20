@@ -21,14 +21,15 @@
 <body>
 	
 @include('layouts.menu')
+
+@yield('contenido')
+
 <div>
         @if (session()->has('message'))
-            <div class="alert alert-{{session('message')['color']}}">
+            <div class=" alert alert-{{session('message')['color']}} mensaje">
                 {{ session('message')['texto'] }}
             </div>
         @endif
     </div>
-@yield('contenido')
-
 </body>
 </html>

@@ -99,10 +99,10 @@ class InformeController extends Controller
 		$file =  "backups/backup".date('Ymd').".sql";
 		$txt = "mariadb-dump -u".$username." -p".$password." ". $dbname." > ".$file ;
 		if($result = Process::run($txt)){
-			session()->flash('message', 'Fichero exportado correctamente');
+			session()->now('message', ["texto"=>"Fichero exportado correctamente","color"=>"success"]);
 		}
 		else{
-			session()->flash('message', 'Error al exportar fichero');
+			session()->now('message', ["texto"=>"Error al exportar fichero","color"=>"danger"]);
 		}
 		
 	  	return response()->download($file);

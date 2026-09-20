@@ -50,7 +50,7 @@ class AlumnoController extends Controller
 			if(!$alumno){
 				$alumno = new Alumno;
 				$titulo = "Crear ficha de";
-				session()->flash('message', 'El datos solicitado no existe. Se crearáun registro nuevo');
+				session()->now('message', ["texto"=>"El datos solicitado no existe. Se creará un registro nuevo","color"=>"warning"]);
 			}
 			
 		}
@@ -135,7 +135,7 @@ class AlumnoController extends Controller
 			}
 		}
 		else{
-			$request->session()->flash('message', 'No se ha cargado ningún fichero..');
+			session()->now('message', ["texto"=>"No se ha cargado ningún fichero..","color"=>"danger"]);
 		}
 		
 		return redirect()->route('alumnos_lista');

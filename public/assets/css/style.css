@@ -134,6 +134,12 @@ a{text-decoration: none;}
 	color: red;
 	font-weight: bold;
 }
+.mensaje{
+	position: fixed;
+	bottom: -16;
+	width: 100%;
+	text-align: center;
+}
 @media screen and (max-width: 992px) {
    /*#nav_normal{display:none;}*/
 	.derecha{float:none;}
