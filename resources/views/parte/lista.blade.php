@@ -2,11 +2,7 @@
 
 @section('contenido')
 
-@if (session()->has('message'))
-<div class="alert alert-danger">
-	{{ session('message') }}
-</div>
-@endif	
+
  
 <div class="row justify-content-center p-3">
 	<div class='col-11'>
@@ -38,6 +34,14 @@
 								<input type=hidden  name='id_profesor' id='id_profesor'>
 								<input type='text'class='form-control' id='nombre_completo_profesor' onkeyup='buscar_profesor(this.value)'>
 								<div id='respuesta_profesor' class='respuesta'></div>
+							</div>
+														<div class="col-xs-12 col-md-2">	
+								<label for="desde">Desde</label>
+								<input id="desde" type=date name="desde"  value="{{$busqueda['desde']}}" class="form-control" >
+							</div>
+							<div class="col-xs-12 col-md-2">
+								<label for="hasta">Hasta</label>
+								<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
 							</div>
 							<div class="col-xs-12 col-md-2 text-md-end">
 								<br>	

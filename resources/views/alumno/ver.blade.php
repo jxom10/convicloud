@@ -7,11 +7,7 @@
 			<h1>{{$titulo}} alumno</h1>
 		</div>
 	</div>
-  @if (session()->has('message'))
-		<div class="alert alert-danger">
-                {{ session('message') }}
-            </div>
-  @endif	
+
 
 		<div class='row p-2 justify-content-center'>
       

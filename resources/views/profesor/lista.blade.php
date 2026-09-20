@@ -3,11 +3,6 @@
 
 
 @section('contenido')
-      @if (session()->has('message'))
-        <div class="alert alert-danger">
-            {{ session('message') }}
-        </div>
-      @endif	
  
 <div class="row justify-content-center p-3">
 	<div class='col-11'>

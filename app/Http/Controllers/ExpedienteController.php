@@ -11,24 +11,50 @@ class ExpedienteController extends Controller
      public function index(Request $request){
 		
 		$tipologias	= Tipologia::all();
-		$buscar = null;
-		$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null]; 
-		if(isset($request->clean)){
-			$request->buscar = null;
-		}
+		$filtrar = false;
 		$expedientes = new Expediente;
-		if(isset($request->id_tipologia) and $request->id_tipologia){
-			$busqueda['id_tipologia'] = $request->id_tipologia;
-			$expedientes = $expedientes->where('id_tipologia',$request->id_tipologia);
+		if(isset($request->_token)){
+			$busqueda = $request->all();
+			$filtrar = true;
+		}		
+		else{	
+			$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
+		}	
+		if(isset($request->clean)){
+			$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
 		}
-		if(isset($request->id_alumno) and $request->id_alumno){
-			$busqueda['id_alumno'] = $request->id_alumno;
-			$expedientes = $expedientes->where('id_alumno',$request->id_alumno);
+		if($filtrar){	
+			$id_alumno =(isset($busqueda['id_alumno']))?$busqueda['id_alumno']:null;
+			
+			
+			unset($busqueda['clean']);
+			foreach($busqueda as $campo=>$valor){
+				if($campo!='id_alumno'){
+					if($valor AND $campo!='_token'){
+						if(in_array($campo,['desde','hasta'])){
+							$busqueda['desde'] = (isset($request->desde) AND !empty($request->desde)) ?date($request->desde):"";
+							$busqueda['hasta'] = (isset($request->hasta) AND !empty($request->hasta)) ?date($request->hasta):date("Y-m-d");
+							$expedientes =$expedientes->whereBetween('updated_at',[$busqueda['desde'],$busqueda['hasta'] ]);
+						}
+						else{
+							$expedientes = $expedientes->where($campo, '=', $valor );
+						}
+					}
+				}
+			}
 		}
-	
-		$expedientes= $expedientes->paginate(50);
+			//if(isset($request->id_tipologia) and $request->id_tipologia){
+				//$busqueda['id_tipologia'] = $request->id_tipologia;
+				//$expedientes = $expedientes->where('id_tipologia',$request->id_tipologia);
+			//}
+			//if(isset($request->id_alumno) and $request->id_alumno){
+				//$busqueda['id_alumno'] = $request->id_alumno;
+				//$expedientes = $expedientes->where('id_alumno',$request->id_alumno);
+			//}
+
+			$expedientes= $expedientes->paginate(50);
 		
-		return view ('expediente.lista',['expedientes' => $expedientes,'buscar'=>$buscar,'tipologias'=>$tipologias,'busqueda'=>$busqueda]);
+		return view ('expediente.lista',['expedientes' => $expedientes,'busqueda'=>$busqueda,'tipologias'=>$tipologias]);
 	}
 	
 	public function ver($id = null){

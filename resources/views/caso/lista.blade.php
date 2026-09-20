@@ -3,11 +3,7 @@
 
 @section('contenido')
 
-@if (session()->has('message'))
-<div class="alert alert-danger">
-	{{ session('message') }}
-</div>
-@endif	
+
  
 <div class="row justify-content-center p-3">
 	<div class='col-11'>
@@ -59,8 +55,14 @@
 								<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)' value='{{$nombre_alu}}'>
 								<div id='respuesta_alumno' class='respuesta'></div>
 							</div>
-
-
+							<div class="col-xs-12 col-md-2">	
+								<label for="desde">Modificado entre el</label>
+								<input id="desde" type=date name="desde"  value=""{{$busqueda['desde']}}" class="form-control" >
+							</div>
+							<div class="col-xs-12 col-md-2">
+								<label for="hasta">y el</label>
+								<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
+							</div>
 							<div class="col-xs-12 col-md-2 text-end"">
 								<br>	
 								<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
@@ -78,6 +80,7 @@
 				<thead class="bg-light">
 					<tr>
 						<th>#</th>
+						<th>Fecha</th>
 						<th>Tipologia</th>
 						<th>Origen</th>
 						<th>Estado</th>
@@ -93,6 +96,7 @@
 			   @foreach($casos as $caso)
 					<tr  style="border-bottom:solid 2px {{$caso->estado->color}};border-left:solid 2px {{$caso->estado->color}};">
 						<td >{{$caso->id}}</td>
+						<td >{{$caso->created_at->format('d/m/y') }}</td>
 						<td>{{$caso->tipologia->nombre}}</td>
 						<td>{{$caso->origen->nombre}}</td>
 						<td>{{$caso->estado->nombre}}</td>

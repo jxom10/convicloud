@@ -8,12 +8,7 @@
 		</div>
 	</div>
 	
-  
-  @if (session()->has('message'))
-		<div class="alert alert-danger">
-                {{ session('message') }}
-    </div>
-  @endif
+
 
 		<div class='row p-2 justify-content-center'>
 			<div class='col-sm-12 col-md-6'>
@@ -53,7 +48,7 @@
       </div>
 	<div class="form-check form-switch col-2">
 		<br>
-		<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"@if($profesor->active==1) checked  @endif >
+		<input name="active" class="form-check-input" type="checkbox" value="1" id="flexSwitchCheckChecked" @if($profesor->active==1) checked  @endif >
 		<label class="form-check-label text-start" for="flexSwitchCheckChecked">Activo</label>
 	</div>
 		<div class='row p-2 justify-content-center'>

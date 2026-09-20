@@ -54,6 +54,7 @@ class ProfesorController extends Controller
 		return view('profesor.ver',['profesor'=>$profesor,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
+
          $mensaje = "";
          $validated = $request->validate([
 				'nombre' => ['required'],
@@ -73,6 +74,7 @@ class ProfesorController extends Controller
 		$profesor->email = $request->email;
 		$profesor->curso = $request->curso;
 		$profesor->grupo = $request->grupo;
+		$profesor->active = (isset($request->active))? 1 :0;
 		if(!empty($request->password)){
             $usuario = new User;
             $usuario->nombre = $request->nombre;
