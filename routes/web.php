@@ -131,6 +131,7 @@ Route::group(['middleware'=> ['auth']], function () {
 	});
 	Route::controller(ToolsController::class)->group(function (){
 		Route::get('/herramientas/','actualizar')->name('herramientas');
+		Route::post('/herramientas/','actualizar')->name('update');
 	});
 });
 
