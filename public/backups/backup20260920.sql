@@ -35,7 +35,7 @@ CREATE TABLE `actor_casos` (
   KEY `actor_casos_id_alumno_foreign` (`id_alumno`),
   CONSTRAINT `actor_casos_id_alumno_foreign` FOREIGN KEY (`id_alumno`) REFERENCES `alumnos` (`id`),
   CONSTRAINT `actor_casos_id_caso_foreign` FOREIGN KEY (`id_caso`) REFERENCES `casos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +45,9 @@ CREATE TABLE `actor_casos` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `actor_casos` WRITE;
 /*!40000 ALTER TABLE `actor_casos` DISABLE KEYS */;
+INSERT INTO `actor_casos` VALUES
+(33,5,1,'Parte','2026-09-15 09:47:06','2026-09-15 09:47:06'),
+(34,5,73,'Testigo','2026-09-16 15:47:07','2026-09-16 15:47:07');
 /*!40000 ALTER TABLE `actor_casos` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -90,7 +93,7 @@ INSERT INTO `alumnos` VALUES
 (6,'11535040','IGNACIO','ALARCÓN','GALLEGO','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
 (7,'13528359','Rafael','Amaya','Atencio','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
 (8,'11532717','ALTEA','APARICIO','ARCINIEGAS','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
-(9,'','YAZMIN NOEMI','AREVALOS','ALONSO','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
+(9,' ','YAZMIN NOEMI','AREVALOS','ALONSO','1970-01-01','1ESO','','A',1,'2026-08-28 16:43:03','2026-09-17 04:52:59'),
 (10,'','DULCE MARIA','ARIAS','ERAS','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
 (11,'11573419','JUDITH GLORIA','ASISTIRI','SEBASTIA','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
 (12,'','SABA','ATILLA','','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
@@ -126,7 +129,7 @@ INSERT INTO `alumnos` VALUES
 (42,'11537827','Lope','García','Rey','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:03','2026-08-28 16:43:03'),
 (43,'11545658','Lila','Gasulla','Moreno','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:04','2026-08-28 16:43:04'),
 (44,'','Carlos Alberto','Geraud','Fereira','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:04','2026-08-28 16:43:04'),
-(45,'','Eva','Giner','García','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:04','2026-08-28 16:43:04'),
+(45,'_','Eva','Giner','García','1970-01-01','1ESO','',NULL,1,'2026-08-28 16:43:04','2026-09-16 15:06:57'),
 (46,'','CHRISTOPHER','GIRALDO','OJEDA','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:04','2026-08-28 16:43:04'),
 (47,'11521498','Daniel','Gómez','Jarabo','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:04','2026-08-28 16:43:04'),
 (48,'11537531','María','Góngora','Orozco','1970-01-01','1ESO','','N',1,'2026-08-28 16:43:04','2026-08-28 16:43:04'),
@@ -300,7 +303,7 @@ CREATE TABLE `casos` (
   CONSTRAINT `casos_id_origen_foreign` FOREIGN KEY (`id_origen`) REFERENCES `origenes` (`id`),
   CONSTRAINT `casos_id_tipologia_foreign` FOREIGN KEY (`id_tipologia`) REFERENCES `tipologias` (`id`),
   CONSTRAINT `casos_id_triaje_foreign` FOREIGN KEY (`id_triaje`) REFERENCES `triajes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,6 +313,8 @@ CREATE TABLE `casos` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `casos` WRITE;
 /*!40000 ALTER TABLE `casos` DISABLE KEYS */;
+INSERT INTO `casos` VALUES
+(5,1,1,2,4,'add\r\n --16/9/2026, 19:04:37--\r\nmeto datos ahora pero puedo borrar y seguir metiendo','1:Parte;73:Testigo;','2026-09-15 09:47:06','2026-09-17 04:53:17');
 /*!40000 ALTER TABLE `casos` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -402,7 +407,7 @@ CREATE TABLE `expedientes` (
   CONSTRAINT `expedientes_id_alumno_foreign` FOREIGN KEY (`id_alumno`) REFERENCES `alumnos` (`id`),
   CONSTRAINT `expedientes_id_profesor_foreign` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id`),
   CONSTRAINT `expedientes_id_tipologia_foreign` FOREIGN KEY (`id_tipologia`) REFERENCES `tipologias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +418,8 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `expedientes` WRITE;
 /*!40000 ALTER TABLE `expedientes` DISABLE KEYS */;
 INSERT INTO `expedientes` VALUES
-(1,'2026-08-27',73,1,1,'dfssad','1970-01-01','sdgds','2026-08-27 07:57:49','2026-08-27 07:57:49');
+(1,'2026-08-27',73,1,1,'dfssad','1970-01-01','sdgds','2026-08-27 07:57:49','2026-08-27 07:57:49'),
+(2,'2026-09-16',73,1,1,'aa','1970-01-01',NULL,'2026-09-16 16:04:16','2026-09-16 16:04:16');
 /*!40000 ALTER TABLE `expedientes` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -708,7 +714,7 @@ INSERT INTO `profesores` VALUES
 (11,'Gimenez','Gomez','Ester Violeta','ev.gimenezgomez@edu.gva.es','1ESO','C',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
 (12,'Gonzalez','Peris',' Borja ','b.gonzalezperis@edu.gva.es','','',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
 (14,'Lopez','Miñano',' Lucia ','l.lopezminano@edu.gva.es','','',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
-(16,'Mayor','Serra',' Antonio Jose','aj.mayorserra@edu.gva.es','','',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
+(16,'Mayor','Serra','Antonio Jose','aj.mayorserra@edu.gva.es',NULL,NULL,1,'2026-09-01 13:07:05','2026-09-17 04:51:17'),
 (17,'Orovio','Orovio',' Isabel Pilar','ip.orovioorovio@edu.gva.es','','',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
 (18,'Perez','Ferrando',' Joan',' j.perezferrando@edu.gva.es','','',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
 (19,'Pico','Llinares',' Miguel','m.picollinares@edu.gva.es','','',1,'2026-09-01 13:07:05','2026-09-01 13:07:05'),
@@ -877,4 +883,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-09-14 23:31:09
+-- Dump completed on 2026-09-20  9:11:08

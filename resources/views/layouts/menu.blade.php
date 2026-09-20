@@ -34,9 +34,17 @@
             <a class="dropdown-item" href="{{route('origenes')}}">Origenes</a>
             <a class="dropdown-item" href="{{route('triajes')}}">Triaje</a>
             <a class="dropdown-item" href="{{route('usuarios')}}">Usuarios</a>
-             <a class="dropdown-item" href="{{route('import_database')}}">BaseDatos</a>
+            
           </div>
         </li>
+                <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Herramientas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{route('import_database')}}">BaseDatos</a>
+             <a class="dropdown-item" href="{{route('herramientas')}}">Actualizar</a>
+		</li>
 		<li >
 			<a  class="nav-link" href='/logout'>Salir</a>
 		</li>

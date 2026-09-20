@@ -14,6 +14,7 @@ use App\Http\Controllers\TipologiaController;
 use App\Http\Controllers\OrigenController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ActorCasosController;
+use App\Http\Controllers\ToolsController;
 
 Route::get('/forms',  function () { return view('forms'); });
 Route::get('/login', [UserController::class,'login'])->name('login');
@@ -121,12 +122,15 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::post('/parte/grabar','grabar')->name('parte_grabar');
 		Route::get('/parte/eliminar/{id}', 'delete')->name('parte_eliminar');
 	});
-		Route::controller(InformeController::class)->group(function (){
+	Route::controller(InformeController::class)->group(function (){
 			Route::get('/listados/','index')->name('listados');
 			Route::post('/listados/','index')->name('listados');
 			Route::get('/export/','export')->name('export_database');
 			Route::get('/import','importar');
 			Route::post('/import','importar')->name('import_database');
+	});
+	Route::controller(ToolsController::class)->group(function (){
+		Route::get('/herramientas/','actualizar')->name('herramientas');
 	});
 });
 
