@@ -25,10 +25,10 @@ class CasoController extends Controller
 			$filtrar = true;
 		}
 		else{
-			$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null]; 
+			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null]; 
 		}
 		if(isset($busqueda['clean'])){
-			$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
+			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
 			
 		}
 
@@ -51,6 +51,9 @@ class CasoController extends Controller
 							$busqueda['desde'] = (isset($request->desde) AND !empty($request->desde)) ?date($request->desde):"";
 							$busqueda['hasta'] = (isset($request->hasta) AND !empty($request->hasta)) ?date($request->hasta):date("Y-m-d");
 							$casos =$casos->whereBetween('updated_at',[$busqueda['desde'],$busqueda['hasta'] ]);
+						}
+						elseif($campo == 'titulo'){
+							$casos = $casos->where($campo, 'LIKE', '%'.$valor.'%' );
 						}
 						else{
 							$casos = $casos->where($campo, '=', $valor );
@@ -124,6 +127,7 @@ class CasoController extends Controller
             $caso = new Caso;
         }
         //$descripcion = str_replace($caso->descripcion,date('d-m-Y H:i'),$request->descripcion);
+		$caso->titulo = $request->titulo;
         $caso->id_estado = $request->id_estado;
         $caso->id_triaje = $request->id_triaje;
         $caso->id_origen = $request->id_origen;

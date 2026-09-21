@@ -8,6 +8,15 @@
 			<h1>{{$titulo}} Expediente</h1>
 		</div>
 	</div>
+	<div class='row p-4 justify-content-center'>
+	
+		 <div class="col-md-8 col-sm-12">
+			 	<form method='POST' action="{{route('expediente_grabar')}}">
+		@csrf
+			<label for="titulo">Titulo</label>
+			<input type="text" name='titulo' id='titulo' class="form-control" value="{{$expediente->titulo}}{{old('titulo')}}">
+		</div>
+	</div>
 	<div class='row p-2 justify-content-center'>
 		<div class='col text-center'>
 			<h2>Datos del alumno</h2>
@@ -16,8 +25,7 @@
 	<div class='row p-2 justify-content-center'>
 
 		<div class='col-sm-12 col-md-4'>
-			<form method='POST' action='{{route('expediente_grabar')}}'>
-				@csrf
+	
 			<input type=hidden name='id' value='{{$expediente->id}}'>
 			<label for='apellidos' id='label_apellidos_alumno'>Apellidos</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$expediente->id_alumno}}'>

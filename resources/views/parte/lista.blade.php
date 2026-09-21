@@ -5,54 +5,51 @@
 
  
 <div class="row justify-content-center p-3">
-	<div class='col-11'>
+	<div class='col-12'>
 		<div class="row p-2">
-			<table border='0'>
-				<tr>
-					<td>		
-						<form method="POST" action="{{route('partes_buscar')}}">@csrf
-						<div class="row">
-
-							
-							<div class="col-xs-12 col-md-2">	
-								<label for="tipologia">Tipología</label>
-								<select  class="form-control" id='tipologia' name='id_tipologia'>
-									<option value=''>...</option>
-								@foreach($tipologias as $tipologia)
-									<option value='{{$tipologia->id}}' @if($tipologia->id == $busqueda['id_tipologia']) selected @endif> {{$tipologia->nombre}}</option>
-								@endforeach
-								</select>
-							</div>
-							<div class="col-xs-12 col-md-2">	
-								<label for="alumno">alumno</label>
-								<input type=hidden  name='id_alumno' id='id_alumno'>
-								<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)'>
-								<div id='respuesta_alumno' class='respuesta'></div>
-							</div>
-							<div class="col-xs-12 col-md-2">	
-								<label for="profesor">profesor</label>
-								<input type=hidden  name='id_profesor' id='id_profesor'>
-								<input type='text'class='form-control' id='nombre_completo_profesor' onkeyup='buscar_profesor(this.value)'>
-								<div id='respuesta_profesor' class='respuesta'></div>
-							</div>
-														<div class="col-xs-12 col-md-2">	
-								<label for="desde">Desde</label>
-								<input id="desde" type=date name="desde"  value="{{$busqueda['desde']}}" class="form-control" >
-							</div>
-							<div class="col-xs-12 col-md-2">
-								<label for="hasta">Hasta</label>
-								<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
-							</div>
-							<div class="col-xs-12 col-md-2 text-md-end">
-								<br>	
-								<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
-								<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button></a>
-								</form>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</table>
+			<div class="row">
+				<div class="col-xs-12 col-md-2">	
+					<form method="POST" action="{{route('partes_buscar')}}">
+						@csrf
+						<label for="titulo">Titulo</label>
+						<input type=text id="titulo" name="titulo" value="{{$busqueda['titulo']}}"" class="form-control">
+				</div>
+				<div class="col-xs-12 col-md-1">	
+					<label for="tipologia">Tipología</label>
+					<select  class="form-control" id='tipologia' name='id_tipologia'>
+						<option value=''>...</option>
+					@foreach($tipologias as $tipologia)
+						<option value='{{$tipologia->id}}' @if($tipologia->id == $busqueda['id_tipologia']) selected @endif> {{$tipologia->nombre}}</option>
+					@endforeach
+					</select>
+				</div>
+				<div class="col-xs-12 col-md-2">	
+					<label for="alumno">alumno</label>
+					<input type=hidden  name='id_alumno' id='id_alumno'>
+					<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)'>
+					<div id='respuesta_alumno' class='respuesta'></div>
+				</div>
+				<div class="col-xs-12 col-md-2">	
+					<label for="profesor">profesor</label>
+					<input type=hidden  name='id_profesor' id='id_profesor'>
+					<input type='text'class='form-control' id='nombre_completo_profesor' onkeyup='buscar_profesor(this.value)'>
+					<div id='respuesta_profesor' class='respuesta'></div>
+				</div>
+											<div class="col-xs-12 col-md-2">	
+					<label for="desde">Desde</label>
+					<input id="desde" type=date name="desde"  value="{{$busqueda['desde']}}" class="form-control" >
+				</div>
+				<div class="col-xs-12 col-md-2">
+					<label for="hasta">Hasta</label>
+					<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
+				</div>
+				<div class="col-xs-12 col-md-1 text-md-end">
+					<br>	
+					<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
+					<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button></a>
+					</form>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 
@@ -60,6 +57,7 @@
 				<thead class="bg-light">
 					<tr>
 						<th>#</th>
+						<th>Titulo</th>
 						<th>Fecha</th>
 						<th>desccripcion</th>
 						<td align='right'><a href="{{route('parte_nuevo')}}">
@@ -71,6 +69,7 @@
 			   @foreach($partes as $parte)
 				<tr>
 				  <td >{{$parte->id}}</td>
+				  <td>{{$parte->titulo}}</td>
 				  <td>{{date('Y-m-d', strtotime($parte->fecha))}}</td>
 				  <td>{{$parte->descripcion}}</td>
 

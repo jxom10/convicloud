@@ -7,11 +7,17 @@
         <h3>{{$titulo}}</h3>
     </div>
 </div>
-
+	<div class='row p-2 justify-content-center'>
+		<form method=POST action="{{route('parte_grabar')}}">
+			@csrf
+		 <div class="col-sm-12">
+			<label for="titulo">Titulo</label>
+			<input type="text" name='titulo' id='titulo' class="form-control" value="{{$parte->titulo}}{{old('titulo')}}">
+		</div>
+	</div>
 <div class='row p-2 justify-content-center'>
 		<div class="col-sm-12 col-md-6">
-			<form method=POST action="{{route('parte_grabar')}}">
-			@csrf
+			
 			<input type=hidden value='{{$parte->id}}' name='id'>
 			<div class="form-group">
 				<label for="fecha">Fecha</label>

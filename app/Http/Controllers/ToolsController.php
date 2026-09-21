@@ -20,10 +20,13 @@ class ToolsController extends Controller
 				$result = Process::path('.convicloud_temp')->run("chmod 777 -R .convicloud_temp/convicloud-main/public");
 				$result = Process::path('.convicloud_temp')->run("chmod 777 -R .convicloud_temp/convicloud-main/storage");
 				$result = Process::path('.convicloud_temp')->run("rsync -avi convicloud-main/. ../../");
-				echo "<pre>";
-				print_r($result->output());
-				echo "</pre>";
+				//echo "<pre>";
+				//print_r($result->output());
+				//echo "</pre>";
 				$result = Process::run('rm -R .convicloud_temp');
+				
+				$result = Process::path(base_path())->run("php artisan migrate");
+				
 				session()->now('message', ['texto'=>'Actualizacion correcta','color'=>'success']);
 				die();
 				//return view('inicio');

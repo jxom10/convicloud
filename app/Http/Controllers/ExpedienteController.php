@@ -18,10 +18,10 @@ class ExpedienteController extends Controller
 			$filtrar = true;
 		}		
 		else{	
-			$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
+			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
 		}	
 		if(isset($request->clean)){
-			$busqueda = ['id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
+			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
 		}
 		if($filtrar){	
 			$id_alumno =(isset($busqueda['id_alumno']))?$busqueda['id_alumno']:null;
@@ -36,6 +36,9 @@ class ExpedienteController extends Controller
 							$busqueda['hasta'] = (isset($request->hasta) AND !empty($request->hasta)) ?date($request->hasta):date("Y-m-d");
 							$expedientes =$expedientes->whereBetween('updated_at',[$busqueda['desde'],$busqueda['hasta'] ]);
 						}
+						elseif($campo == 'titulo'){
+							$expedientes = $expedientes->where($campo, 'LIKE', '%'.$valor.'%' );
+					}
 						else{
 							$expedientes = $expedientes->where($campo, '=', $valor );
 						}
@@ -88,6 +91,7 @@ class ExpedienteController extends Controller
 		if(!empty($request->id)){
 			$expediente = $expediente->where('id',$request->id)->first();
 		}
+		$expediente->titulo = $datos['titulo'];
 		$expediente->id_alumno = $datos['id_alumno'];
 		$expediente->id_profesor =$datos['id_profesor'];
 		$expediente->fecha_apertura =$datos['fecha_apertura'];

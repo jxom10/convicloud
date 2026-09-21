@@ -9,7 +9,6 @@
 		</div>
 	</div>
     
-     
 	<div class='row p-4 justify-content-center'>
 		<div class="col-sm-12 col-md-1">
 			<form method=POST action="{{route('caso_grabar')}}">
@@ -71,6 +70,12 @@
 				>{{$origen->nombre}}</option>
 			@endforeach          
 			</select>
+		</div>
+	</div>
+	<div class='row p-4 justify-content-center'>
+		 <div >
+			<label for="titulo">Titulo</label>
+			<input type="text" name='titulo' id='titulo' class="form-control" value="{{$caso->titulo}}{{old('titulo')}}">
 		</div>
 	</div>
 	<div class='row p-4 justify-content-center'>

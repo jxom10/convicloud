@@ -10,9 +10,14 @@
 			<table border='0'>
 				<tr>
 					<td>		
-						<form method="POST" action="{{route('expedientes_buscar')}}">@csrf
+						
 						<div class="row">
-
+							<div class="col-xs-12 col-md-2">	
+								<form method="POST" action="{{route('expedientes_buscar')}}">@csrf
+									@csrf
+									<label for="titulo">Titulo</label>
+									<input type=text id="titulo" name="titulo" value="{{$busqueda['titulo']}}"" class="form-control">
+							</div>
 							<div class="col-xs-12 col-md-2">	
 								<label for="tipologia">Tipología</label>
 								<select  class="form-control" id='tipologia' name='id_tipologia'>
@@ -36,7 +41,7 @@
 								<label for="hasta">Hasta</label>
 								<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
 							</div>
-							<div class="col-xs-12 col-md-4 text-end">
+							<div class="col-xs-12 col-md-2 text-end">
 								<br>	
 								<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
 								<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button></a>
@@ -53,6 +58,7 @@
 				<thead class="bg-light">
 					<tr>
 						<th>#</th>
+						<th>Titulo</th>
 						<th>Fecha</th>
 						<th>desccripcion</th>
 						<td align='right'><a href="{{route('expediente_nuevo')}}">
@@ -64,6 +70,7 @@
 			   @foreach($expedientes as $expediente)
 				<tr>
 				  <td >{{$expediente->id}}</td>
+				  <td>{{$expediente->titulo}}</td>
 				  <td>{{date('Y-m-d', strtotime($expediente->fecha_apertura))}}</td>
 				  <td>{{$expediente->descripcion}}</td>
 
