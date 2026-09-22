@@ -52,7 +52,7 @@
         <label for="genero">Genero</label>
       
 			<select name='genero' class='form-control'>
-				<option value="" @if( $alumno->genero == 'E') selected  @endif> ... </option>
+				<option value="N" @if( $alumno->genero == 'N') selected  @endif> ... </option>
 				<option value="O" @if( $alumno->genero == 'O') selected  @endif> MASCULINO</option>
 				<option value="A" @if( $alumno->genero == 'A') selected  @endif> FEMENINO</option>
 			</select>

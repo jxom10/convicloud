@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Profesor;
 use App\Models\User;
 class ProfesorController extends Controller
@@ -18,12 +19,19 @@ class ProfesorController extends Controller
 			if(isset($buscar['active']) AND $buscar['active']==1){
 				$profesores= $profesores->where('active',1);
 			}
-			if($buscar['busqueda'] != null){
-				$profesores = $profesores->where('nombre','LIKE', '%'.	$buscar['busqueda'] . '%')
-									->orwhere('apellido1','LIKE', '%'.	$buscar['busqueda'] . '%')
-									->orwhere('apellido2','LIKE', '%'. 	$buscar['busqueda'] . '%');
+			if($buscar['profesores'] != null){
+				$profesores = $profesores->where(
+								function($query) use ($buscar){
+									$query->where('nombre','LIKE', '%'.	$buscar['profesores'] . '%')
+										->orwhere('apellido1','LIKE', '%'.	$buscar['profesores'] . '%')
+										->orwhere('apellido2','LIKE', '%'. 	$buscar['profesores'] . '%');
+									}
+								);													
 
 				
+			}
+			if($buscar['curso']!= null){
+				$profesores = $profesores->where('curso','LIKE','%'.$buscar['curso'].'%'); 
 			}
 			$profesores= $profesores->paginate(50);
 		}

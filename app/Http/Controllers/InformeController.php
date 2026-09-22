@@ -22,10 +22,13 @@ class InformeController extends Controller
 		$partes_data = Parte::total_mensuales('fecha');
 		$expedientes_data = Expediente::total_mensuales('fecha_apertura');
 		$casos_data = Caso::total_mensuales('created_at');
+		
 		$tipologias=[];
 		foreach(Tipologia::all() as $tipologia){ $tipologias[$tipologia->nombre]=0;	}
+		
 		$origenes = [];
 		foreach(Origen::all() as $origen){ $origenes[$origen->nombre]=0;	}
+		
 		$datos['partes']=array('nivel'=>['leve'=>0,'grave'=>0],
 								'curso'=>['1ESO'=>0,'2ESO'=>0,'3ESO'=>0,'4ESO'=>0,'1BACH'=>0,'2BACH'=>0],
 								'genero'=> ['O'=>0,'A'=>0,'N'=>0],
@@ -43,6 +46,7 @@ class InformeController extends Controller
 								'origen'=>$origenes,
 								'tipologia'=>$tipologias,
 								'reincidentes'=>[]);
+		
 		if($tipo=='Parte'){
 
 			$partes = Parte::whereBetween('fecha',[$desde,$hasta])->get();
@@ -71,7 +75,6 @@ class InformeController extends Controller
 		}
 		if($tipo=='Caso'){
 			$casos = Caso::whereBetween('created_at',[$desde,$hasta])->get();
-			
 			foreach($casos as $caso){
 				$datos['casos']['estudiantes']['total'] += count($caso->lista_implicados);
 				$datos['casos']['origen'][$caso->origen->nombre] +=1;

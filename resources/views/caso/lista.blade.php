@@ -54,15 +54,15 @@
 					<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)' value='{{$nombre_alu}}'>
 					<div id='respuesta_alumno' class='respuesta'></div>
 				</div>
-				<div class="col-xs-12 col-md-2">	
-					<label for="desde">Modificado entre el</label>
+				<div class="col-xs-12 col-md-1">	
+					<label for="desde">cambios entre el</label>
 					<input id="desde" type=date name="desde"  value=""{{$busqueda['desde']}}" class="form-control" >
 				</div>
-				<div class="col-xs-12 col-md-2">
+				<div class="col-xs-12 col-md-1">
 					<label for="hasta">y el</label>
 					<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
 				</div>
-				<div class="col-xs-12 col-md-12 text-end"">
+				<div class="col-xs-12 col-md-2 text-end"">
 					<br>	
 					<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
 					<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button></a>

@@ -5,63 +5,66 @@
 @section('contenido')
  
 <div class="row justify-content-center p-3">
-	<div class='col-11'>
+	<div class='col-12'>
 		<div class="row p-2">
-			<table border='0'>
-				<tr>
-					<td>		
-						<form method="POST" action="{{route('profesores_buscar')}}">@csrf
-						<div class="row">
-							<div class="col-12 col-md-3">	
 
-								<input type="text" class="form-control" id="busqueda" name="busqueda"  placeholder="Buscar por nombre o apellido" value="@if(isset($buscar['busqueda'])) {{$buscar['busqueda']}}  @endif">
-							</div>
-							<div class="col-12 col-md-2">	
-								<select name='active'  class="form-control">
-									
-									<option value="1" @if(isset($buscar['active']) AND $buscar['active']==1) selected @endif>Profesores activos</option>
-									<option value="all"  @if(isset($buscar['active']) AND $buscar['active']=='all') selected @endif>Todos los profesores</option>
-								</select>
-							</div>
-							<div class="col-10 col-sm-11  col-md-6">	
-								<label for="btn_buscar">&nbsp;&nbsp;&nbsp;</label>
-								<button class="btn btn-primary" id='btn_buscar'>
-									<i class='fa fa-search'></i>
-								</button>
-								<label for="btn_limpiar">&nbsp;&nbsp;&nbsp;</label>
-								<button name="clean" id='btn_limpiar' value="clean"  class="btn btn-primary">
-									<i class='fa fa-trash'></i>
-								</button></form>
-								
-							</div>
-							<div class="col-1 col-sm-1  col-md-1 ">
-								<button type="button" class="btn btn-primary" onclick="mostrar_filtro()">
-									<i class='fa fa-sort-amount-desc'></i></button>
-								<div id="filtro"  class="text-end">
-									<ul>
-										
-										<li>
-											<a href="{{route('profesores_lista',['orden'=>'nombre','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>Nombre</a>
-										</li>
-										<li>
-											<a href="{{route('profesores_lista',['orden'=>'nombre','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Nombre</a>
-										</li>
-										<li>
-											<a href="{{route('profesores_lista',['orden'=>'apellido1','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellidos</a>
-										</li>
-										</li>
-										<li>
-											<a href="{{route('profesores_lista',['orden'=>'apellido1','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellidos</a>
-										</li>
-										
-									</ul>
-								</div>
-							</div>
+			<form method="POST" action="{{route('profesores_buscar')}}">@csrf
+			<div class="row">
+				<div class="col-12 col-md-3">	
+					<label for="profesor">Profesor</label>
+					<input type="text" id=profesor class="form-control" name="profesores"  placeholder="Buscar por nombre o apellido" value="@if(isset($buscar['profesores'])) {{$buscar['profesores']}}  @endif">
+				</div>
+				<div class="col-12 col-md-2">	
+					<label for="curso"> &nbsp;</label>
+					<select name='active'  class="form-control">
+						
+						<option value="1" @if(isset($buscar['active']) AND $buscar['active']==1) selected @endif>Profesores activos</option>
+						<option value="all"  @if(isset($buscar['active']) AND $buscar['active']=='all') selected @endif>Todos los profesores</option>
+					</select>
+				</div>
+				<div class="col-12 col-md-2">	
+					<label for="curso">Curso</label>
+					<input type="text" class="form-control" id="curso" name="curso" value="@if(isset($buscar['curso'])) {{$buscar['curso']}}  @endif">
+				</div>
+				<div class="col-10 col-sm-11  col-md-4">	
+					<br>
+					<label for="btn_buscar">&nbsp;</label>
+					<button class="btn btn-primary" id='btn_buscar'>
+						<i class='fa fa-search'></i>
+					</button>
+					<label for="btn_limpiar">&nbsp;&nbsp;&nbsp;</label>
+					<button name="clean" id='btn_limpiar' value="clean"  class="btn btn-primary">
+						<i class='fa fa-trash'></i>
+					</button></form>
 					
-						</div>
-					</td>
-				</tr>
-			</table>
+				</div>
+				<div class="col-1 col-sm-1  col-md-1 ">
+					<br>
+					<button type="button" class="btn btn-primary" onclick="mostrar_filtro()">
+						<i class='fa fa-sort-amount-desc'></i></button>
+					<div id="filtro"  class="text-end">
+						<ul>
+							
+							<li>
+								<a href="{{route('profesores_lista',['orden'=>'nombre','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>Nombre</a>
+							</li>
+							<li>
+								<a href="{{route('profesores_lista',['orden'=>'nombre','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Nombre</a>
+							</li>
+							<li>
+								<a href="{{route('profesores_lista',['orden'=>'apellido1','direccion'=>'DESC'])}}"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>apellidos</a>
+							</li>
+							</li>
+							<li>
+								<a href="{{route('profesores_lista',['orden'=>'apellido1','direccion'=>'ASC'])}}"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>apellidos</a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+		
+			</div>
+
 		</div>
 		<div class="row">
 
