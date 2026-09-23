@@ -10,8 +10,6 @@ class ToolsController extends Controller
 {
    public function actualizar(Request $request){
 		if(isset($request->password)) {
-			
-			
 			if($request->password=='Iesmh4ever'){	
 				$mensaje = "";
 				$result = Process::run('mkdir .convicloud_temp');
@@ -23,12 +21,12 @@ class ToolsController extends Controller
 				$result = Process::run('rm -R .convicloud_temp');
 				
 				$result = Process::path(base_path())->run("php artisan migrate");
-				$mensaje . = $result->output();
+				$mensaje .= $result->output();
 				$result = Process::path(base_path())->run("php artisan view:clear");
-				$mensaje . = $result->output();
+				$mensaje .= $result->output();
 				session()->now('message', ['texto'=>$mensaje,'color'=>'success']);
 				
-				return view('inicio');
+				return view('tools.update');
 
 			}
 			else{
