@@ -19,9 +19,12 @@ class CasoController extends Controller
 		$triajes 	= Triaje::all();
 		$estados 	= Estado::all();
 		$filtrar = false;
-
-		if(isset($request->_token)){
+		$casos  = new Caso;
+		
+		//dd($request->all());
+		if(isset($request->filtrar)){
 			$busqueda = $request->all();
+			unset($busqueda['filtrar']);
 			$filtrar = true;
 		}
 		else{
@@ -31,7 +34,9 @@ class CasoController extends Controller
 			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
 			
 		}
-
+		if(isset($request->pendientes)){
+			$casos = $casos->whereNotNull('pendiente')->orWhere('pendiente','<>','');
+		}
 		if($filtrar){	
 
 			$id_alumno =(isset($busqueda['id_alumno']))?$busqueda['id_alumno']:null;
@@ -61,13 +66,10 @@ class CasoController extends Controller
 					}
 				}
 			}
-			//echo $casos->toRawSql();
-			//die();
-			$casos = $casos->paginate(50);
 		}
-		else{
-			$casos= Caso::paginate(50);
-		}
+
+		//echo $casos->toRawSql();
+		$casos = $casos->paginate(50);
 		$nombre_alu = ($busqueda['id_alumno'])?Alumno::find($busqueda['id_alumno'])->nombre_completo():null;
 
 		$datos = ['casos' => $casos,'triajes'=>$triajes,'tipologias'=>$tipologias,'origenes'=>$origenes,'estados'=>$estados,'busqueda'=>$busqueda,'nombre_alu'=>$nombre_alu]; 

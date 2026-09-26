@@ -5,12 +5,13 @@
 
 <div class="row justify-content-center p-3">
 	<div class='col-12'>
-		<div class="row p-2">
+		<div class="row align-items-center p-2">
 			<div class="row">
 				<div class="col-xs-12 col-md-2">	
-					<form method="POST" action="{{route('casos_buscar')}}">@csrf
+					<form method="POST" action="{{route('casos_buscar')}}">
+						@csrf
 					<label for="titulo">Titulo</label>
-					<input id="titulo" type=text name="titulo"  value=""{{$busqueda['titulo']}}" class="form-control" >
+					<input id="titulo" type=text name="titulo"  value="{{$busqueda['titulo']}}" class="form-control" >
 				</div>
 				<div class="col-xs-12 col-md-1">	
 					<label for="estado">Estado</label>
@@ -54,20 +55,22 @@
 					<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)' value='{{$nombre_alu}}'>
 					<div id='respuesta_alumno' class='respuesta'></div>
 				</div>
+				<div class="col-xs-12 col-md-2">	
+					<label for="desde">Modificados entre</label>
+					<input id="desde" type=date name="desde"  value="{{$busqueda['desde']}}" class="form-control" >
+					<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}" class="form-control" >
+				</div>
 				<div class="col-xs-12 col-md-1">	
-					<label for="desde">cambios entre el</label>
-					<input id="desde" type=date name="desde"  value=""{{$busqueda['desde']}}" class="form-control" >
+					<br>
+					<button id="pendientes" name="pendientes" value="1" class="btn btn-warning">pendientes</button>
 				</div>
-				<div class="col-xs-12 col-md-1">
-					<label for="hasta">y el</label>
-					<input type=date name="hasta" id="hasta"  value="{{$busqueda['hasta']}}"" class="form-control" >
-				</div>
-				<div class="col-xs-12 col-md-2 text-end"">
-					<br>	
-					<button class="btn btn-primary"><i class='fa fa-search'></i></button></a>
-					<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button></a>
+				<div class="col-xs-12 col-md-1 text-end">
+					<br>
+					<button class="btn btn-primary" name="filtrar" value="filtrar"><i class='fa fa-search'></i></button>
+					<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button>
 					</form>
 				</div>
+				
 			</div>
 		</div>
 		<div class="row">
@@ -100,7 +103,10 @@
 						<td>{{$caso->estado->nombre}}</td>
 						<td>{{$caso->triaje->nombre}}</td>
 						<td align='right'>
-							<a href="{{route('caso_ver',$caso->id)}}"><i class="fa fa-eye	 fa-2x" aria-hidden="true"></i></a>
+							<a href="{{route('caso_ver',$caso->id)}}">
+								
+								<i @if(!empty($caso->pendiente )) style="color:#dd5600" title="{{$caso->pendiente}}" @endif class="fa fa-eye	 fa-2x" aria-hidden="true"></i>
+							</a>
 							<a onclick="return confirm('Va a eliminar un registro.\nEsta seguro?')"  href="{{route('caso_eliminar',$caso->id)}}"><i class="fa fa-trash	 fa-2x" aria-hidden="true"></i></a>
 						</td>
 					</tr>
