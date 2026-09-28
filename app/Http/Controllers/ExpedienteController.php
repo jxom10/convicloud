@@ -54,10 +54,10 @@ class ExpedienteController extends Controller
 				//$busqueda['id_alumno'] = $request->id_alumno;
 				//$expedientes = $expedientes->where('id_alumno',$request->id_alumno);
 			//}
-
+			$total = $expedientes->count();
 			$expedientes= $expedientes->paginate(50);
 		
-		return view ('expediente.lista',['expedientes' => $expedientes,'busqueda'=>$busqueda,'tipologias'=>$tipologias]);
+		return view ('expediente.lista',['expedientes' => $expedientes,'busqueda'=>$busqueda,'tipologias'=>$tipologias,'total'=>$total]);
 	}
 	
 	public function ver($id = null){

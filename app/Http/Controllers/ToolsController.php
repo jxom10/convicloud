@@ -36,5 +36,42 @@ class ToolsController extends Controller
 
 		return view('tools.update');	
 	}
+	/*exporatar base de datos*/
+	public function export(){
 
+		$dbname = config('database.connections.mariadb.database');
+		$username = config('database.connections.mariadb.username');
+		$password = config('database.connections.mariadb.password');
+		$file =  "backups/backup".date('Ymd').".sql";
+		$txt = "mariadb-dump -u".$username." -p".$password." ". $dbname." > ".$file ;
+		if($result = Process::run($txt)){
+			session()->now('message', ["texto"=>"Fichero exportado correctamente","color"=>"success"]);
+		}
+		else{
+			session()->now('message', ["texto"=>"Error al exportar fichero","color"=>"danger"]);
+		}
+		
+	  	return response()->download($file);
+
+	}
+	/*importar base de datos*/
+	public function importar(Request $request){
+		$dbname = config('database.connections.mariadb.database');
+		$username = config('database.connections.mariadb.username');
+		$password = config('database.connections.mariadb.password');
+		$txt = "mariadb -u".$username." -p".$password." ". $dbname." <  backups/backup.sql";
+		if($request->hasFile('file')){
+			$file = $request->file('file');
+			$file->move(public_path('backups'),'backup.sql');
+
+			if($result = Process::run($txt)){
+				session()->now('message', ["texto"=>"Datos importada correctamente","color"=>"success"]);
+			}
+			else{
+				session()->now('message', ["texto"=>"Error al importar los datos","color"=>"danger"]);
+			}
+		}
+		return view('tools.databaseimport');
+		
+	}
 }

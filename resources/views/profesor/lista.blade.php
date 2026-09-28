@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-12 col-md-3">	
 					<label for="profesor">Profesor</label>
-					<input type="text" id=profesor class="form-control" name="profesores"  placeholder="Buscar por nombre o apellido" value="@if(isset($buscar['profesores'])) {{$buscar['profesores']}}  @endif">
+					<input type="text" id=profesor class="form-control" name="profesores"  placeholder="Buscar por nombre o apellido" value="@if(isset($buscar['profesores'])){{$buscar['profesores']}}@endif">
 				</div>
 				<div class="col-12 col-md-2">	
 					<label for="curso"> &nbsp;</label>
@@ -24,7 +24,7 @@
 				</div>
 				<div class="col-12 col-md-2">	
 					<label for="curso">Curso</label>
-					<input type="text" class="form-control" id="curso" name="curso" value="@if(isset($buscar['curso'])) {{$buscar['curso']}}  @endif">
+					<input type="text" class="form-control" id="curso" name="curso" value="@if(isset($buscar['curso'])){{$buscar['curso']}}@endif">
 				</div>
 				<div class="col-10 col-sm-11  col-md-4">	
 					<br>
@@ -38,7 +38,7 @@
 					</button></form>
 					
 				</div>
-				<div class="col-1 col-sm-1  col-md-1 ">
+				<div class="col-1 col-sm-1  col-md-1 text-end ">
 					<br>
 					<button type="button" class="btn btn-primary" onclick="mostrar_filtro()">
 						<i class='fa fa-sort-amount-desc'></i></button>
@@ -67,7 +67,7 @@
 
 		</div>
 		<div class="row">
-
+			<div class="col text-end"><b><i>{{$total}} registros</i></b></div>
 			 <table class="table table-striped">
 				<thead class="bg-light">
 					<tr>

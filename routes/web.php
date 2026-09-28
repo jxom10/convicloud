@@ -24,7 +24,7 @@ Route::post('/recuperar',[UserController::class,'recuperar_password'])->name('re
 
 Route::group(['middleware'=> ['auth']], function () {
 	
-	Route::get('/', function () { return view('inicio'); });
+	Route::get('/', function () { return view('layouts.inicio'); });
 	
 	Route::controller(UserController::class)->group(function (){
 		Route::get('/usuarios','index')->name('usuarios');
@@ -125,13 +125,14 @@ Route::group(['middleware'=> ['auth']], function () {
 	Route::controller(InformeController::class)->group(function (){
 			Route::get('/listados/','index')->name('listados');
 			Route::post('/listados/','index')->name('listados');
-			Route::get('/export/','export')->name('export_database');
-			Route::get('/import','importar');
-			Route::post('/import','importar')->name('import_database');
+			
 	});
 	Route::controller(ToolsController::class)->group(function (){
 		Route::get('/herramientas/','actualizar')->name('herramientas');
 		Route::post('/herramientas/','actualizar')->name('update');
+		Route::get('/export/','export')->name('export_database');
+		Route::get('/import','importar');
+		Route::post('/import','importar')->name('import_database');
 	});
 });
 

@@ -9,36 +9,53 @@ use App\Models\User;
 class ProfesorController extends Controller
 {
 	public function index(Request $request,$orden = 'nombre',$direccion = 'asc'){
-		$buscar = $request->all();
 
-		if(isset($buscar['clean'])){
-			$buscar  = null;
+		$profesores= new Profesor;	
+		if($_POST){
+			$busqueda= $_POST;
+			session()->put('filtro_profesores',$_POST);
 		}
-		if(isset($buscar['_token'])){
-			$profesores= new Profesor;	
-			if(isset($buscar['active']) AND $buscar['active']==1){
+		elseif(session()->get('filtro_profesores')){
+			$busqueda= session()->get('filtro_profesores');
+		}
+		else{
+			$busqueda  = array("nombre"=>"","curso"=>"","grupo"=>""); 
+			session()->put('filtro_profesores',$busqueda);
+		} 
+		
+		if(isset($busqueda['clean'])){
+			$busqueda  = array("profesores"=>"","curso"=>"","active"=>null);
+		}
+		if(isset($busqueda['_token'])){
+			
+			if(isset($busqueda['active']) AND $busqueda['active']==1){
 				$profesores= $profesores->where('active',1);
 			}
-			if($buscar['profesores'] != null){
+			if($busqueda['profesores'] != null){
 				$profesores = $profesores->where(
-								function($query) use ($buscar){
-									$query->where('nombre','LIKE', '%'.	$buscar['profesores'] . '%')
-										->orwhere('apellido1','LIKE', '%'.	$buscar['profesores'] . '%')
-										->orwhere('apellido2','LIKE', '%'. 	$buscar['profesores'] . '%');
+								function($query) use ($busqueda){
+									$query->where('nombre','LIKE', '%'.	$busqueda['profesores'] . '%')
+										->orwhere('apellido1','LIKE', '%'.	$busqueda['profesores'] . '%')
+										->orwhere('apellido2','LIKE', '%'. 	$busqueda['profesores'] . '%');
 									}
 								);													
 
 				
 			}
-			if($buscar['curso']!= null){
-				$profesores = $profesores->where('curso','LIKE','%'.$buscar['curso'].'%'); 
+			if($busqueda['curso']!= null){
+				$profesores = $profesores->where('curso','LIKE','%'.$busqueda['curso'].'%'); 
 			}
-			$profesores= $profesores->paginate(50);
+			
 		}
 		else{
-			$profesores= Profesor::where('active',1)->OrderBy($orden,$direccion)->paginate(50);
+			$profesores= $profesores->where('active',1);
 		}
-		return view('profesor.lista',['profesores'=>$profesores,'buscar'=>$buscar]);
+		
+		$total = $profesores->count();
+		$profesores= $profesores->OrderBy($orden,$direccion)->paginate(50);
+		session()->put('filtro_profesores',$busqueda);
+		
+		return view('profesor.lista',['profesores'=>$profesores,'buscar'=>$busqueda,'total'=>$total]);
 	}
 	public function listar($text = null){	
 		$profesores = new Profesor;

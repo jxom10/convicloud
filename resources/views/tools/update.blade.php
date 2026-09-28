@@ -14,7 +14,7 @@
 	<input type=password name='password' placeholder='contraseña' class="form-control" >
 	</div>
 	<div class="col-2 m-2">
-	<input type=submit value='executar'class="btn btn-primary btn-lg ">
+	<input type=submit value='Iniciar'class="btn btn-primary btn-lg ">
 	</form>
 	</div>
 </div>

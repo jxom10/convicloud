@@ -5,7 +5,7 @@
 
  
 <div class="row justify-content-center p-3">
-	<div class='col-11'>
+	<div class='col-12'>
 		<div class="row p-2">
 			<table border='0'>
 				<tr>
@@ -53,8 +53,9 @@
 			</table>
 		</div>
 		<div class="row">
-
+			<div class="col text-end"><b><i>{{$total}} registros</i></b></div>
 			 <table class="table table-striped">
+				 
 				<thead class="bg-light">
 					<tr>
 						<th>#</th>

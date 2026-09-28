@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		<div class="row">
-
+		<div class="col text-end"><b><i>{{$total}} registros</i></b></div>
 			 <table class="table table-striped">
 				<thead class="bg-light">
 					<tr>

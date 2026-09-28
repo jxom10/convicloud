@@ -44,10 +44,10 @@ class ParteController extends Controller
 				}
 			}
 		}
-
+		$total = $partes->count();
 		$partes =  $partes->paginate(50);
 		
-		return view ('parte.lista',['partes' => $partes,'busqueda'=>$busqueda,'tipologias'=>$tipologias]);
+		return view ('parte.lista',['partes' => $partes,'busqueda'=>$busqueda,'tipologias'=>$tipologias,'total'=>$total]);
 	}
 	
 	public function ver($id = null){

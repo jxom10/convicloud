@@ -18,43 +18,43 @@ class CasoController extends Controller
 		$origenes 	= Origen::all();
 		$triajes 	= Triaje::all();
 		$estados 	= Estado::all();
-		$filtrar = false;
+		$busqueda  = array('titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null); 
 		$casos  = new Caso;
-		
-		//dd($request->all());
-		if(isset($request->filtrar)){
-			$busqueda = $request->all();
-			unset($busqueda['filtrar']);
-			$filtrar = true;
+		if($_POST){
+			$busqueda= $_POST;
+			session()->put('filtro_casos',$busqueda);
+		}
+		elseif(session()->get('filtro_casos')){
+			$busqueda= session()->get('filtro_casos');
+
 		}
 		else{
-			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null]; 
-		}
+			$busqueda  = array('titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null); 
+			session()->put('filtro_casos',$busqueda);
+		} 
 		if(isset($busqueda['clean'])){
 			$busqueda = ['titulo'=>null,'id_triaje'=>null,'id_estado'=>null,'id_origen'=>null,'id_tipologia'=>null,'id_alumno'=>null,'desde'=>null,'hasta'=>null];
 			
 		}
-		if(isset($request->pendientes)){
+		if(isset($busqueda['pendientes'])){
 			$casos = $casos->whereNotNull('pendiente')->orWhere('pendiente','<>','');
 		}
-		if($filtrar){	
+		if(isset($busqueda['buscar'])){	
 
 			$id_alumno =(isset($busqueda['id_alumno']))?$busqueda['id_alumno']:null;
-		
-			
-			$casos = new Caso;
 			unset($busqueda['clean']);
+			
 			if($id_alumno){
 				$casos = $casos->select('casos.*')->leftjoin('actor_casos','casos.id','=','actor_casos.id_caso')
 								->where('actor_casos.id_alumno','=',$id_alumno);
 			}
 			
 			foreach($busqueda as $campo=>$valor){
-				if($campo!='id_alumno'){
+				if($campo!='id_alumno' AND $campo!='buscar'  ){
 					if($valor AND $campo!='_token'){
 						if(in_array($campo,['desde','hasta'])){
-							$busqueda['desde'] = (isset($request->desde) AND !empty($request->desde)) ?date($request->desde):"";
-							$busqueda['hasta'] = (isset($request->hasta) AND !empty($request->hasta)) ?date($request->hasta):date("Y-m-d");
+							$busqueda['desde'] = (isset($busqueda['desde']) AND !empty($busqueda['desde'] )) ?date($busqueda['desde']):"";
+							$busqueda['hasta'] = (isset($busqueda['hasta']) AND !empty($busqueda['hasta'])) ?date($busqueda['hasta']):date("Y-m-d");
 							$casos =$casos->whereBetween('updated_at',[$busqueda['desde'],$busqueda['hasta'] ]);
 						}
 						elseif($campo == 'titulo'){
@@ -67,12 +67,12 @@ class CasoController extends Controller
 				}
 			}
 		}
-
-		//echo $casos->toRawSql();
+		session()->put('filtro_casos',$busqueda);
+		$total = $casos->count();
 		$casos = $casos->paginate(50);
 		$nombre_alu = ($busqueda['id_alumno'])?Alumno::find($busqueda['id_alumno'])->nombre_completo():null;
 
-		$datos = ['casos' => $casos,'triajes'=>$triajes,'tipologias'=>$tipologias,'origenes'=>$origenes,'estados'=>$estados,'busqueda'=>$busqueda,'nombre_alu'=>$nombre_alu]; 
+		$datos = ['casos' => $casos,'triajes'=>$triajes,'tipologias'=>$tipologias,'origenes'=>$origenes,'estados'=>$estados,'busqueda'=>$busqueda,'nombre_alu'=>$nombre_alu,'total'=>$total]; 
 		return view ('caso.lista',$datos);
 	}
 	

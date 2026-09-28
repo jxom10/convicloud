@@ -11,27 +11,57 @@ class AlumnoController extends Controller
 {
 
    public function index(Request $request,$orden = 'nia',$direccion = 'asc'){
-		//dd($request->all());
-		$campos = ['nia','nombre','apellido1','apellido2'];
-		$sort = (in_array($orden,$campos))? $orden: 'nia';
-		$buscar = null;
-		if(isset($request->clean)){
-			$request->buscar = null;
+	   
+	  
+		if($_POST){
+			$busqueda= $_POST;
+			session()->put('filtro_alumno',$_POST);
 		}
-		if(isset($request->buscar)){
-			$buscar = $request->buscar;
-			$alumnos = Alumno::where('nombre','LIKE', '%'.$buscar.'%')
-									->orwhere('apellido1','LIKE', '%'.$buscar.'%')
-									->orwhere('apellido2','LIKE', '%'.$buscar.'%')
-									->paginate(50);
+		elseif(session()->get('filtro_alumno')){
+			$busqueda= session()->get('filtro_alumno');
 		}
 		else{
-			$alumnos = Alumno::OrderBy($sort,$direccion)->paginate(50);
+			$busqueda  = array("nombre"=>"","curso"=>"","grupo"=>""); 
+			session()->put('filtro_alumno',$busqueda);
+		} 
+		//print_r($busqueda);
+		//echo "<br>session<br>";
+		//print_r(session()->get('filtro_alumno'));
+		$campos = ['nia','nombre','apellido1','apellido2'];
+		$sort = (in_array($orden,$campos))? $orden: 'nia';
+		$alumnos = new Alumno;
+
+		if(isset($request->clean)){
+			$busqueda  = array("nombre"=>"","curso"=>"","grupo"=>"");
 		}
-		
 
+		if(isset($busqueda['buscar'])){
+			if($busqueda['nombre']){
+				 session()->put('filtro_alumno',array());
 
-		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos','buscar'=>$buscar]);
+				$alumnos = $alumnos->where(
+								function($query) use ($busqueda){
+									$query->where('nombre','LIKE', '%'.	$busqueda['nombre'] . '%')
+										->orwhere('apellido1','LIKE', '%'.	$busqueda['nombre'] . '%')
+										->orwhere('apellido2','LIKE', '%'. 	$busqueda['nombre'] . '%');
+									}
+								);													
+
+			}
+			if($busqueda['curso']){
+				$alumnos = $alumnos->where("curso","LIKE", "%".$busqueda['curso']);
+			}
+			if($busqueda['grupo']){
+				$alumnos = $alumnos->where("grupo",$busqueda['grupo']);
+			}
+		}
+		$alumnos =$alumnos->OrderBy($sort,$direccion);
+		//echo $alumnos->toRawSql();
+		$total = $alumnos->count();
+		$alumnos = $alumnos->paginate(50);
+		session()->put('filtro_alumno',$busqueda);
+
+		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos','buscar'=>$busqueda,'total'=>$total]);
 	
 	}
 	public function listar($busqueda){		

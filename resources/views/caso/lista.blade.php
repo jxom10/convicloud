@@ -66,7 +66,7 @@
 				</div>
 				<div class="col-xs-12 col-md-1 text-end">
 					<br>
-					<button class="btn btn-primary" name="filtrar" value="filtrar"><i class='fa fa-search'></i></button>
+					<button class="btn btn-primary" name="buscar" value="buscar"><i class='fa fa-search'></i></button>
 					<button name='clean' class="btn btn-primary" value='clean'><i class='fa fa-trash'></i></button>
 					</form>
 				</div>
@@ -74,7 +74,7 @@
 			</div>
 		</div>
 		<div class="row">
-
+			<div class="col text-end"><b><i>{{$total}} registros</i></b></div>
 			 <table class="table table-striped">
 				<thead class="bg-light">
 					<tr>
