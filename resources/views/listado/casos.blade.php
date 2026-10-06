@@ -1,5 +1,11 @@
 <div class="row m-2 justify-content-center">
 	<div class="col-md-2">
+		<h3>{{$datos['casos']['total']}} casos </h3>
+	</div>
+</div>
+
+<div class="row m-2 justify-content-center">
+	<div class="col-md-2">
 		<div class="card">
 			<div class="card-header text-center">
 				<h4>Total estudiantes</h4>
@@ -12,7 +18,7 @@
 	<div class="col-md-3">
 		<div class="card">
 			<div class="card-header text-center">
-				<h4>Conciliados por cursos </h4>
+				<h4>Casos por cursos </h4>
 			</div>
 			<div class="card-body" id="chart_casos_cursos"	>
 
@@ -22,9 +28,9 @@
 	<div class="col-md-3">
 		<div class="card">
 			<div class="card-header text-center">
-				<h4>Expedientes por cursos</h4>
+				<h4>Origen</h4>
 			</div>
-			<div class="card-body" id="chart_expedientes_cursos"	>
+			<div class="card-body" id="chart_origen_cursos"	>
 
 			</div>
 		</div>
@@ -49,12 +55,21 @@
     var chart_casos_cursos = new ApexCharts(document.querySelector('#chart_casos_cursos'), caso_cursos		)
     chart_casos_cursos.render()
     
-	const exp_curso_data2 = @json(array_values($datos['expedientes']['curso_exp']));
-    var exp_exp_curso = {
+	//const exp_curso_data2 = @json(array_values($datos['expedientes']['curso_exp']));
+    //var exp_exp_curso = {
+      //chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
+      //series: [{name: 'exp_expedientes', data: exp_curso_data2	}],
+      //xaxis: {categories: ['1ESO','2ESO','3ESO','4ESO','1BAC','2BAC']}
+    //}
+    //var chart_exp_clase = new ApexCharts(document.querySelector('#chart_expedientes_cursos'), exp_exp_curso)
+    //chart_exp_clase.render()
+    
+	const casos_origen_data = @json(array_values($datos['casos']['origen']));
+    var caso_origen = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'exp_expedientes', data: exp_curso_data2	}],
-      xaxis: {categories: ['1ESO','2ESO','3ESO','4ESO','1BAC','2BAC']}
+      series: [{name: 'exp_expedientes', data: casos_origen_data	}],
+      xaxis: {categories: ['Propia','Alumno','Docente']}
     }
-    var chart_exp_clase = new ApexCharts(document.querySelector('#chart_expedientes_cursos'), exp_exp_curso)
-    chart_exp_clase.render()
+    var chart_casos_ori = new ApexCharts(document.querySelector('#chart_origen_cursos'), caso_origen)
+    chart_casos_ori.render()
 </script>

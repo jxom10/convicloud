@@ -1,4 +1,10 @@
 <div class="row m-2 justify-content-center">
+	<div class="col-md-2">
+		<h3>{{$datos['partes']['total']}} partes </h3>
+	</div>
+</div>
+
+<div class="row m-2 justify-content-center">
 	<div class="col-8">
 		<table class="table">
 			<tr>

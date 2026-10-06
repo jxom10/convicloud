@@ -168,7 +168,7 @@ class AlumnoController extends Controller
 			session()->now('message', ["texto"=>"No se ha cargado ningún fichero..","color"=>"danger"]);
 		}
 		
-		return redirect()->route('alumnos_lista');
+		//return redirect()->route('alumnos_lista');
     }
 
    public function guardar_alumno($data){
@@ -183,7 +183,8 @@ class AlumnoController extends Controller
 			$alumno = new Alumno;
 		}
 		
-       
+		echo "<br>";
+		print_r($data);
 		$alumno->nia = $data['NIA'];
 		$alumno->nombre = $data['Nombre'];
 		$alumno->apellido1 = $data['Primer apellido'];
@@ -191,7 +192,7 @@ class AlumnoController extends Controller
 		$alumno->fecha_nacimiento = (!empty($data['fnac']) AND count(explode($data['fnac'],'/'))	>1) ? DateTime::createFromFormat('d/m/Y',$data['fnac'])->format('Y-m-d'):'1970-01-01';
 		$alumno->curso = (isset($data['Curso']))?$data['Curso']:'';
 		$alumno->grupo =  (isset($data['Grupo']))?$data['Grupo']:'';
-		$alumno->genero = (isset($data['Genero']) AND in_array($data['Genero'],['O','A','E']))? $data[1]: 'N';
+		$alumno->genero = (isset($data['Genero']) AND in_array($data['Genero'],['O','A','E']))? $data['Genero']: 'N';
 		$alumno->active = 1;
 
 		$alumno->save();

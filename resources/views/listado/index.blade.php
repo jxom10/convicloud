@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('contenido')
@@ -36,6 +37,7 @@
 		@include('listado.expedientes')
 
 @elseif($tipo=='Caso')
+
 		@include('listado.casos')
 @endif
   

@@ -50,6 +50,7 @@ class InformeController extends Controller
 		if($tipo=='Parte'){
 
 			$partes = Parte::whereBetween('fecha',[$desde,$hasta])->get();
+			$datos['partes']['total'] = $partes->count();
 			foreach($partes as $parte){
 				$datos['partes']['nivel'][$parte->nivel] +=1;
 				$datos['partes']['curso'][$parte->alumno->curso] +=1;
@@ -61,7 +62,7 @@ class InformeController extends Controller
 		}
 		if($tipo=='Expediente'){
 			$expedientes = Expediente::whereBetween('fecha_apertura',[$desde,$hasta])->	get();
-			
+			$datos['expedientes']['total'] = $expedientes->count();
 			foreach($expedientes as $expediente){
 				if( $expediente->fecha_solucion > '2000-01-01'){
 						$datos['expedientes']['tipo']['conciliados'] +=1;
@@ -75,6 +76,7 @@ class InformeController extends Controller
 		}
 		if($tipo=='Caso'){
 			$casos = Caso::whereBetween('created_at',[$desde,$hasta])->get();
+			$datos['casos']['total'] = $casos->count();
 			foreach($casos as $caso){
 				$datos['casos']['estudiantes']['total'] += count($caso->lista_implicados);
 				$datos['casos']['origen'][$caso->origen->nombre] +=1;

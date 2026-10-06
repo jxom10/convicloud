@@ -1,5 +1,12 @@
 <div class="row m-2 justify-content-center">
 	<div class="col-md-2">
+		<h3>{{$datos['expedientes']['total']}} expdientes </h3>
+	</div>
+</div>
+
+
+<div class="row m-2 justify-content-center">
+	<div class="col-md-2">
 		<div class="card">
 			<div class="card-header text-center">
 				<h4>Totales</h4>
