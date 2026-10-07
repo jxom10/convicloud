@@ -44,6 +44,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{route('import_database')}}">BaseDatos</a>
              <a class="dropdown-item" href="{{route('herramientas')}}">Actualizar</a>
+             <a class="dropdown-item" href="{{route('config')}}">Configuraciones</a>
 		</li>
 		<li >
 			<a  class="nav-link" href='/logout'>Salir</a>

@@ -121,10 +121,12 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/parte/ver/{id}', 'ver')->name('parte_ver');
 		Route::post('/parte/grabar','grabar')->name('parte_grabar');
 		Route::get('/parte/eliminar/{id}', 'delete')->name('parte_eliminar');
+		Route::get('/partesalu/','aviso_partes_alumno');
 	});
 	Route::controller(InformeController::class)->group(function (){
 			Route::get('/listados/','index')->name('listados');
 			Route::post('/listados/','index')->name('listados');
+			
 			
 	});
 	Route::controller(ToolsController::class)->group(function (){
@@ -133,6 +135,10 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/export/','export')->name('export_database');
 		Route::get('/import','importar');
 		Route::post('/import','importar')->name('import_database');
+	});
+	Route::controller(ConfigController::class)->group(function (){
+		Route::get('/config/','index')->name('config');
+		Route::post('/config/','grabar')->name('config_grabar');
 	});
 });
 

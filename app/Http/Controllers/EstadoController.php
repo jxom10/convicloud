@@ -16,10 +16,10 @@ class EstadoController extends Controller
 		if(isset($request->buscar)){
 			$buscar = $request->buscar;
 			$estados = Estado::where('nombre','LIKE', '%'.$buscar.'%')
-									->paginate(50);
+									->paginate(session('config.porpagina'));
 		}
 		else{
-			$estados = Estado::paginate(50);
+			$estados = Estado::paginate(session('config.porpagina'));
 		}
 		return view('estado.lista',['estados'=>$estados,'buscar'=>$buscar]);
 	}

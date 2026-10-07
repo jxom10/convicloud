@@ -58,7 +58,7 @@ class AlumnoController extends Controller
 		$alumnos =$alumnos->OrderBy($sort,$direccion);
 		//echo $alumnos->toRawSql();
 		$total = $alumnos->count();
-		$alumnos = $alumnos->paginate(50);
+		$alumnos = $alumnos->paginate(session('config.porpagina'));
 		session()->put('filtro_alumno',$busqueda);
 
 		return view('alumno.lista',['alumnos'=>$alumnos,'titulo'=>'Alumnos','buscar'=>$busqueda,'total'=>$total]);

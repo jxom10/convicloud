@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-use App\Models\Visita;
-use App\Models\Parametro;
+use App\Models\Config;
 use App\Mail\recoverPasswordMail;
 
 
@@ -25,10 +24,10 @@ class UserController extends Controller
 			$buscar = $request->buscar;
 			$users = User::where('nombre','LIKE', '%'.$buscar.'%')
 					->orwhere('email','LIKE', '%'.$buscar.'%')
-					->paginate(50);
+					->paginate(session('config.porpagina'));
 		}
 		else{
-			$users = User::paginate(50);
+			$users = User::paginate(session('config.porpagina'));
 		}
 		return view('usuarios.lista',['usuarios'=>$users,'buscar'=>$buscar]);
 	}
@@ -190,15 +189,16 @@ class UserController extends Controller
         }       
 
         if($auth){
-			
+			$config = config::select('nombre','valor')->get();
+			$conf=array();
+			foreach($config as $cfg){$conf[$cfg->nombre]=$cfg->valor;}
             $request->session()->regenerateToken();
             Auth::login($user);
             session()->put('usuario',array( 'id_usuario'=>$user->id,
                                             'nombre'=>$user->nombre,
                                             'acceso'=>$user->acceso,
-
-
-                                        )
+                                        ),
+                            'config',$conf,
                             );
             return redirect()->intended();
 

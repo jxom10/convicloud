@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Parte;
 use App\Models\Alumno;
 use App\Models\Tipologia;
@@ -45,8 +46,8 @@ class ParteController extends Controller
 			}
 		}
 		$total = $partes->count();
-		$partes =  $partes->paginate(50);
-		
+		$partes =  $partes->paginate(session('config.porpagina'));
+		$this->aviso_partes_alumnos();
 		return view ('parte.lista',['partes' => $partes,'busqueda'=>$busqueda,'tipologias'=>$tipologias,'total'=>$total]);
 	}
 	
@@ -94,5 +95,32 @@ class ParteController extends Controller
 		if($parte->save()){
 			return redirect()->route('partes');
 		}
+	}
+	public function aviso_partes_alumnos(){
+		$partes = new Parte;
+		$desde = session('config.fecha_inicio');
+		$hasta = session('config.fecha_fin');
+
+		$partes = $partes->whereBetween('created_at',[$desde,$hasta])->get();
+		$salida = array();
+		$retornar = array();
+		foreach($partes as $parte){
+			if(array_key_exists($parte['id_alumno'],$salida)){ 
+				$salida[$parte['id_alumno']] += 1;
+			}else{
+				$salida[$parte['id_alumno']] = 1;
+			}
+			if($salida[$parte['id_alumno']] > session('config.aviso_partes') ){
+				$retornar[$parte['id_alumno']]	= $salida[$parte['id_alumno']];
+			}
+		}
+		if(count($retornar)>1){
+			$text = "";
+			foreach($retornar as $id_alumno=>$cantidad){
+				$alumno = alumno::find($id_alumno);
+				$text  .= "<a href='alumno/ver/$alumno->id'>" . $alumno->nombre_completo() ."</a>:".$cantidad." partes</br>";
+			}
+			session()->now('message', ['texto'=>$text,'color'=>'warning']);
+		} 
 	}
 }

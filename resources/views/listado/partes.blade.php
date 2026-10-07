@@ -75,7 +75,7 @@
 	const partes_data = @json(array_values($datos['partes']['nivel']));
     var partes = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'nivel', data: partes_data}],
+      series: [{name: 'Gravedad', data: partes_data}],
        xaxis: {categories: ['Leve','Grave']}
     }
     var chart = new ApexCharts(document.querySelector('#chart'), partes)
@@ -84,7 +84,7 @@
     const partes_curso_data = @json(array_values($datos['partes']['curso']));
     var partes_curso = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'expedientes', data: partes_curso_data}],
+      series: [{name: 'Curso', data: partes_curso_data}],
       xaxis: {categories: ['1ESO','2ESO','3ESO','4ESO','1BAC','2BAC']}
     }
     var chart_partes_curso = new ApexCharts(document.querySelector('#chart_partes_curso'), partes_curso)
@@ -94,7 +94,7 @@
     const casos_data = @json(array_values($datos['partes']['genero']));
     var casos = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'casos', data: casos_data}],
+      series: [{name: 'Genero', data: casos_data}],
        xaxis: {categories: ['Chico','Chica','']}
     }
      

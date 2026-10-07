@@ -38,10 +38,10 @@
 	</div>
 </div>
 <script>
-const expedientes_data = @json(array_values($datos['expedientes']['tipo']));
+const expedientes_tipo = @json(array_values($datos['expedientes']['tipo']));
     var expedientes = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'nivel', data: expedientes_data	}],
+      series: [{name: 'tipo', data: expedientes_tipo	}],
        xaxis: {categories: ['Conc','Exp']}
     }
     var chart_expedientes = new ApexCharts(document.querySelector('#chart_expedientes'), expedientes)
@@ -50,7 +50,7 @@ const expedientes_data = @json(array_values($datos['expedientes']['tipo']));
 	const exp_curso_data = @json(array_values($datos['expedientes']['curso_conc']));
     var exp_conc_curso = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'exp_conciliados', data: exp_curso_data}],
+      series: [{name: 'conciliados', data: exp_curso_data}],
       xaxis: {categories: ['1ESO','2ESO','3ESO','4ESO','1BAC','2BAC']}
     }
     var chart_conc_clase = new ApexCharts(document.querySelector('#chart_conc_clase'), exp_conc_curso		)
@@ -59,7 +59,7 @@ const expedientes_data = @json(array_values($datos['expedientes']['tipo']));
 	const exp_curso_data2 = @json(array_values($datos['expedientes']['curso_exp']));
     var exp_exp_curso = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'exp_expedientes', data: exp_curso_data2	}],
+      series: [{name: 'expedientes', data: exp_curso_data2	}],
       xaxis: {categories: ['1ESO','2ESO','3ESO','4ESO','1BAC','2BAC']}
     }
     var chart_exp_clase = new ApexCharts(document.querySelector('#chart_exp_clase'), exp_exp_curso)

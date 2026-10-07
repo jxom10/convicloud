@@ -15,10 +15,10 @@ class OrigenController extends Controller
 		if(isset($request->buscar)){
 			$buscar = $request->buscar;
 			$origenes = origen::where('nombre','LIKE', '%'.$buscar.'%')
-									->paginate(50);
+									->paginate(session('config.porpagina'));
 		}
 		else{
-			$origenes = origen::paginate(50);
+			$origenes = origen::paginate(session('config.porpagina'));
 		}
 		return view('origen.lista',['origenes'=>$origenes,'buscar'=>$buscar]);
 	}

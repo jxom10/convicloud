@@ -49,7 +49,7 @@
 	const caso_cursos_data = @json(array_values($datos['casos']['curso']));
     var caso_cursos = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'exp_conciliados', data: caso_cursos_data}],
+      series: [{name: 'casos', data: caso_cursos_data}],
       xaxis: {categories: ['1ESO','2ESO','3ESO','4ESO','1BAC','2BAC']}
     }
     var chart_casos_cursos = new ApexCharts(document.querySelector('#chart_casos_cursos'), caso_cursos		)
@@ -67,7 +67,7 @@
 	const casos_origen_data = @json(array_values($datos['casos']['origen']));
     var caso_origen = {
       chart: {type: 'bar',zoom: {enabled : false},height:'200px'},
-      series: [{name: 'exp_expedientes', data: casos_origen_data	}],
+      series: [{name: 'origen', data: casos_origen_data	}],
       xaxis: {categories: ['Propia','Alumno','Docente']}
     }
     var chart_casos_ori = new ApexCharts(document.querySelector('#chart_origen_cursos'), caso_origen)

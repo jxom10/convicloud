@@ -27,7 +27,7 @@
 	<div>
         @if (session()->has('message'))
             <div class=" alert alert-{{session('message')['color']}} mensaje">
-                {{ session('message')['texto'] }}
+                {!! session('message')['texto'] !!}
             </div>
         @endif
     </div>

@@ -137,6 +137,7 @@ a{text-decoration: none;}
 .mensaje{
 	position: fixed;
 	bottom: -16;
+	left:0;
 	width: 100%;
 	text-align: center;
 }

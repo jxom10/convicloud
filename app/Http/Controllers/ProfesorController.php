@@ -52,7 +52,7 @@ class ProfesorController extends Controller
 		}
 		
 		$total = $profesores->count();
-		$profesores= $profesores->OrderBy($orden,$direccion)->paginate(50);
+		$profesores= $profesores->OrderBy($orden,$direccion)->paginate(session('config.porpagina'));
 		session()->put('filtro_profesores',$busqueda);
 		
 		return view('profesor.lista',['profesores'=>$profesores,'buscar'=>$busqueda,'total'=>$total]);

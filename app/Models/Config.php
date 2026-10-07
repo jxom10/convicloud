@@ -8,4 +8,5 @@ class config extends Model
 {
 	public $table = 'configs';
 	
+	public $fillable = ['nombre','valor'];
 }
