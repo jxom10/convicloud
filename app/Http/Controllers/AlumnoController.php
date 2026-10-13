@@ -49,7 +49,7 @@ class AlumnoController extends Controller
 
 			}
 			if($busqueda['curso']){
-				$alumnos = $alumnos->where("curso","LIKE", "%".$busqueda['curso']);
+				$alumnos = $alumnos->where("curso","LIKE", "%".$busqueda['curso']."%");
 			}
 			if($busqueda['grupo']){
 				$alumnos = $alumnos->where("grupo",$busqueda['grupo']);
@@ -151,7 +151,7 @@ class AlumnoController extends Controller
 					if($row>0){
 						$num = count($data);
 						foreach($data as $campo=>$valor){
-							$datos[$headerValues[$campo]] = $valor;
+							$datos[$headerValues[$campo]] = trim($valor);
 
 						}
 						if(strlen($datos['Nombre'])>2){
@@ -168,7 +168,7 @@ class AlumnoController extends Controller
 			session()->now('message', ["texto"=>"No se ha cargado ningún fichero..","color"=>"danger"]);
 		}
 		
-		//return redirect()->route('alumnos_lista');
+		return redirect()->route('alumnos_lista');
     }
 
    public function guardar_alumno($data){
