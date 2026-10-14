@@ -15,6 +15,7 @@ use App\Http\Controllers\OrigenController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ActorCasosController;
 use App\Http\Controllers\ToolsController;
+use App\Http\Controllers\AdjuntosController;
 
 Route::get('/forms',  function () { return view('forms'); });
 Route::get('/login', [UserController::class,'login'])->name('login');
@@ -81,6 +82,11 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::get('/caso/ver/{id}', 'ver')->name('caso_ver');
 		Route::post('/caso/grabar','grabar')->name('caso_grabar');
         Route::get('/caso/eliminar/{id}', 'delete')->name('caso_eliminar');
+	});
+	Route::controller(AdjuntosController::class)->group(function(){
+		Route::post('/adjuntar/','subir_archivo')->name('subir_archivo');
+		Route::get('/descargar/{id}','descargar')->name('descargar');
+		Route::delete('/adjunto/eliminar/{id}','eliminar')->name('eliminar');
 	});
 	Route::controller(ExpedienteController::class)->group(function (){
 		Route::get('/expedientes/','index')->name('expedientes');

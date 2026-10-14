@@ -149,13 +149,75 @@
         </form>
     </div>
 </div>
-    
+
+
+<div class='row p-2 justify-content-center'>
+	<div class='col text-center'>
+		<h3>Adjuntos  <button class="btn" onclick="mostrar_subida()" ><i class="fa fa-plus-square fa-2x"></i></button></h3>
+	</div>
+</div>
+<div class='row p-2 justify-content-center'>
+	<div class='col'>
+		
+		<div id='adjuntar' style="display:none">
+			<form method=POST action="{{route('subir_archivo')}}" enctype="multipart/form-data">
+				@csrf
+				<input type=file name=file>
+				<input type=hidden name='id_caso' value='{{$caso->id}}'>
+				<input type=submit value='guardar'>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="row">
+
+@foreach($caso->adjuntos as $adjunto)
+
+	<div class="col-1" id='adjunto_{{$adjunto->id}}'>	
+		<div class='closebox' >
+			<div class='close' onclick="borrar_adjunto('{{$adjunto->id}}')">
+				<i  class='fa fa-close' ></i>
+			</div>
+		</div>
+		<a href='/descargar/{{$adjunto->nombre}}' target="_blank">
+			<i class="fa fa-file-o fa-4x"></i>
+			<br>
+				{{$adjunto->descripcion}}
+		</a>
+	
+	</div>
+@endforeach
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="/assets/highslide/highslide.css" />
 <script>
+	function mostrar_subida(){
+		document.getElementById('adjuntar').style.display='block'
+		document.getElementById('adjuntar').scrollIntoView();
+	}
+	function borrar_adjunto(id){
+		if(confirm("Quiere eliminar el fichero?")==true){
+			$.ajax({
+				url: '/adjunto/eliminar/'+id,
+				type: 'DELETE',
+				dataType: 'JSON',
+				data: {
+					"_token": "{{csrf_token()}}",
+					'id': id,
+				},
+				success: function(response) {
+					document.getElementById('adjunto_'+response.adjunto).style.display='none';
+					document.getElementById('flash').innerHTML = "<div class='alert alert-success'><b>El fichero <i>" + response.nombre+ "</i> se ha elimiado correctamente</b></div>";
+				},
+			});
+		}
+	}
+
 	fecha_hora();
 	function fecha_hora(){
 		var descripcion = document.getElementById('descripcion').innerHTML
 		const hoy = new Date();
-		console.log(hoy.toLocaleString());
 		document.getElementById('descripcion').innerHTML = descripcion + '\n --' +   hoy.toLocaleString()+ '--\n' ;
 	}
     function active_btn(){

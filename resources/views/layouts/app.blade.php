@@ -24,7 +24,7 @@
 	<div class="container-fluid">
 		@yield('contenido')
 
-	<div>
+	<div id="flash">
         @if (session()->has('message'))
             <div class=" alert alert-{{session('message')['color']}} mensaje">
                 {!! session('message')['texto'] !!}

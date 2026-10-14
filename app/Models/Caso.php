@@ -25,6 +25,9 @@ class caso extends Model{
 	}
 	public function lista_implicados(){
 		return $this->hasMany(Actor_casos::class, 'id_caso');
+	}    
+	public function adjuntos(){
+		 return $this->hasMany(Adjunto::class, 'id_caso');
 	}
 	public static  function total_mensuales(){
 		$anio = (date('%m')<9 ) ? date('Y'): date('Y')-1;

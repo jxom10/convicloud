@@ -102,7 +102,7 @@
 				</tbody>
 				@if($profesores->hasPages())
 				<tr>
-					<td colspan=6>
+					<td colspan=7>
 						{{ $profesores->links('pagination::bootstrap-4')}}
 					</td>
 					</tr>

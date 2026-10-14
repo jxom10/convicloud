@@ -1,12 +1,47 @@
-body{background-color: #B7FFFC;}
+body{background-color: #B7FFFC;  margin-bottom:30px;}
 body *{
   list-style: none;
+
 }
 a{text-decoration: none;}
 #tabla_import{margin:5px;padding:5px;font-size:8px;font-weight:normal;}
 
 #tabla_import th{padding:5px;background-color:white;border:solid 1px black;text-align:center}
+.enlaces{
+	color:#464646;
+	background-color: #31A5E7 ;
+	border-radius: 5px 0 5px 5px;
+	font-size:12px;
 
+}
+.enlaces:hover{
+	box-shadow: #3D6277 5px 5px 10px;
+	color:#ffffff;
+}
+.close{
+	color:red;
+	border: red solid 1px;
+	border-radius:5px;
+	background-color:white;
+	width:19px;
+	padding:2px;	
+	cursor:pointer;
+}
+.close:hover{
+	color:white;
+	background-color:red;
+}
+#adjuntar{
+	background-color:#fff;
+	position:relative;
+	bottom:10px;
+	margin:auto;
+	width:50vw;
+	border:2px solid #000;
+	border-radius:10px;
+	padding:15px;
+	
+}
 .btn_eliminar{position: absolute;
 	
   right: 2;

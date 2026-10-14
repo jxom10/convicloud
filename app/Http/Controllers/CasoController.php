@@ -10,6 +10,8 @@ use App\Models\Tipologia;
 use App\Models\Origen;
 use App\Models\Actor_casos;
 use App\Models\Alumno;
+use App\Http\Controllers\AdjuntosController;
+
 
 class CasoController extends Controller
 {

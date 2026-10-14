@@ -113,29 +113,26 @@
 		</div>
 	</div>
     <div class='row p-2 justify-content-center'>
-		<div class='col-sm-4'>
+		<div class='col-sm-2'>
 			<label for='apellidos' id='label_apellidos_alumno'>Apellidos</label>
 			<input type='hidden'   name='id_alumno' id='id_alumno' value='{{$parte->id_alumno}}'>
 			<input class='form-control'  id='apellidos_alumno' type=text placeholder='buscar alumno aqui' onKeyUp='buscar_alumno(this.value)'   @if($parte->id) value='{{$parte->alumno->apellido1 .' ' .$parte->alumno->apellido2}}'@endif>
 			<div id='respuesta_alumno' class='respuesta'></div>
 		</div>
-		<div class='col-sm-4'>
+		<div class='col-sm-2'>
 			<label for='apellido2'>Nombre</label>
 			<input class='form-control'  id='nombre_alumno' type=text   @if($parte->id)value='{{$parte->alumno->nombre}}'@endif >
 		</div>
 
-		<div class='col-sm-2'>
+		<div class='col-sm-1'>
 			<label for='nia'>NIA</label>
 			<input class='form-control'  id='nia_alumno' type=text   @if($parte->id)value='{{$parte->alumno->nia}}'@endif>
 		</div>
-</div>
-<div class='row p-2 justify-content-center'>
-
-	<div class='col-sm-3'>
+	<div class='col-sm-1'>
 			<label for='curso'>Curso</label>
 			<input class='form-control'  id='curso_alumno' type=text   @if($parte->id)value='{{$parte->alumno->curso}}'@endif>
 	</div>
-	<div class='col-sm-3'>
+	<div class='col-sm-1'>
 			<label for='grupo'>Grupo</label>
 			<input class='form-control'  id='grupo_alumno' type=text   @if($parte->id)value='{{$parte->alumno->grupo}}'@endif>
 	</div>

@@ -114,7 +114,7 @@
 				</tbody>
 				@if($casos->hasPages())
 				<tr>
-					<td colspan=6>
+					<td colspan=8>
 						{{ $casos->links('pagination::bootstrap-4')}}
 					</td>
 					</tr>

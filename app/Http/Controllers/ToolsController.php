@@ -31,6 +31,8 @@ class ToolsController extends Controller
 				$mensaje .=  "\r\n".$result->output();
 				$result = Process::path(base_path())->run("php artisan view:clear");
 				$mensaje .=  "\r\n".$result->output();
+				$result = Process::path(base_path())->run("php artisan storage:link");
+				$mensaje .=  "\r\n".$result->output();
 				session()->now('message', ['texto'=>$mensaje,'color'=>'success']);
 				
 				return view('tools.update');

@@ -11,8 +11,8 @@
 	<div class='row p-4 justify-content-center'>
 	
 		 <div class="col-md-8 col-sm-12">
-			 	<form method='POST' action="{{route('expediente_grabar')}}">
-		@csrf
+			<form method='POST' action="{{route('expediente_grabar')}}">
+			@csrf
 			<label for="titulo">Titulo</label>
 			<input type="text" name='titulo' id='titulo' class="form-control" value="{{$expediente->titulo}}{{old('titulo')}}">
 		</div>
@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	<div class='row p-2 justify-content-center'>
-		<div class='col text-center'><h2>Datos del profesor</div>
+		<div class='col text-center'><h2>Datos del profesor</h2></div>
 	</div>
 	<div class='row p-2 justify-content-center'>
 		<div class='col-sm-12 col-md-4'>
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 	<div class='row p-2 justify-content-center'>
-		<div class='col text-center'><h2>Detalle del expediente</div>
+		<div class='col text-center'><h2>Detalle del expediente</h2></div>
 	</div>
 	<div class='row p-2 justify-content-center'>
 		<div class='col-sm-12 col-md-2'>
@@ -90,22 +90,22 @@
 		</div>
 	</div>
 	<div class='row p-2 justify-content-center'>
-		<div class='col-12'>
+		<div class='col-sm-12 col-md-8'>
 			<label for='descripcion'>Descripcion</label>
 			<textarea id='descripcion' class="form-control textarea" name='descripcion' class='textarea' >{{$expediente->descripcion}}</textarea>
 		</div>
 	</div>
 	<div class='row p-2 justify-content-center'>
-		<div class='col-12'>
+		<div class='col-sm-12 col-md-8'>
 		<label for='descripcion'>Resolución</label>
 		<textarea id='solucion' class="form-control textarea" name='solucion' class='textarea' >{{$expediente->solucion}}</textarea>
 		</div>
 	</div>
-		<div class='row p-2 justify-content-left'>
-			<div class='col-sm-12 col-md-4'>
-				<button type="submit" class="btn btn-primary btn-lg">Grabar</button>
-				</form>
-			</div>
+	<div class='row p-2 justify-content-center'>
+		<div class='col-sm-12 col-md-8'>
+			<button type="submit" class="btn btn-primary btn-lg">Grabar</button>
+			</form>
 		</div>
+	</div>
 
 @endsection
