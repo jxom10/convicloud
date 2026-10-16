@@ -90,10 +90,11 @@ class ParteController extends Controller
 		$parte->id_tipologia      = $request->id_tipologia;
 		$parte->id_alumno      = $request->id_alumno;
         $parte->comunicacion      = $request->comunicacion;
-		$parte->firmado = (isset($request->firmado))?$request->firmado:null;
+        if(!$parte->firmado)
+			$parte->firmado = (isset($request->firmado))?date("Y-m-d H:i:s"):null;
 
 		if($parte->save()){
-			return redirect()->route('partes');
+			return redirect()->route('parte_ver',$parte->id);
 		}
 	}
 	public function aviso_partes_alumnos(){

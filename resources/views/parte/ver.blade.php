@@ -89,8 +89,14 @@
 	</div>
 		<div class="col-sm-12 col-md-6">
 		 <div class="form-group">
+			@if($parte->firmado)
 			<label for="firma">Firmado</label>
-			<input type='checkbox' name='firmado' id='firma' class="form-check" value="1" @if($parte->firmado == 1) checked @endif()>
+			<div  id="firma" ><i>{{date('d/m/Y H:i',strtotime($parte->firmado))}}</i></div>
+			 @else
+			 <label for="firma">Firmar</label>
+			 <input type='checkbox' name='firmado' id='firma' class="form-check" value="1">
+			 @endif
+			
 		</div>
 	</div>
 </div>
