@@ -34,6 +34,7 @@ class ToolsController extends Controller
 					$mensaje .=  "\r\n".$result->output();
 					$result = Process::path(base_path())->run("php artisan storage:link");
 					$mensaje .=  "\r\n".$result->output();
+				}
 				else{
 					$result = Process::run('convicloud_import.exe');
 					$mensaje .=  "\r\n".$result->output();
