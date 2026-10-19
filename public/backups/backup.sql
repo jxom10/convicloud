@@ -1,9 +1,9 @@
 /*M!999999\- enable the sandbox mode */ 
--- MariaDB dump 10.19-11.8.6-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.20-12.3.3-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: convicloud
 -- ------------------------------------------------------
--- Server version	11.8.6-MariaDB-0+deb13u1 from Debian
+-- Server version	12.3.3-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -114,6 +114,42 @@ COMMIT;
 SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
+-- Table structure for table `adjuntos`
+--
+
+DROP TABLE IF EXISTS `adjuntos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adjuntos` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id_caso` bigint(20) unsigned NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `adjuntos_id_caso_foreign` (`id_caso`),
+  CONSTRAINT `adjuntos_id_caso_foreign` FOREIGN KEY (`id_caso`) REFERENCES `casos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adjuntos`
+--
+
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
+LOCK TABLES `adjuntos` WRITE;
+/*!40000 ALTER TABLE `adjuntos` DISABLE KEYS */;
+INSERT INTO `adjuntos` VALUES
+(15,1,'IseNXdSDUipI4E9q8wf8aQ1RwAjxx3thRh2JfWRc','Add IP address in your windows driver port.pdf','pdf','2026-10-14 06:52:57','2026-10-14 06:52:57'),
+(16,1,'rch5TWW35D3dYzUq9aQAkeMneYjg4lqRGcwMOwGq','80MM Thermal Receipt Printer User manual.pdf','pdf','2026-10-14 06:53:06','2026-10-14 06:53:06');
+/*!40000 ALTER TABLE `adjuntos` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
+
+--
 -- Table structure for table `alumnos`
 --
 
@@ -134,7 +170,7 @@ CREATE TABLE `alumnos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=919 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=944 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +420,7 @@ INSERT INTO `alumnos` VALUES
 (237,'11444843','ALEXANDRO DAVID','SANCHEZ','NERIZ','1970-01-01','2ESO','E','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
 (238,'11428357','PAU','SÁNCHEZ','DE LA BLANCA','1970-01-01','2ESO','A','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
 (239,'11452341','JAVA','SAURA','CHIVITE','1970-01-01','2ESO','C','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
-(240,'12848711','DANÄ°IL','SEREBRO','','1970-01-01','2ESO','B','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
+(240,'12848711','DANIIL','SEREBRO',NULL,'1970-01-01','2ESO','B','N',1,'2026-09-09 14:24:25','2026-10-06 15:20:57'),
 (241,'12927637','SOFIIA','SHEVCHUK','SINAPELLIDO','1970-01-01','2ESO','B','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
 (242,'11811840','MUSTAFA','SHIKH','MOHAMAD','1970-01-01','2ESO','D','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
 (243,'11359964','MARCOS','SOMKA','AZIZYAN','1970-01-01','2ESO','A','N',1,'2026-09-09 14:24:25','2026-09-09 14:24:25'),
@@ -486,7 +522,7 @@ INSERT INTO `alumnos` VALUES
 (339,'11316010','CANDELA','HERRERA','MORALES','1970-01-01','3ESO','A','N',1,'2026-09-09 14:24:33','2026-09-09 14:24:33'),
 (340,'12928843','MATVII','HROMSKY','SINAPELLIDO','1970-01-01','3ESO','A','N',1,'2026-09-09 14:24:33','2026-09-09 14:24:33'),
 (341,'11356238','NORA','HURTADO','FERNANDEZ','1970-01-01','3ESO','D','N',1,'2026-09-09 14:24:33','2026-09-09 14:24:33'),
-(342,'','ROBERTO CARLOS','IRIAS','GONZALES','1970-01-01','3ESO','','N',1,'2026-09-09 14:24:33','2026-09-09 14:24:33'),
+(342,'13062959','ROBERTO CARLOS','IRIAS','GONZALES','1970-01-01','FP BÁSICA','1','O',1,'2026-09-09 14:24:33','2026-10-13 06:51:53'),
 (343,'11193657','ALEXIS','JIMÉNEZ','RODRÍGUEZ','1970-01-01','3ESO','D','N',1,'2026-09-09 14:24:34','2026-09-09 14:24:34'),
 (344,'13589318','TIMUR','JOSAN','SINAPELLIDO','1970-01-01','3ESO','A','N',1,'2026-09-09 14:24:34','2026-09-09 14:24:34'),
 (345,'','DANIELA','JUAN','MEDINA','1970-01-01','3ESO','','N',1,'2026-09-09 14:24:34','2026-09-09 14:24:34'),
@@ -1062,7 +1098,32 @@ INSERT INTO `alumnos` VALUES
 (915,'','PABLO','SANTANA','DE VICENTE','1970-01-01','2BACH','R','N',1,'2026-09-09 14:25:34','2026-09-09 14:25:34'),
 (916,'','TULASI','STOCKER','','1970-01-01','2BACH','','N',1,'2026-09-09 14:25:34','2026-09-09 14:25:34'),
 (917,'12543634','MICHELLE','VARGAS','SÁNCHEZ','1970-01-01','2BACH','R','N',1,'2026-09-09 14:25:34','2026-09-09 14:25:34'),
-(918,' ','Miriam','Rodríguez',NULL,'1970-01-01','2BACH','','N',1,'2026-09-25 06:36:04','2026-09-25 06:36:04');
+(918,' ','Miriam','Rodríguez',NULL,'1970-01-01','2BACH','','N',1,'2026-09-25 06:36:04','2026-09-25 06:36:04'),
+(919,'13642683','SAMUEL EDUARDO','AGUILERA',' ASENCIA','1970-01-01','FP BÁSICA','1','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(920,'12831857','MERIEM','AMEUR','','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(921,'13343906','ABRAHAM','BELANDRIA',' KIMÉNEZ','1970-01-01','FP BÁSICA','1','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(922,'11268502','MARÍA','CERDAN','LORENZO','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(923,'11805626','ORIEL','DE JESÚS','MONTÁS','1970-01-01','FP BÁSICA','1','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(924,'11316649','JANIRA MARISA','DIACONESCU','','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(925,'11191434','ANA MARÍA','FERNÁNDEZ','MORENO','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(926,'11295881','ZAIRA','GARCÍA','ESCUDERO','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(927,'11171041','DANIEL','MARÍ','MUÑOZ','1970-01-01','FP BÁSICA','1','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(928,'13261423','MARITZA','MASABEL','HENAO','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(929,'11239588','NASKO GEORGI','NACHEV','VELEZ','1970-01-01','FP BÁSICA','1','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(930,'13318346','VALERIA DEL MAR','PEREZ','OSPINO','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(931,'11176520','LAURA','RAIDO','NAVARLAZ','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(932,'11278595','LAURA','RUSO','SÁNCHEZ','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(933,'11256441','DANIEL ','SÁNCHEZ','ARNAIZ','1970-01-01','FP BÁSICA','1','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(934,'11288436','LUCÍA','SÁNCHEZ','MARTÍ','1970-01-01','FP BÁSICA','1','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(935,'11193090',' CARLOS','GÁLVEZ ROMERALO','','1970-01-01','FP BÁSICA','2','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(936,'10882600','BRUNO','LILLO','GINER','1970-01-01','FP BÁSICA','2','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(937,'11091454','ADRIÁN','LÓPEZ','SOLBES','1970-01-01','FP BÁSICA','2','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(938,'11064701','AYAN','MOHAMMAD','','1970-01-01','FP BÁSICA','2','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(939,'13143964','ELIZAVETA','PANOVA','','1970-01-01','FP BÁSICA','2','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(940,'12469436','SOFÍA JIMENA','PORTUONDO','HERNÁNDEZ','1970-01-01','FP BÁSICA','2','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(941,'11211464','TAMARA','TORREGROSA','ECHEPARES','1970-01-01','FP BÁSICA','2','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(942,'12444456','SADHIA ISABELA','TORRES','SEQUEA','1970-01-01','FP BÁSICA','2','A',1,'2026-10-13 06:51:53','2026-10-13 06:51:53'),
+(943,'11027164','DANUT GABRIEL','VASILE','','1970-01-01','FP BÁSICA','2','O',1,'2026-10-13 06:51:53','2026-10-13 06:51:53');
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1210,7 +1271,7 @@ CREATE TABLE `configs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1220,6 +1281,16 @@ CREATE TABLE `configs` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `configs` WRITE;
 /*!40000 ALTER TABLE `configs` DISABLE KEYS */;
+INSERT INTO `configs` VALUES
+(7,'anio_lectivo','2026/2027','2026-10-06 08:49:26','2026-10-06 09:04:31'),
+(8,'fecha_inicio','2026-09-01','2026-10-06 08:49:26','2026-10-06 09:53:32'),
+(9,'fecha_fin','2027-06-30','2026-10-06 08:49:26','2026-10-06 09:53:32'),
+(10,'email','admin@iesmh.cloud','2026-10-06 08:49:26','2026-10-06 09:11:10'),
+(11,'email_pass','','2026-10-06 08:49:26','2026-10-06 15:39:53'),
+(12,'email_smtp','','2026-10-06 08:49:26','2026-10-06 15:39:53'),
+(13,'email_port','','2026-10-06 09:18:02','2026-10-06 15:39:53'),
+(20,'aviso_partes','3','2026-10-06 13:50:28','2026-10-06 15:08:29'),
+(21,'porpagina','100','2026-10-06 15:41:50','2026-10-14 06:46:03');
 /*!40000 ALTER TABLE `configs` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1410,7 +1481,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1437,7 +1508,9 @@ INSERT INTO `migrations` VALUES
 (14,'2026_08_28_164448_create_actor_casos_table',1),
 (15,'2026_09_21_161733_add_campo_titulo_casos',2),
 (16,'2026_09_21_161743_add_campo_titulo_partes',2),
-(17,'2026_09_21_161804_add_campo_titulo_expedientes',2);
+(17,'2026_09_21_161804_add_campo_titulo_expedientes',2),
+(18,'2026_09_20_102841_add_campo_pediente_table',2),
+(19,'2026_10_13_143454_create_adjuntos_table',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1515,9 +1588,9 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `partes` WRITE;
 /*!40000 ALTER TABLE `partes` DISABLE KEYS */;
 INSERT INTO `partes` VALUES
-(1,'grave',NULL,'Daniil Serebro de 2º B le ha bajado los pantalones en el pasillo a FRan Guerrero. Confirma que lo ha hecho y que se ha pasado y que ha sido una broma pesada. Lo ha humillado.','Daniil muestra arrepentimiento y le ha pedido disculpas','2026-09-23','3',78,'llamada',NULL,8,240,'2026-09-23 05:04:30','2026-09-23 05:31:26'),
-(2,'grave','Insultos a un compañero','Insulta a Mahmoud Suliman','.','2026-10-01','5',84,'llamada',NULL,2,466,'2026-10-02 06:06:50','2026-10-02 06:06:50'),
-(3,'leve','Falta injustificada y mentir','Justifica sus actos con una versión distinta a los hechos acontecidos','.','2026-09-30','1',14,'llamada',NULL,11,159,'2026-10-02 06:09:03','2026-10-02 06:09:03'),
+(1,'grave',NULL,'Daniil Serebro de 2º B le ha bajado los pantalones en el pasillo a FRan Guerrero. Confirma que lo ha hecho y que se ha pasado y que ha sido una broma pesada. Lo ha humillado.','Daniil muestra arrepentimiento y le ha pedido disculpas','2026-09-23','3',78,'llamada','2026-10-16 14:05:15',8,240,'2026-09-23 05:04:30','2026-10-16 12:05:15'),
+(2,'grave','Insultos a un compañero','Insulta a Mahmoud Suliman','.','2026-10-01','5',84,'llamada','2026-10-16 14:03:29',2,466,'2026-10-02 06:06:50','2026-10-16 12:03:29'),
+(3,'leve','Falta injustificada y mentir','Justifica sus actos con una versión distinta a los hechos acontecidos','.','2026-09-30','1',14,'llamada','2026-10-16 14:06:02',11,159,'2026-10-02 06:09:03','2026-10-16 12:06:02'),
 (4,'grave','Agresión','Agrede físicamente a agarrando por el cuello a Nicolás CASANUEVA Sala','Realizacion de tareas educadoras','2026-10-01','6',84,'llamada',NULL,8,453,'2026-10-02 06:11:22','2026-10-02 06:11:22'),
 (5,'grave','Hacer burla al profesor','Hace burla al profesor tratando de imitarlo','Citar a padres','2026-09-28','1',115,'itaca',NULL,5,205,'2026-10-02 06:13:33','2026-10-02 06:13:33'),
 (6,'grave','No entra a clase y miente','Mentir a dos profesoras. No acude a clase, a mi me dice que estaba con la tutora y a ella que estaba en secretaría, todo falso.','.','2026-09-22','1',111,'itaca',NULL,9,349,'2026-10-02 06:18:12','2026-10-02 06:18:12');
@@ -1860,4 +1933,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-10-05 20:22:05
+-- Dump completed on 2026-10-19  1:08:35

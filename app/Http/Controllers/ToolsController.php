@@ -52,7 +52,10 @@ class ToolsController extends Controller
 		$username = config('database.connections.mariadb.username');
 		$password = config('database.connections.mariadb.password');
 		$file =  "backups/backup".date('Ymd').".sql";
-		$txt = "mariadb-dump --insert-ignore --no-create-info -u".$username." -p".$password." ". $dbname." > ".$file ;
+		$os = PHP_OS;
+		$rutaExe = ($os=='WINNT') ? "c:\\xampp\\mysql\\bin\\mysqldump.exe " : "mariadb-dump ";
+		$pass = (strlen($password)>1) ? " -p" . $password ." " :"" ;
+		$txt = $rutaExe." -u".$username." ".$pass." ". $dbname." > ".$file ;
 		if($result = Process::run($txt)){
 			session()->now('message', ["texto"=>"Fichero exportado correctamente","color"=>"success"]);
 		}
@@ -68,8 +71,11 @@ class ToolsController extends Controller
 		$dbname = config('database.connections.mariadb.database');
 		$username = config('database.connections.mariadb.username');
 		$password = config('database.connections.mariadb.password');
-		
-		$txt = "mariadb --init-command='SET SESSION FOREIGN_KEY_CHECKS=0;' -u" . $username . " -p" . $password . " " . $dbname . " <  backups/backup.sql";
+		$os = PHP_OS;
+		$rutaExe = ($os=='WINNT') ? "c:\\xampp\\mysql\\bin\\mysql.exe " : "mariadb ";
+		$pass = (strlen($password)>1) ? " -p" . $password ." " :"" ;
+		$txt = $rutaExe." -u " . $username . $pass ." ". $dbname . " <  backups/backup.sql";
+		echo $os." ".$txt;
 		if($request->hasFile('file')){
 			$file = $request->file('file');
 			$file->move(public_path('backups'),'backup.sql');
