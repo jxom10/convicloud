@@ -87,7 +87,7 @@ class ToolsController extends Controller
 		$rutaExe = ($os=='WINNT') ? "c:\\xampp\\mysql\\bin\\mysql.exe " : "mariadb ";
 		$pass = (strlen($password)>1) ? " -p" . $password ." " :"" ;
 		$txt = $rutaExe." -u " . $username . $pass ." ". $dbname . " <  backups/backup.sql";
-		echo $os." ".$txt;
+		//echo $os." ".$txt;
 		if($request->hasFile('file')){
 			$file = $request->file('file');
 			$file->move(public_path('backups'),'backup.sql');
