@@ -12,27 +12,38 @@ class ToolsController extends Controller
    public function actualizar(Request $request){
 		if(isset($request->password)) {
 			if($request->password=='Iesmh4ever'){	
-				$mensaje = "";
-				$result = Process::run('mkdir .convicloud_temp');
-				$mensaje .= "\r\n".$result->output();
-				$result = Process::path('.convicloud_temp')->run("wget  https://github.com/jxom10/convicloud/archive/refs/heads/main.zip -O main.zip");
-				$mensaje .= "\r\n".$result->output();
-				$result = Process::path('.convicloud_temp')->run("unzip -q main.zip");
-				$mensaje .= "\r\n".$result->output();
-				$result = Process::path('.convicloud_temp')->run("chmod 777 -R convicloud-main/public");
-				$mensaje .= "\r\n".$result->output();
-				$result = Process::path('.convicloud_temp')->run("chmod 777 -R convicloud-main/storage");
-				$mensaje .= "\r\n".$result->output();
-				$result = Process::path('.convicloud_temp')->run("rsync -a convicloud-main/. ../../");
-				$mensaje .= "\r\n".$result->output();
-				$result = Process::run('rm -R .convicloud_temp');
-				
-				$result = Process::path(base_path())->run("php artisan migrate");
-				$mensaje .=  "\r\n".$result->output();
-				$result = Process::path(base_path())->run("php artisan view:clear");
-				$mensaje .=  "\r\n".$result->output();
-				$result = Process::path(base_path())->run("php artisan storage:link");
-				$mensaje .=  "\r\n".$result->output();
+				if(PHP_OS != 'WINNT'){
+					$mensaje = "";
+					$result = Process::run('mkdir .convicloud_temp');
+					$mensaje .= "\r\n".$result->output();
+					$result = Process::path('.convicloud_temp')->run("wget  https://github.com/jxom10/convicloud/archive/refs/heads/main.zip -O main.zip");
+					$mensaje .= "\r\n".$result->output();
+					$result = Process::path('.convicloud_temp')->run("unzip -q main.zip");
+					$mensaje .= "\r\n".$result->output();
+					$result = Process::path('.convicloud_temp')->run("chmod 777 -R convicloud-main/public");
+					$mensaje .= "\r\n".$result->output();
+					$result = Process::path('.convicloud_temp')->run("chmod 777 -R convicloud-main/storage");
+					$mensaje .= "\r\n".$result->output();
+					$result = Process::path('.convicloud_temp')->run("rsync -a convicloud-main/. ../../");
+					$mensaje .= "\r\n".$result->output();
+					$result = Process::run('rm -R .convicloud_temp');
+					
+					$result = Process::path(base_path())->run("php artisan migrate");
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::path(base_path())->run("php artisan view:clear");
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::path(base_path())->run("php artisan storage:link");
+					$mensaje .=  "\r\n".$result->output();
+				else{
+					$result = Process::run('convicloud_import.exe');
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::path(base_path())->run("c:\\xampp\\php\\php.exe artisan migrate");
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::path(base_path())->run("c:\\xampp\\php\\php.exe artisan view:clear");
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::path(base_path())->run("c:\\xampp\\php\\php.exe artisan storage:link");
+					$mensaje .=  "\r\n".$result->output();
+				}
 				session()->now('message', ['texto'=>$mensaje,'color'=>'success']);
 				
 				return view('tools.update');
@@ -52,7 +63,10 @@ class ToolsController extends Controller
 		$username = config('database.connections.mariadb.username');
 		$password = config('database.connections.mariadb.password');
 		$file =  "backups/backup".date('Ymd').".sql";
-		$txt = "mariadb-dump --insert-ignore --no-create-info -u".$username." -p".$password." ". $dbname." > ".$file ;
+		$os = PHP_OS;
+		$rutaExe = ($os=='WINNT') ? "c:\\xampp\\mysql\\bin\\mysqldump.exe " : "mariadb-dump ";
+		$pass = (strlen($password)>1) ? " -p" . $password ." " :"" ;
+		$txt = $rutaExe." -u".$username." ".$pass." ". $dbname." > ".$file ;
 		if($result = Process::run($txt)){
 			session()->now('message', ["texto"=>"Fichero exportado correctamente","color"=>"success"]);
 		}
@@ -68,8 +82,11 @@ class ToolsController extends Controller
 		$dbname = config('database.connections.mariadb.database');
 		$username = config('database.connections.mariadb.username');
 		$password = config('database.connections.mariadb.password');
-		
-		$txt = "mariadb --init-command='SET SESSION FOREIGN_KEY_CHECKS=0;' -u" . $username . " -p" . $password . " " . $dbname . " <  backups/backup.sql";
+		$os = PHP_OS;
+		$rutaExe = ($os=='WINNT') ? "c:\\xampp\\mysql\\bin\\mysql.exe " : "mariadb ";
+		$pass = (strlen($password)>1) ? " -p" . $password ." " :"" ;
+		$txt = $rutaExe." -u " . $username . $pass ." ". $dbname . " <  backups/backup.sql";
+		echo $os." ".$txt;
 		if($request->hasFile('file')){
 			$file = $request->file('file');
 			$file->move(public_path('backups'),'backup.sql');
