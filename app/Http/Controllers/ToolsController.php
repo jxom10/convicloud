@@ -12,8 +12,8 @@ class ToolsController extends Controller
    public function actualizar(Request $request){
 		if(isset($request->password)) {
 			if($request->password=='Iesmh4ever'){	
+				$mensaje = "";
 				if(PHP_OS != 'WINNT'){
-					$mensaje = "";
 					$result = Process::run('mkdir .convicloud_temp');
 					$mensaje .= "\r\n".$result->output();
 					$result = Process::path('.convicloud_temp')->run("wget  https://github.com/jxom10/convicloud/archive/refs/heads/main.zip -O main.zip");
@@ -36,7 +36,11 @@ class ToolsController extends Controller
 					$mensaje .=  "\r\n".$result->output();
 				}
 				else{
-					$result = Process::run('convicloud_import.exe');
+					$result = Process::run("rmdir /s /q c:\\xampp\\htdocs\\convicloud\\public\\storage");
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::run("rmdir /s /q c:\\xampp\\htdocs\\convicloud\\public\\images");
+					$mensaje .=  "\r\n".$result->output();
+					$result = Process::run('c:\\xampp\\htdocs\\convicloud_import.exe');
 					$mensaje .=  "\r\n".$result->output();
 					$result = Process::path(base_path())->run("c:\\xampp\\php\\php.exe artisan migrate");
 					$mensaje .=  "\r\n".$result->output();
@@ -57,7 +61,7 @@ class ToolsController extends Controller
 
 		return view('tools.update');	
 	}
-	/*exporatar base de datos*/
+	/*exportar base de datos*/
 	public function export(){
 
 		$dbname = config('database.connections.mariadb.database');
@@ -87,11 +91,11 @@ class ToolsController extends Controller
 		$rutaExe = ($os=='WINNT') ? "c:\\xampp\\mysql\\bin\\mysql.exe " : "mariadb ";
 		$pass = (strlen($password)>1) ? " -p" . $password ." " :"" ;
 		$txt = $rutaExe." -u " . $username . $pass ." ". $dbname . " <  backups/backup.sql";
-		//echo $os." ".$txt;
+		
 		if($request->hasFile('file')){
 			$file = $request->file('file');
 			$file->move(public_path('backups'),'backup.sql');
-			
+			$this->remove_line('backups/backup.sql','/*M!999999\- enable the sandbox mode */ ');
 			if($result = Process::run($txt)){
 				$res =  $result->output();
 				session()->now('message', ["texto"=>"Datos importada correctamente\n\r".$res,"color"=>"success"]);
@@ -103,5 +107,13 @@ class ToolsController extends Controller
 		
 		return view('tools.databaseimport');
 		
+	}
+	function remove_line($file, $remove) {
+		$lines = file($file, FILE_IGNORE_NEW_LINES);
+		foreach($lines as $key => $line) {
+			if($line === $remove) unset($lines[$key]);
+		}
+		$data = implode(PHP_EOL, $lines);
+		file_put_contents($file, $data);
 	}
 }
