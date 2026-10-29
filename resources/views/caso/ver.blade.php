@@ -99,6 +99,7 @@
 		<h5 class="card-subtitle mb-2 text-body-secondary">{{$actor->alumno->nombre_completo()}}</h5>
 		 <div class="card-body">
 			NIA:{{$actor->alumno->nia}}
+			<p>Email al tutor: <button class="btn btn-success"><i onclick="enviar_email('{{$actor->id_alumno}}')" class="fa fa-envelope-o fa-2x" title="{{$actor->alumno->tutor()->email}}"></i></button></p>
 		</div>
    </div>
 	@endforeach
@@ -213,7 +214,24 @@
 			});
 		}
 	}
-
+		function enviar_email(id_alumno){
+			document.getElementById('flash').style.display='none';
+			if(confirm("Quiere enviar el email al tutor??")==true){
+			$.ajax({
+				url: '/profesor/email',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					"_token": "{{csrf_token()}}",
+					'id': id_alumno,
+				},
+				success: function(response) {
+					document.getElementById('flash').style.display='block';
+					document.getElementById('flash').innerHTML = "<div class='alert alert-success'>" + response.text + "</div>";
+				},
+			});
+		}
+	}
 	fecha_hora();
 	function fecha_hora(){
 		var descripcion = document.getElementById('descripcion').innerHTML

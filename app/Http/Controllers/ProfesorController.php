@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Notificacion;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Alumno;
 use App\Models\Profesor;
 use App\Models\User;
+
+
+
+
 class ProfesorController extends Controller
 {
 	public function index(Request $request,$orden = 'nombre',$direccion = 'asc'){
@@ -31,7 +38,7 @@ class ProfesorController extends Controller
 			if(isset($busqueda['active']) AND $busqueda['active']==1){
 				$profesores= $profesores->where('active',1);
 			}
-			if($busqueda['profesores'] != null){
+			if(isset($busqueda['profesores']) AND $busqueda['profesores']  != null){
 				$profesores = $profesores->where(
 								function($query) use ($busqueda){
 									$query->where('nombre','LIKE', '%'.	$busqueda['profesores'] . '%')
@@ -42,7 +49,7 @@ class ProfesorController extends Controller
 
 				
 			}
-			if($busqueda['curso']!= null){
+			if(isset($busqueda['curso']) AND $busqueda['curso']!= null){
 				$profesores = $profesores->where('curso','LIKE','%'.$busqueda['curso'].'%'); 
 			}
 			
@@ -79,12 +86,12 @@ class ProfesorController extends Controller
 		return view('profesor.ver',['profesor'=>$profesor,'titulo'=>$titulo]);
 	}
 	public function grabar(Request $request){
-
+		 $color ="success";
          $mensaje = "";
          $validated = $request->validate([
 				'nombre' => ['required'],
 				'apellido1' => ['required'],
-				'email' => ['required','unique:profesores,id,'.$request->id],
+				'email' => ['required','unique:profesores,email'],
 			]);
 		if(!empty($request->id)){
 			$profesor = Profesor::find($request->id);
@@ -92,7 +99,6 @@ class ProfesorController extends Controller
 		else{
 			$profesor =  new profesor;
             $mensaje .= "Ficha profesor creada.";
-			$color ="success";
 		}
 		$profesor->nombre = $request->nombre;
 		$profesor->apellido1 = $request->apellido1;
@@ -101,6 +107,7 @@ class ProfesorController extends Controller
 		$profesor->curso = $request->curso;
 		$profesor->grupo = $request->grupo;
 		$profesor->active = (isset($request->active))? 1 :0;
+		
 		if(!empty($request->password)){
             $usuario = new User;
             $usuario->nombre = $request->nombre;
@@ -108,12 +115,16 @@ class ProfesorController extends Controller
             $usuario->password = bcrypt($request->password);
             if($usuario->save()){
                 $mensaje .= 'tambien se ha creado el usuario '.$usuario->email;
-                $color ="success";
+               
             }
 		}
 		if($profesor->save()){
-            session()->now('message', ["texto"=>$mensaje,"color"=>$color]);
+			$mensaje = "Ficha actualizada con éxito.";
+            session()->flash('message', ["texto"=>$mensaje,"color"=>$color]);
         }
+        else{
+			session()->flash('message', ["texto"=>"Error al grabar.","color"=>"danger"]);
+		}
 		return redirect('profesor/ver/'.$profesor->id);
 	}
     public function delete($id){
@@ -169,7 +180,7 @@ class ProfesorController extends Controller
 			}
 		}
 		else{
-			session()->now('message', ["texto"=>"No se ha cargado ningún fichero..","color"=>"danger"]);
+			session()->flash('message', ["texto"=>"No se ha cargado ningún fichero..","color"=>"danger"]);
 		}
 		
 		return redirect()->route('profesores');
@@ -188,8 +199,19 @@ class ProfesorController extends Controller
 		$profesor->email = $data['Email'];
 		$profesor->active = (isset($data['activo']))? $data['activo']: 1;
 		$profesor->save();
-
-        
-       
     }
+	public function enviar_email (Request $request){
+		
+		$alu = Alumno::find($request->id);
+		
+		$alumno = substr($alu->nombre,0,2).str_repeat("*",strlen($alu->nombre) - 2)." ".substr($alu->apellido1,0,2).str_repeat("*",strlen($alu->apellido1) - 2)." ";
+		$alumno .= ($alu->apellido2) ? substr($alu->apellido2,0,2).str_repeat("*",strlen($alu->apellido2) - 2):"";
+		$texto = "Hola, enviamos esta notificación para informarte de que la/el estudiante ". $alumno ." tiene un caso abierto en el aula de convivencia. ";
+
+
+		if(Mail::to($alu->tutor()->email)->send(new Notificacion($texto))){
+			return json_encode(['code'=>200,'text'=>'El email se ha enviado satisfactoriamente a ' .$alu->tutor()->email]);
+		}
+
+	}
 }

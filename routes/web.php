@@ -40,6 +40,7 @@ Route::group(['middleware'=> ['auth']], function () {
 		Route::delete('/actorcaso/delete','eliminar');
 	});
 	Route::controller(ProfesorController::class)->group(function (){
+		Route::post('/profesor/email','enviar_email')->name('email');
 		Route::get('/profesores/importar','form_importar');
 		Route::post('/profesores/importar','importar')->name('profesores_import');
 		Route::get('/profesores/{buscar?}','index')->name('profesores');
