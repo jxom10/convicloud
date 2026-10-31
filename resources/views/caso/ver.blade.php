@@ -99,7 +99,7 @@
 		<h5 class="card-subtitle mb-2 text-body-secondary">{{$actor->alumno->nombre_completo()}}</h5>
 		 <div class="card-body">
 			NIA:{{$actor->alumno->nia}}
-			<p>Email al tutor: <button class="btn btn-success"><i onclick="enviar_email('{{$actor->id_alumno}}')" class="fa fa-envelope-o fa-2x" title="{{$actor->alumno->tutor()->email}}"></i></button></p>
+			<p>Email al tutor: <button type="button" class="btn btn-success"><i onclick="enviar_email('{{$actor->id_alumno}}')" class="fa fa-envelope-o fa-2x" title="{{$actor->alumno->tutor()->email}}"></i></button></p>
 		</div>
    </div>
 	@endforeach
@@ -209,7 +209,7 @@
 				},
 				success: function(response) {
 					document.getElementById('adjunto_'+response.adjunto).style.display='none';
-					document.getElementById('flash').innerHTML = "<div class='alert alert-success'><b>El fichero <i>" + response.nombre+ "</i> se ha elimiado correctamente</b></div>";
+					document.getElementById('flash').innerHTML = "<div class='mensaje alert alert-success'><b>El fichero <i>" + response.nombre+ "</i> se ha elimiado correctamente</b></div>";
 				},
 			});
 		}
@@ -227,8 +227,14 @@
 				},
 				success: function(response) {
 					document.getElementById('flash').style.display='block';
-					document.getElementById('flash').innerHTML = "<div class='alert alert-success'>" + response.text + "</div>";
+					document.getElementById('flash').innerHTML = "<div class='mensaje alert alert-success'>" + response.message + "</div>";
 				},
+				error: function(response) {
+					var detalle = response.responseJSON.error;
+					document.getElementById('flash').style.display='block';
+					document.getElementById('flash').innerHTML = "<div class='mensaje alert alert-warning'>Error enviando email. revise el log<i class='fa fa-info-circle' title='"+ detalle+"'></i></div>";
+			
+				}
 			});
 		}
 	}

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\Alumno;
 use App\Models\Profesor;
 use App\Models\User;
+use Throwable;
 
 
 
@@ -207,11 +208,24 @@ class ProfesorController extends Controller
 		$alumno = substr($alu->nombre,0,2).str_repeat("*",strlen($alu->nombre) - 2)." ".substr($alu->apellido1,0,2).str_repeat("*",strlen($alu->apellido1) - 2)." ";
 		$alumno .= ($alu->apellido2) ? substr($alu->apellido2,0,2).str_repeat("*",strlen($alu->apellido2) - 2):"";
 		$texto = "Hola, enviamos esta notificación para informarte de que la/el estudiante ". $alumno ." tiene un caso abierto en el aula de convivencia. ";
+		try {
+			Mail::to($alu->tutor()->email)
+				->send(new Notificacion($texto));
 
+			return response()->json([
+				'success' => true,
+				'message' => 'El email se ha enviado satisfactoriamente a ' .$alu->tutor()->email
+			]);
 
-		if(Mail::to($alu->tutor()->email)->send(new Notificacion($texto))){
-			return json_encode(['code'=>200,'text'=>'El email se ha enviado satisfactoriamente a ' .$alu->tutor()->email]);
+		} catch (Throwable $e) {
+
+			return response()->json([
+				'success' => false,
+				'error' => $e->getMessage(),
+				'class' => get_class($e),
+			], 500);
 		}
+
 
 	}
 }

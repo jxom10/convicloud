@@ -24,9 +24,6 @@ class AlumnoController extends Controller
 			$busqueda  = array("nombre"=>"","curso"=>"","grupo"=>""); 
 			session()->put('filtro_alumno',$busqueda);
 		} 
-		//print_r($busqueda);
-		//echo "<br>session<br>";
-		//print_r(session()->get('filtro_alumno'));
 		$campos = ['nia','nombre','apellido1','apellido2'];
 		$sort = (in_array($orden,$campos))? $orden: 'nia';
 		$alumnos = new Alumno;
@@ -38,7 +35,7 @@ class AlumnoController extends Controller
 		if(isset($busqueda['buscar'])){
 			if($busqueda['nombre']){
 				 session()->put('filtro_alumno',array());
-
+				//$busqueda['nombre']  = str_replace(" ","%",	$busqueda['nombre'] );
 				$alumnos = $alumnos->where(
 								function($query) use ($busqueda){
 									$query->where('nombre','LIKE', '%'.	$busqueda['nombre'] . '%')
