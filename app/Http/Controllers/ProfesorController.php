@@ -40,14 +40,11 @@ class ProfesorController extends Controller
 				$profesores= $profesores->where('active',1);
 			}
 			if(isset($busqueda['profesores']) AND $busqueda['profesores']  != null){
-				$profesores = $profesores->where(
-								function($query) use ($busqueda){
-									$query->where('nombre','LIKE', '%'.	$busqueda['profesores'] . '%')
+														
+					$profesores = $profesores->where('nombre','LIKE', '%'.	$busqueda['profesores'] . '%')
 										->orwhere('apellido1','LIKE', '%'.	$busqueda['profesores'] . '%')
 										->orwhere('apellido2','LIKE', '%'. 	$busqueda['profesores'] . '%');
-									}
-								);													
-
+									
 				
 			}
 			if(isset($busqueda['curso']) AND $busqueda['curso']!= null){
