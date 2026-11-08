@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Notificacion;
 use Illuminate\Database\Eloquent\Builder;
@@ -205,23 +206,42 @@ class ProfesorController extends Controller
 		$alumno = substr($alu->nombre,0,2).str_repeat("*",strlen($alu->nombre) - 2)." ".substr($alu->apellido1,0,2).str_repeat("*",strlen($alu->apellido1) - 2)." ";
 		$alumno .= ($alu->apellido2) ? substr($alu->apellido2,0,2).str_repeat("*",strlen($alu->apellido2) - 2):"";
 		$texto = "Hola, enviamos esta notificación para informarte de que la/el estudiante ". $alumno ." tiene un caso abierto en el aula de convivencia. ";
-		try {
-			Mail::to($alu->tutor()->email)
-				->send(new Notificacion($texto));
-
+		$response = Http::post('https://visitas.iesmhalicante.com/api/convicloud', [
+				'email' => $alu->tutor()->email,
+				'texto' => $texto,
+				'hash' => "309ECC489C12D6EB4CC40F50C902F2B4D0ED77EE511A7C7A9BCD3CA86D4CD86F989DD35BC5FF499670DA34255B45B0CFD830E81F605DCF7DC5542E93AE9CD76F"
+				]
+			);
+		if($response->getStatusCode()==200){
 			return response()->json([
 				'success' => true,
-				'message' => 'El email se ha enviado satisfactoriamente a ' .$alu->tutor()->email
+				'message' => 'El email se ha enviado satisfactoriamente al email  ' .$alu->tutor()->email
 			]);
-
-		} catch (Throwable $e) {
-
-			return response()->json([
-				'success' => false,
-				'error' => $e->getMessage(),
-				'class' => get_class($e),
-			], 500);
 		}
+		else{
+		
+		return response()->json([
+				'success' => false,
+				'message' => 'El email no se ha enviado '
+				]);
+		}
+		//~ try {
+			//~ Mail::to($alu->tutor()->email)
+				//~ ->send(new Notificacion($texto));
+
+			//~ return response()->json([
+				//~ 'success' => true,
+				//~ 'message' => 'El email se ha enviado satisfactoriamente a ' .$alu->tutor()->email
+			//~ ]);
+
+		//~ } catch (Throwable $e) {
+
+			//~ return response()->json([
+				//~ 'success' => false,
+				//~ 'error' => $e->getMessage(),
+				//~ 'class' => get_class($e),
+			//~ ], 500);
+		//~ }
 
 
 	}
