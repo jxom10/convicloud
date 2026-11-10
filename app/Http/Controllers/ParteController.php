@@ -67,12 +67,7 @@ class ParteController extends Controller
 		//dd($request->all());
 		$validated = $request->validate([
 			'id_alumno' => ['required'],
-			'id_profesor' => ['required'],
 			'fecha' => ['required'],
-			'nivel' => ['required'],
-			'descripcion' =>  ['required'],
-            'acciones' =>  ['required'],
-            'comunicacion' =>  ['required'],
 		]);
 		if(!empty($request->id)){
 			$parte = Parte::find($request->id);

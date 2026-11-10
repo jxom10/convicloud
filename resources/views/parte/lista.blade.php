@@ -57,6 +57,7 @@
 				<thead class="bg-light">
 					<tr>
 						<th>#</th>
+						<th>Alumno</th>
 						<th>Titulo</th>
 						<th>Fecha</th>
 						<th>desccripcion</th>
@@ -69,6 +70,7 @@
 			   @foreach($partes as $parte)
 				<tr>
 				  <td >{{$parte->id}}</td>
+				  <td>{{$parte->alumno->nombre_completo()}}</td>
 				  <td>{{$parte->titulo}}</td>
 				  <td>{{date('Y-m-d', strtotime($parte->fecha))}}</td>
 				  <td>{{$parte->descripcion}}</td>
