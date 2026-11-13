@@ -71,6 +71,7 @@ class CasoController extends Controller
 		}
 		session()->put('filtro_casos',$busqueda);
 		$total = $casos->count();
+		$casos = $casos->orderBy('id','DESC');
 		$casos = $casos->paginate(session('config.porpagina'));
 		$nombre_alu = ($busqueda['id_alumno'])?Alumno::find($busqueda['id_alumno'])->nombre_completo():null;
 

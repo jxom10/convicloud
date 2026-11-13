@@ -55,6 +55,7 @@ class ExpedienteController extends Controller
 				//$expedientes = $expedientes->where('id_alumno',$request->id_alumno);
 			//}
 			$total = $expedientes->count();
+			$expedientes= $expedientes->orderBy('id','DESC');
 			$expedientes= $expedientes->paginate(session('config.porpagina'));
 		
 		return view ('expediente.lista',['expedientes' => $expedientes,'busqueda'=>$busqueda,'tipologias'=>$tipologias,'total'=>$total]);

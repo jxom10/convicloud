@@ -8,13 +8,10 @@
 	<div class='col-12'>
 		<div class="row p-2">
 			<div class="row">
-				<div class="col-xs-12 col-md-2">	
+				<div class="col-xs-12 col-md-1">	
 					<form method="POST" action="{{route('partes_buscar')}}">
 						@csrf
-						<label for="titulo">Titulo</label>
-						<input type=text id="titulo" name="titulo" value="{{$busqueda['titulo']}}"" class="form-control">
-				</div>
-				<div class="col-xs-12 col-md-1">	
+						
 					<label for="tipologia">Tipología</label>
 					<select  class="form-control" id='tipologia' name='id_tipologia'>
 						<option value=''>...</option>
@@ -29,13 +26,23 @@
 					<input type='text'class='form-control' id='nombre_completo_alumno' onkeyup='buscar_alumno(this.value)'>
 					<div id='respuesta_alumno' class='respuesta'></div>
 				</div>
+				<div class="col-xs-12 col-md-1">	
+					<label for="curso">Curso</label>
+					<input type='text'  class='form-control' id='curso' name='curso' value='{{ $busqueda['curso'] }}'>
+					
+				</div>
+				<div class="col-xs-12 col-md-1">	
+					<label for="grupo">Grupo</label>
+					<input type='text' class='form-control' id='grupo' name='grupo' value='{{ $busqueda['grupo'] }}'>
+					
+				</div>
 				<div class="col-xs-12 col-md-2">	
 					<label for="profesor">profesor</label>
 					<input type=hidden  name='id_profesor' id='id_profesor'>
-					<input type='text'class='form-control' id='nombre_completo_profesor' onkeyup='buscar_profesor(this.value)'>
+					<input type='text' class='form-control' id='nombre_completo_profesor' onkeyup='buscar_profesor(this.value)'>
 					<div id='respuesta_profesor' class='respuesta'></div>
 				</div>
-											<div class="col-xs-12 col-md-2">	
+				<div class="col-xs-12 col-md-2">	
 					<label for="desde">Desde</label>
 					<input id="desde" type=date name="desde"  value="{{$busqueda['desde']}}" class="form-control" >
 				</div>
@@ -60,7 +67,7 @@
 						<th>Alumno</th>
 						<th>Titulo</th>
 						<th>Fecha</th>
-						<th>desccripcion</th>
+						<th>descripcion</th>
 						<td align='right'><a href="{{route('parte_nuevo')}}">
 							<button class="btn btn-primary">Nuevo</button></a>
 						</td>

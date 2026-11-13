@@ -1,4 +1,3 @@
-/*M!999999\- enable the sandbox mode */ 
 -- MariaDB dump 10.20-12.3.3-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: convicloud

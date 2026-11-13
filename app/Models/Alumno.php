@@ -23,10 +23,13 @@ class alumno extends Model
 		 return $this->hasMany(Actor_casos::class,'id_alumno','id');
 	}
 	public function tutor()
-    {
-		$profesor = Profesor::where('curso',$this->curso)
+    {	
+		if($this->curso){
+			$profesor = Profesor::where('curso',$this->curso)
 								->where('grupo',$this->grupo)
 								->first();
-		 return $profesor;
+			return $profesor;
+		}
+		return null;
 	}
 }

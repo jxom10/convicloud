@@ -61,7 +61,7 @@
 						<th>#</th>
 						<th>Titulo</th>
 						<th>Fecha</th>
-						<th>desccripcion</th>
+						<th>descripcion</th>
 						<td align='right'><a href="{{route('expediente_nuevo')}}">
 							<button class="btn btn-primary">Nuevo</button></a>
 						</td>

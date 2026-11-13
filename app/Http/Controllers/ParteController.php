@@ -15,14 +15,14 @@ class ParteController extends Controller
 		$filtrar = false;
 		$tipologias = Tipologia::All();
 		$partes = new Parte;
-		$busqueda = ['id_tipologia'=>null,'id_alumno'=>null,'id_profesor'=>null,'desde'=>null,'hasta'=>null,'titulo'=>null];
+		$busqueda = ['id_tipologia'=>null,'id_alumno'=>null,'id_profesor'=>null,'desde'=>null,'hasta'=>null,'titulo'=>null,'curso'=>null,'grupo'=>null];
 		if(isset($request->_token)){
 			$busqueda = $request->all();
 			$filtrar = true;
 		}		
 
 		if(isset($request->clean)){
-				$busqueda = ['id_tipologia'=>null,'id_alumno'=>null,'id_profesor'=>null,'desde'=>null,'hasta'=>null,'titulo'=>null];
+				$busqueda = ['id_tipologia'=>null,'id_alumno'=>null,'id_profesor'=>null,'desde'=>null,'hasta'=>null,'titulo'=>null,'curso'=>null,'grupo'=>null];
 		}
 		if($filtrar){	
 			$id_alumno =(isset($busqueda['id_alumno']))?$busqueda['id_alumno']:null;
@@ -39,13 +39,27 @@ class ParteController extends Controller
 					elseif($campo == 'titulo'){
 						$partes = $partes->where($campo, 'LIKE', '%'.$valor.'%' );
 					}
+					elseif($campo == 'curso'){
+						$search =['curso'=>$busqueda['curso'],'grupo'=>$busqueda['grupo']];
+						$partes = $partes->whereHas('alumno', function ($query) use ($search) {
+							$query->where('curso', $search['curso']);
+							if( $search['grupo']){$query->where('grupo', $search['grupo']);}
+						});
+					}
+					elseif($campo == 'grupo'){
+						
+					}
 					else{
 						$partes = $partes->where($campo, '=', $valor );
 					}
 				}
 			}
 		}
+		
+
 		$total = $partes->count();
+		$partes = $partes->orderBy('id','DESC');
+
 		$partes =  $partes->paginate(session('config.porpagina'));
 		$this->aviso_partes_alumnos();
 		return view ('parte.lista',['partes' => $partes,'busqueda'=>$busqueda,'tipologias'=>$tipologias,'total'=>$total]);

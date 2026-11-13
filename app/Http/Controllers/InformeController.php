@@ -85,7 +85,9 @@ class InformeController extends Controller
 					if($alumno_caso->alumno->genero == 'O'){$datos['casos']['estudiantes']['O'] +=1;}
 					if($alumno_caso->alumno->genero == 'A'){ $datos['casos']['estudiantes']['A'] +=1;}
 					if($alumno_caso->alumno->genero == 'N'){ $datos['casos']['estudiantes']['N'] +=1;}
-					$datos['casos']['curso'][$alumno_caso->alumno->curso] +=1;
+					if(array_key_exists($alumno_caso->alumno->curso,$datos['casos']['curso']) ){
+						$datos['casos']['curso'][$alumno_caso->alumno->curso] +=1;
+					}
 					if(count($alumno_caso->alumno->casos)> 5){
 						array_push($datos['casos']['reincidentes'],[$alumno_caso->id_alumno."-". $alumno_caso->alumno->nombre_completo()=>count($alumno_caso->alumno->casos)]);					
 					}

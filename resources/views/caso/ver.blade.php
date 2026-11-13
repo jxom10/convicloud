@@ -99,7 +99,18 @@
 		<h5 class="card-subtitle mb-2 text-body-secondary">{{$actor->alumno->nombre_completo()}}</h5>
 		 <div class="card-body">
 			NIA:{{$actor->alumno->nia}}
-			<p>Email al tutor: <button type="button" class="btn btn-success"><i onclick="enviar_email('{{$actor->id_alumno}}')" class="fa fa-envelope-o fa-2x" title="{{$actor->alumno->tutor()->email}}"></i></button></p>
+			@if($actor->alumno->tutor())
+			<p>Email al tutor: 
+				<button type="button" class="btn btn-success">
+					<i onclick="enviar_email('{{$actor->id_alumno}}')" class="fa fa-envelope-o fa-2x" title="{{$actor->alumno->tutor()->email}}"></i>
+				</button>
+			</p>
+			@else
+			<div style="font-size:8px;font-weight:bold;color:white;background-color:red;display:block;width:100%;border:solid 1px red;border-radius:3px;padding:2px;">
+				Sin tutor?<br>
+				comprueba si el alumno tiene curso y grupo 
+				o si la clase del alumno tiene tutor ...</div>
+			@endif
 		</div>
    </div>
 	@endforeach
@@ -193,6 +204,7 @@
 
 <link rel="stylesheet" type="text/css" href="/assets/highslide/highslide.css" />
 <script>
+	fecha_hora();
 	function mostrar_subida(){
 		document.getElementById('adjuntar').style.display='block'
 		document.getElementById('adjuntar').scrollIntoView();
@@ -214,7 +226,7 @@
 			});
 		}
 	}
-		function enviar_email(id_alumno){
+	function enviar_email(id_alumno){
 			document.getElementById('flash').style.display='none';
 			if(confirm("Quiere enviar el email al tutor??")==true){
 			$.ajax({
@@ -238,7 +250,6 @@
 			});
 		}
 	}
-	fecha_hora();
 	function fecha_hora(){
 		var descripcion = document.getElementById('descripcion').innerHTML
 		const hoy = new Date();
