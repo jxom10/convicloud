@@ -34,16 +34,23 @@ class AdjuntosController extends Controller
 		return redirect()->route('caso_ver',['id'=>$request->id_caso]);
 	}
 
-	public function descargar( $nombre){
-		$adjunto =  Adjunto::where('nombre',$nombre)->first();
-		$file= 'images/'.$adjunto->nombre;
+	public function descargar($nombre){
+		
 
-		return Response::download($file, $adjunto->descripcion);
+		$adjunto =  Adjunto::where('nombre',$nombre)->first();
+
+		$file= Storage::get('images/'.$adjunto->nombre); 
+		$fichero =  storage::path('images').DIRECTORY_SEPARATOR.$nombre;
+		if(file_exists($fichero)){
+			return Response::download($fichero, $adjunto->descripcion);
+		}
+		return redirect()->route('caso_ver',['id'=>$adjunto->id_caso]);
 	}
 	public function eliminar($id){
 		$adjunto = Adjunto::find($id);
 		$nombre = $adjunto->descripcion;
 		if($adjunto){
+			Storage::delete('images/'.$adjunto->nombre);
 			$adjunto->delete();
 		}
 		return   response()->json(['adjunto' => $id,'nombre'=>$nombre]);

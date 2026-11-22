@@ -174,9 +174,12 @@
 		<div id='adjuntar' style="display:none">
 			<form method=POST action="{{route('subir_archivo')}}" enctype="multipart/form-data">
 				@csrf
-				<input type=file name=file>
-				<input type=hidden name='id_caso' value='{{$caso->id}}'>
-				<input type=submit value='guardar'>
+				<input type=file id='fichero' name=file style="display:none">
+				<label for="fichero" class="btn btn-primary">Pincha aquí para elegir el fichero (max 10M)</label>
+				<input type=hidden name='id_caso' value='{{$caso->id}}'><br><br>
+				<input type=submit value='guardar' id='save_file_btn' class="btn btn-success">
+				
+				<div id='sizetoolarge' style="color:red;font-size:small"></div>
 			</form>
 		</div>
 	</div>
@@ -204,6 +207,8 @@
 
 <link rel="stylesheet" type="text/css" href="/assets/highslide/highslide.css" />
 <script>
+	$("body").on('change', 'input#fichero',function(){
+   		file_size()});
 	fecha_hora();
 	function mostrar_subida(){
 		document.getElementById('adjuntar').style.display='block'
@@ -317,6 +322,17 @@
 
          
     }
-
+	function file_size(){
+		if(document.getElementById('fichero').files.length > 0){
+			var fichero =document.getElementById('fichero').files[0];
+			if(fichero.size > 1000000){
+				document.getElementById('save_file_btn').disabled = 1;
+				document.getElementById('sizetoolarge').innerHTML = "el limite de subida de fichero es de 10M. Este es mas grande (" + Math.round(fichero.size /1000000) +"M)";
+			}else{
+				document.getElementById('save_file_btn').disabled = 0;
+				document.getElementById('sizetoolarge').innerHTML = "";
+			}
+		}
+	}
 </script>
 @endsection
