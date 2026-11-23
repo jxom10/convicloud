@@ -325,7 +325,7 @@
 	function file_size(){
 		if(document.getElementById('fichero').files.length > 0){
 			var fichero =document.getElementById('fichero').files[0];
-			if(fichero.size > 1000000){
+			if(fichero.size > 10000000){
 				document.getElementById('save_file_btn').disabled = 1;
 				document.getElementById('sizetoolarge').innerHTML = "el limite de subida de fichero es de 10M. Este es mas grande (" + Math.round(fichero.size /1000000) +"M)";
 			}else{
